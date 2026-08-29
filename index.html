@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ACETENNIS — Building Champions On and Off the Court</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            sky: { hero: '#4FC3F7', deep: '#0288D1' },
+            neon: { green: '#39FF14', dark: '#00C853', glow: 'rgba(57,255,20,0.3)' },
+            navy: { deep: '#0A192F' },
+          },
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; overflow-x: hidden; color: #111; }
+
+    /* ===== NAVBAR ===== */
+    .navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+      background: transparent;
+      transition: background 0.4s ease, box-shadow 0.4s ease;
+    }
+    .navbar.scrolled {
+      background: rgba(255,255,255,0.95);
+      box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+    }
+    .navbar.scrolled .nav-link { color: #111; }
+    .navbar.scrolled .nav-link:hover { color: #00C853; }
+    .navbar.scrolled .logo-text { color: #0A192F; }
+    .navbar.scrolled .book-btn { background: #00C853; color: #fff; }
+
+    .nav-link {
+      color: #fff; font-weight: 600; font-size: 0.875rem;
+      letter-spacing: 0.05em; text-transform: uppercase;
+      transition: color 0.3s ease; position: relative;
+    }
+    .nav-link:hover { color: #39FF14; }
+    .nav-link::after {
+      content: ''; position: absolute; bottom: -4px; left: 0;
+      width: 0; height: 2px; background: #39FF14;
+      transition: width 0.3s ease;
+    }
+    .nav-link:hover::after { width: 100%; }
+
+    .book-btn {
+      background: #fff; color: #00C853; font-weight: 700;
+      font-size: 0.8rem; letter-spacing: 0.05em; text-transform: uppercase;
+      padding: 0.5rem 1.25rem; border-radius: 9999px; border: none;
+      cursor: pointer; transition: all 0.3s ease;
+      display: flex; align-items: center; gap: 0.4rem;
+    }
+    .book-btn:hover {
+      background: #e0f2e9; transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0,200,83,0.3);
+    }
+    .book-btn i { font-size: 0.7rem; }
+
+    /* ===== HERO ===== */
+    .hero {
+      position: relative; min-height: 100vh;
+      background: linear-gradient(135deg, #4FC3F7 0%, #81D4FA 40%, #B3E5FC 70%, #E1F5FE 100%);
+      overflow: hidden;
+    }
+
+    .cloud-layer {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none;
+    }
+    .cloud {
+      position: absolute; background: rgba(255,255,255,0.6);
+      border-radius: 50%; filter: blur(2px);
+    }
+    .cloud-1 { width: 350px; height: 120px; top: 8%; left: -5%; animation: float-cloud 25s linear infinite; }
+    .cloud-2 { width: 280px; height: 90px; top: 15%; left: 40%; animation: float-cloud 30s linear infinite; animation-delay: -10s; }
+    .cloud-3 { width: 320px; height: 100px; top: 5%; left: 70%; animation: float-cloud 28s linear infinite; animation-delay: -5s; }
+    .cloud-4 { width: 250px; height: 80px; top: 20%; left: 15%; animation: float-cloud 22s linear infinite; animation-delay: -15s; }
+    .cloud-5 { width: 300px; height: 95px; top: 12%; left: 55%; animation: float-cloud 26s linear infinite; animation-delay: -8s; }
+
+    @keyframes float-cloud {
+      0% { transform: translateX(-10%); }
+      100% { transform: translateX(110%); }
+    }
+
+    .hero-text {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%); z-index: 2;
+      text-align: center; pointer-events: none;
+    }
+    .hero-text h1 {
+      font-size: clamp(4rem, 12vw, 10rem); font-weight: 900;
+      letter-spacing: 0.08em; color: #fff; line-height: 1;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    }
+
+    .silhouette-wrapper {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -60%); z-index: 3;
+      pointer-events: none;
+    }
+    .silhouette-wrapper img {
+      display: block; max-width: 400px; width: 80%; height: auto; object-fit: contain;
+    }
+    .silhouette-placeholder {
+      width: 350px; height: 500px; margin: 0 auto;
+      background: linear-gradient(180deg, #1a1a2e 0%, #16213e 40%, #0f3460 70%, #0a192f 100%);
+      border-radius: 200px 200px 0 0; position: relative; overflow: hidden;
+    }
+    .silhouette-placeholder::before {
+      content: ''; position: absolute; top: 20%; left: 50%;
+      transform: translateX(-50%); width: 60%; height: 50%;
+      background: radial-gradient(ellipse at center, #1a1a2e 0%, transparent 70%);
+    }
+    .silhouette-placeholder::after {
+      content: '\f184'; font-family: 'Font Awesome 6 Free'; font-weight: 900;
+      position: absolute; font-size: 6rem; top: 10%; left: 50%;
+      transform: translateX(-50%); opacity: 0.35; color: #fff;
+    }
+
+    .glass-box {
+      position: absolute; bottom: 8%; left: 8%; z-index: 10;
+      background: rgba(255,255,255,0.15); backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 20px; padding: 1.5rem 2rem; max-width: 420px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .glass-box:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,0.15); }
+    .glass-box .glass-title {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: #fff; margin-bottom: 0.15rem;
+    }
+    .glass-box .glass-subtitle {
+      font-size: 1rem; font-weight: 600; color: rgba(255,255,255,0.9);
+      margin-bottom: 1rem;
+    }
+    .glass-box .arrow-controls { display: flex; gap: 0.75rem; }
+    .glass-box .arrow-btn {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.4);
+      color: #fff; font-size: 1rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.3s ease;
+    }
+    .glass-box .arrow-btn:hover {
+      background: #39FF14; color: #0A192F; border-color: #39FF14; transform: scale(1.1);
+    }
+
+    /* ===== ABOUT SECTION ===== */
+    .about-section {
+      background: #ffffff; padding: 6rem 0;
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    .about-content { max-width: 520px; }
+    .about-heading {
+      font-size: clamp(1.75rem, 4vw, 2.75rem);
+      font-weight: 700; letter-spacing: 0.03em;
+      line-height: 1.2; color: #0A192F; margin-bottom: 1.5rem;
+    }
+    .about-heading span { color: #00C853; }
+    .about-paragraph {
+      font-size: 1.05rem; line-height: 1.8; color: #444; margin-bottom: 2rem;
+    }
+    .about-btn {
+      background: #0A192F; color: #fff; font-weight: 700;
+      font-size: 0.85rem; letter-spacing: 0.05em; text-transform: uppercase;
+      padding: 0.75rem 2rem; border-radius: 9999px; border: none;
+      cursor: pointer; transition: all 0.3s ease;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+    }
+    .about-btn:hover {
+      background: #00C853; transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,200,83,0.3);
+    }
+    .about-btn i { font-size: 0.75rem; }
+
+    /* Stats card */
+    .stats-card {
+      background: #f8fafc; border-radius: 20px;
+      padding: 2.5rem; border: 1px solid #e2e8f0;
+      text-align: center;
+    }
+    .stats-card .stat-item { margin-bottom: 2rem; }
+    .stats-card .stat-item:last-child { margin-bottom: 0; }
+    .stats-card .stat-number {
+      font-size: 3rem; font-weight: 900; color: #00C853;
+      line-height: 1; margin-bottom: 0.25rem;
+    }
+    .stats-card .stat-label {
+      font-size: 0.85rem; font-weight: 600;
+      color: #444; text-transform: uppercase; letter-spacing: 0.05em;
+    }
+
+    /* 15 Years Excellence */
+    .years-section {
+      max-width: 1200px; margin: 0 auto; padding: 0 2rem; margin-top: 3rem;
+    }
+    .years-box {
+      background: #f0f9ff; border-radius: 16px; padding: 2rem 2.5rem;
+      border: 1px solid #bae6fd; display: flex; align-items: center; gap: 2rem;
+    }
+    .years-number {
+      font-size: 4rem; font-weight: 900; color: #00C853;
+      line-height: 1; min-width: 120px; text-align: center;
+    }
+    .years-content h3 {
+      font-size: 1.25rem; font-weight: 700; color: #0A192F; margin-bottom: 0.75rem;
+    }
+    .years-content ul { list-style: none; padding: 0; }
+    .years-content ul li {
+      font-size: 0.95rem; color: #444; padding: 0.35rem 0;
+      display: flex; align-items: center; gap: 0.6rem;
+    }
+    .years-content ul li i { color: #00C853; font-size: 0.8rem; }
+
+    /* ===== TRAINING PROGRAM SECTION ===== */
+    .training-section {
+      background: #ffffff; padding: 6rem 0;
+    }
+    .training-header {
+      text-align: center; margin-bottom: 3rem; max-width: 1200px; margin-left: auto; margin-right: auto; padding: 0 2rem;
+    }
+    .training-heading {
+      font-size: clamp(1.75rem, 4vw, 2.75rem);
+      font-weight: 700; letter-spacing: 0.03em;
+      color: #0A192F; margin-bottom: 0.5rem;
+    }
+    .training-subheading {
+      font-size: 1rem; color: #666; font-weight: 400;
+    }
+    .training-carousel-wrapper { position: relative; max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+    .carousel-track {
+      display: flex; gap: 1.5rem;
+      overflow-x: auto; scroll-snap-type: x mandatory;
+      scroll-behavior: smooth; padding: 1rem 0;
+      scrollbar-width: none;
+    }
+    .carousel-track::-webkit-scrollbar { display: none; }
+    .carousel-card {
+      scroll-snap-align: start; flex: 0 0 340px;
+      background: #f8fafc; border-radius: 20px; overflow: hidden;
+      border: 1px solid #e2e8f0; transition: all 0.4s ease;
+    }
+    .carousel-card:hover {
+      transform: scale(1.03); box-shadow: 0 12px 32px rgba(0,0,0,0.1);
+    }
+    .card-image {
+      width: 100%; height: 200px;
+      background: linear-gradient(135deg, #e2e8f0, #cbd5e1);
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .card-image i { font-size: 4rem; color: #00C853; opacity: 0.6; }
+    .card-body { padding: 1.5rem; }
+    .card-body h3 {
+      font-size: 1.25rem; font-weight: 700; color: #0A192F; margin-bottom: 0.5rem;
+    }
+    .card-body p {
+      font-size: 0.9rem; color: #666; line-height: 1.6; margin-bottom: 1rem;
+    }
+    .card-tag {
+      display: inline-block; background: #39FF14; color: #0A192F;
+      font-size: 0.7rem; font-weight: 700; padding: 0.25rem 0.75rem;
+      border-radius: 9999px; text-transform: uppercase; letter-spacing: 0.05em;
+    }
+    .carousel-arrow {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: 50px; height: 50px; border-radius: 50%;
+      background: #0A192F; color: #fff; border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; transition: all 0.3s ease; z-index: 5;
+    }
+    .carousel-arrow:hover { background: #00C853; transform: translateY(-50%) scale(1.1); }
+    .carousel-arrow.prev { left: -10px; }
+    .carousel-arrow.next { right: -10px; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .about-content { max-width: 100%; }
+      .hero-text h1 { font-size: clamp(2.5rem, 10vw, 5rem); }
+      .silhouette-wrapper { transform: translate(-50%, -55%); }
+      .glass-box { bottom: 4%; left: 4%; right: 4%; max-width: none; padding: 1rem 1.25rem; }
+      .glass-box .glass-subtitle { font-size: 0.85rem; }
+      .carousel-card { flex: 0 0 280px; }
+      .carousel-arrow.prev { left: 5px; }
+      .carousel-arrow.next { right: 5px; }
+      .years-box { flex-direction: column; text-align: center; }
+      .years-number { min-width: auto; }
+    }
+    @media (max-width: 480px) {
+      .nav-link { font-size: 0.6rem; letter-spacing: 0.02em; }
+      .book-btn { font-size: 0.65rem; padding: 0.4rem 0.8rem; }
+      .nav-link span { display: none; }
+      .carousel-card { flex: 0 0 85vw; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar" id="navbar">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="#" class="logo-text text-white font-extrabold text-xl tracking-widest transition-colors duration-400">
+        ACETENNIS
+      </a>
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#" class="nav-link">Home</a>
+        <a href="#" class="nav-link">Training</a>
+        <a href="#" class="nav-link">Programs</a>
+        <a href="#" class="nav-link">Coaches</a>
+        <a href="#" class="nav-link">Tournaments</a>
+        <a href="#" class="nav-link">Membership</a>
+      </div>
+      <button class="book-btn">
+        <i class="fas fa-calendar-check"></i>
+        <span>Book a Lesson</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===== HERO SECTION ===== -->
+  <section class="hero" id="hero">
+    <div class="cloud-layer" id="cloudLayer">
+      <div class="cloud cloud-1"></div>
+      <div class="cloud cloud-2"></div>
+      <div class="cloud cloud-3"></div>
+      <div class="cloud cloud-4"></div>
+      <div class="cloud cloud-5"></div>
+    </div>
+
+    <div class="hero-text">
+      <h1>PLAY STRONG</h1>
+    </div>
+
+    <div class="silhouette-wrapper">
+      <div class="silhouette-placeholder">
+        <!-- <img src="images/female-silhouette.png" alt="Jumping female tennis player silhouette" /> -->
+      </div>
+    </div>
+
+    <div class="glass-box">
+      <p class="glass-title">Since 1998</p>
+      <p class="glass-subtitle">Building Champions...</p>
+      <div class="arrow-controls">
+        <button class="arrow-btn" aria-label="Previous"><i class="fas fa-arrow-left"></i></button>
+        <button class="arrow-btn" aria-label="Next"><i class="fas fa-arrow-right"></i></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ABOUT SECTION ===== -->
+  <section class="about-section" id="about">
+    <div class="about-grid">
+      <!-- Left: Content -->
+      <div class="about-content">
+        <h2 class="about-heading">BUILDING CHAMPIONS <span>ON AND OFF THE COURT</span></h2>
+        <p class="about-paragraph">
+          At ACETENNIS, we believe tennis is more than a sport — it's a lifestyle that builds character,
+          discipline, and lifelong confidence. Our world-class academy has been shaping athletes since 1998,
+          combining elite coaching with a commitment to personal growth.
+        </p>
+        <button class="about-btn">
+          <i class="fas fa-arrow-right"></i>
+          Book a Lesson
+        </button>
+
+        <!-- Stats Card -->
+        <div class="stats-card" style="margin-top: 2.5rem;">
+          <div class="stat-item">
+            <div class="stat-number" data-target="500">0</div>
+            <div class="stat-label">+ Active Players</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number" data-target="20">0</div>
+            <div class="stat-label">+ Professional Coaches</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Portrait + 15 Years -->
+      <div>
+        <!-- Portrait Card -->
+        <div style="background: #f8fafc; border-radius: 20px; overflow: hidden; border: 1px solid #e2e8f0; margin-bottom: 2rem;">
+          <div style="width: 100%; height: 300px; background: linear-gradient(135deg, #e2e8f0, #cbd5e1); display: flex; align-items: center; justify-content: center;">
+            <i class="fas fa-user" style="font-size: 6rem; color: #00C853; opacity: 0.5;"></i>
+          </div>
+          <div style="padding: 1.5rem; text-align: center;">
+            <p style="font-weight: 700; color: #0A192F; font-size: 1.1rem;">Male Player Portrait</p>
+            <p style="font-size: 0.85rem; color: #666;">Black shirt — professional shot</p>
+          </div>
+        </div>
+
+        <!-- 15 Years of Excellence -->
+        <div class="years-box">
+          <div class="years-number">15</div>
+          <div class="years-content">
+            <h3>Years of Excellence</h3>
+            <ul>
+              <li><i class="fas fa-check-circle"></i> Founded in 1998</li>
+              <li><i class="fas fa-check-circle"></i> 20+ professional coaches</li>
+              <li><i class="fas fa-check-circle"></i> 500+ active players trained</li>
+              <li><i class="fas fa-check-circle"></i> National tournament winners</li>
+              <li><i class="fas fa-check-circle"></i> Premier training facility</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TRAINING PROGRAM SECTION ===== -->
+  <section class="training-section" id="training">
+    <div class="training-header">
+      <h2 class="training-heading">Training Programs</h2>
+      <p class="training-subheading">Choose your path to greatness</p>
+    </div>
+
+    <div class="training-carousel-wrapper">
+      <button class="carousel-arrow prev" aria-label="Scroll left">
+        <i class="fas fa-arrow-left"></i>
+      </button>
+      <button class="carousel-arrow next" aria-label="Scroll right">
+        <i class="fas fa-arrow-right"></i>
+      </button>
+
+      <div class="carousel-track" id="carouselTrack">
+        <!-- Beginner Training Card -->
+        <div class="carousel-card">
+          <div class="card-image">
+            <i class="fas fa-futbol"></i>
+          </div>
+          <div class="card-body">
+            <span class="card-tag">Beginner</span>
+            <h3>Beginner Training</h3>
+            <p>Learn the fundamentals of tennis with our expert coaches. Perfect for newcomers looking to build a solid foundation.</p>
+            <button class="book-btn" style="width: 100%; justify-content: center;">
+              <i class="fas fa-arrow-right"></i> Details
+            </button>
+          </div>
+        </div>
+
+        <!-- Advanced Training Card -->
+        <div class="carousel-card">
+          <div class="card-image" style="background: linear-gradient(135deg, #0a192f, #16213e);">
+            <i class="fas fa-bolt" style="color: #39FF14;"></i>
+          </div>
+          <div class="card-body">
+            <span class="card-tag" style="background: #0A192F; color: #fff;">Advanced</span>
+            <h3>Advanced Training</h3>
+            <p>Elevate your game with intensive coaching, match strategy, and performance optimization for competitive players.</p>
+            <button class="book-btn" style="width: 100%; justify-content: center;">
+              <i class="fas fa-arrow-right"></i> Details
+            </button>
+          </div>
+        </div>
+
+        <!-- Additional placeholder cards for carousel feel -->
+        <div class="carousel-card">
+          <div class="card-image">
+            <i class="fas fa-dumbbell"></i>
+          </div>
+          <div class="card-body">
+            <span class="card-tag">Fitness</span>
+            <h3>Fitness Conditioning</h3>
+            <p>Strength and conditioning programs designed specifically for tennis athletes to boost performance and prevent injury.</p>
+            <button class="book-btn" style="width: 100%; justify-content: center;">
+              <i class="fas fa-arrow-right"></i> Details
+            </button>
+          </div>
+        </div>
+
+        <div class="carousel-card">
+          <div class="card-image" style="background: linear-gradient(135deg, #0a192f, #16213e);">
+            <i class="fas fa-trophy" style="color: #39FF14;"></i>
+          </div>
+          <div class="card-body">
+            <span class="card-tag" style="background: #0A192F; color: #fff;">Competitive</span>
+            <h3>Competitive Prep</h3>
+            <p>Tournament-ready preparation with match simulation, mental training, and tactical analysis.</p>
+            <button class="book-btn" style="width: 100%; justify-content: center;">
+              <i class="fas fa-arrow-right"></i> Details
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script>
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Parallax cloud effect
+    const cloudLayer = document.getElementById('cloudLayer');
+    window.addEventListener('scroll', () => {
+      cloudLayer.style.transform = `translateX(${window.scrollY * 0.3}px)`;
+    });
+
+    // Carousel scroll
+    const track = document.getElementById('carouselTrack');
+    document.querySelector('.carousel-arrow.prev').addEventListener('click', () => {
+      track.scrollBy({ left: -360, behavior: 'smooth' });
+    });
+    document.querySelector('.carousel-arrow.next').addEventListener('click', () => {
+      track.scrollBy({ left: 360, behavior: 'smooth' });
+    });
+
+    // Counter animation for stats
+    function animateCounters() {
+      const counters = document.querySelectorAll('.stat-number[data-target]');
+      counters.forEach(counter => {
+        const target = parseInt(counter.dataset.target);
+        const duration = 2000;
+        const start = performance.now();
+        function update(now) {
+          const elapsed = now - start;
+          const progress = Math.min(elapsed / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          counter.textContent = Math.floor(eased * target);
+          if (progress < 1) requestAnimationFrame(update);
+          else counter.textContent = target + '+';
+        }
+        requestAnimationFrame(update);
+      });
+    }
+
+    // Trigger counter animation when about section enters viewport
+    const aboutObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) { animateCounters(); aboutObserver.disconnect(); }
+      });
+    }, { threshold: 0.3 });
+    const aboutSection = document.getElementById('about');
+    if (aboutSection) aboutObserver.observe(aboutSection);
+  </script>
+
+</body>
+</html>

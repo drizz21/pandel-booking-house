@@ -5,8 +5,11 @@
 
 export const CONFIG = {
   // ─── Supabase ───────────────────────────────────────────
-  SUPABASE_URL:      'https://gifvugilgihivvgxastw.supabase.co',
-  SUPABASE_ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdpZnZ1Z2lsZ2loaXZ2Z3hhc3R3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTAzODIyNjUsImV4cCI6MjEwNTk1ODI2NX0.ElGFPH3uvd14sdELehUo5efNCL0z86JTVocDTrpTYzI',
+  // Publishable key — aman untuk publik (dilindungi RLS)
+  // Key lama (legacy anon JWT) sudah dicabut demi keamanan.
+  SUPABASE_URL:  'https://gifvugilgihivvgxastw.supabase.co',
+  SUPABASE_KEY:  'sb_publishable_GBTEKHFIDHfrQdUjYYJBNg_Bu32EWbW',
+  SUPABASE_ANON_KEY: 'sb_publishable_GBTEKHFIDHfrQdUjYYJBNg_Bu32EWbW', // alias kompatibilitas
 
   // ─── Payment Gateway (Midtrans) ─────────────────────────
   // Isi setelah setup akun Midtrans
@@ -15,7 +18,7 @@ export const CONFIG = {
 
   // ─── App ────────────────────────────────────────────────
   APP_NAME: 'Padel Kita Jogja',
-  APP_URL:  'http://localhost:5500',
+  APP_URL:  'https://padel-kita-jogja.pages.dev',
   TIMEZONE: 'Asia/Jakarta',
 
   // ─── Booking rules ──────────────────────────────────────

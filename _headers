@@ -1,0 +1,30 @@
+# Cloudflare Pages — Security Headers
+# https://developers.cloudflare.com/pages/configuration/headers/
+
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=()
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+
+# Jangan cache HTML — selalu ambil versi terbaru
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+# Cache aset statis lama (gambar, font, icon)
+/images/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/favicon*
+  Cache-Control: public, max-age=31536000, immutable
+/apple-touch-icon.png
+  Cache-Control: public, max-age=31536000, immutable
+/android-chrome*
+  Cache-Control: public, max-age=31536000, immutable
+
+# CSS & JS — cache sedang (bisa berubah saat update)
+/css/*
+  Cache-Control: public, max-age=3600
+/js/*
+  Cache-Control: public, max-age=3600

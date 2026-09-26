@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Halaman Tidak Ditemukan — Padel Kita Jogja</title>
+  <meta name="robots" content="noindex, follow"/>
+  <meta name="theme-color" content="#0D0D0B"/>
+
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:wght@500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet"/>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --paper:  #F4F2EC;
+      --paper-2:#ECEAE2;
+      --ink:    #0D0D0B;
+      --ink-2:  #1A1A16;
+      --mid:    #78786E;
+      --muted:  #ADACA4;
+      --border: #D6D3CB;
+      --white:  #FFFFFF;
+      --lime:   #C6F53E;
+      --ease:   cubic-bezier(.22,1,.36,1);
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--paper); color: var(--ink);
+      min-height: 100vh; display: flex; flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      border-bottom: 1px solid var(--border);
+      background: var(--paper);
+    }
+    .nav-inner {
+      max-width: 1440px; margin: 0 auto; padding: 16px 52px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo-wrap { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ink); }
+    .nav-logo-img { height: 44px; width: auto; display: block; flex-shrink: 0; }
+    .nav-logo-text { display: flex; flex-direction: column; gap: 1px; }
+    .nav-logo-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 17px; font-weight: 600; letter-spacing: .01em; line-height: 1.1; white-space: nowrap;
+    }
+    .nav-logo-name span { color: #C19A4D; }
+    .nav-logo-sub {
+      font-family: 'Space Grotesk', sans-serif; font-size: 9px; font-weight: 600;
+      letter-spacing: .14em; text-transform: uppercase; color: var(--mid);
+    }
+    .nav-back {
+      font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 600;
+      letter-spacing: .06em; text-transform: uppercase;
+      color: var(--mid); text-decoration: none; transition: color .2s;
+    }
+    .nav-back:hover { color: var(--ink); }
+
+    /* ── MAIN ── */
+    main {
+      flex: 1; display: flex; align-items: center; justify-content: center;
+      padding: 72px 52px;
+    }
+    .wrap { max-width: 760px; width: 100%; }
+
+    .code-row { display: flex; align-items: center; gap: 14px; margin-bottom: 28px; }
+    .code-badge {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-family: 'Space Grotesk', sans-serif; font-size: 11px; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase;
+      background: var(--lime); color: var(--ink);
+      border-radius: 100px; padding: 6px 15px;
+    }
+    .code-badge svg { width: 12px; height: 12px; }
+    .code-rule { flex: 1; height: 1px; background: var(--border); }
+
+    .big-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(96px, 20vw, 208px); line-height: .84;
+      letter-spacing: .01em; color: var(--ink);
+    }
+    .big-num .dim { opacity: .16; }
+
+    h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(32px, 5.2vw, 56px); line-height: .96;
+      letter-spacing: .02em; margin: 20px 0 16px;
+    }
+    p.lead {
+      font-size: 15px; font-weight: 300; color: var(--mid);
+      line-height: 1.7; max-width: 470px;
+    }
+
+    .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 34px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 26px; border-radius: 100px;
+      font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 700;
+      letter-spacing: .04em; text-decoration: none; cursor: pointer; border: none;
+      white-space: nowrap;
+      transition: transform .22s var(--ease), box-shadow .22s var(--ease), border-color .2s;
+    }
+    .btn .ico-arrow { width: 14px; height: 14px; flex-shrink: 0; transition: transform .22s var(--ease); }
+    .btn:hover { transform: translateY(-2px); }
+    .btn:hover .ico-arrow { transform: translate(2px,-2px); }
+    .btn-lime { background: var(--lime); color: var(--ink); box-shadow: 0 3px 14px rgba(198,245,62,.3); }
+    .btn-lime:hover { box-shadow: 0 6px 24px rgba(198,245,62,.5); }
+    .btn-ghost { background: transparent; color: var(--ink); border: 1.5px solid var(--border); }
+    .btn-ghost:hover { border-color: var(--ink); }
+
+    .hint {
+      margin-top: 40px; padding-top: 22px; border-top: 1px solid var(--border);
+      font-family: 'Space Grotesk', sans-serif; font-size: 11px; font-weight: 500;
+      letter-spacing: .04em; color: var(--muted);
+    }
+    .hint a { color: var(--mid); text-decoration: underline; text-underline-offset: 3px; }
+    .hint a:hover { color: var(--ink); }
+
+    /* ── FOOTER ── */
+    footer { border-top: 1px solid var(--border); }
+    .ft-bot {
+      max-width: 1440px; margin: 0 auto; padding: 22px 52px;
+      display: flex; align-items: center; justify-content: space-between;
+      font-family: 'Space Grotesk', sans-serif; font-size: 11px;
+      letter-spacing: .04em; color: var(--muted);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .nav-inner { padding: 14px 32px; }
+      main { padding: 56px 32px; }
+      .ft-bot { padding: 20px 32px; }
+    }
+    @media (max-width: 600px) {
+      .nav-inner { padding: 12px 20px; }
+      .nav-logo-img { height: 36px; }
+      .nav-logo-name { font-size: 15px; }
+      .nav-back { font-size: 11px; }
+      main { padding: 44px 20px; }
+      .ft-bot { padding: 18px 20px; flex-direction: column; gap: 8px; text-align: center; }
+      .actions { gap: 8px; }
+      .btn { padding: 12px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="nav-logo-wrap">
+      <img src="/logo-black-gold.svg" alt="Padel Kita Jogja" class="nav-logo-img">
+      <span class="nav-logo-text">
+        <span class="nav-logo-name">Padel Kita <span>Jogja</span></span>
+        <span class="nav-logo-sub">Est. 2021 · Yogyakarta</span>
+      </span>
+    </a>
+    <a href="/" class="nav-back">Kembali ke Beranda</a>
+  </div>
+</nav>
+
+<main>
+  <div class="wrap">
+
+    <div class="code-row">
+      <span class="code-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/>
+        </svg>
+        Error 404
+      </span>
+      <span class="code-rule"></span>
+    </div>
+
+    <div class="big-num">4<span class="dim">0</span>4</div>
+
+    <h1>HALAMAN TIDAK<br>DITEMUKAN</h1>
+
+    <p class="lead">
+      Halaman yang kamu cari sudah dipindahkan, diubah namanya, atau memang tidak pernah ada.
+      Coba kembali ke beranda atau langsung booking lapangan.
+    </p>
+
+    <div class="actions">
+      <a href="/" class="btn btn-lime">
+        Kembali ke Beranda
+        <svg class="ico-arrow" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <a href="/#booking" class="btn btn-ghost">
+        Booking Lapangan
+        <svg class="ico-arrow" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M9 5v2h6.59L4 18.59L5.41 20L17 8.41V15h2V5z"/></svg>
+      </a>
+    </div>
+
+    <p class="hint">
+      Butuh bantuan? Hubungi kami via <a href="/#location">WhatsApp</a> atau kembali ke <a href="/">padelkitajogja</a>.
+    </p>
+
+  </div>
+</main>
+
+<footer>
+  <div class="ft-bot">
+    <span>© 2026 Padel Kita Jogja. All rights reserved.</span>
+    <span>Jl. Magelang KM 8, Sleman · 06.00–22.00 WIB</span>
+  </div>
+</footer>
+
+</body>
+</html>

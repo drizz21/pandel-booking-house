@@ -1,0 +1,10 @@
+# Cloudflare Pages — Redirects
+# https://developers.cloudflare.com/pages/configuration/redirects/
+
+# Pretty URLs (tanpa .html)
+/booking  /index.html  302
+/admin    /admin/index.html  302
+
+# CATATAN: tidak ada catch-all di sini.
+# Path tidak dikenal akan mengembalikan 404 asli dari Cloudflare,
+# sehingga file yang tidak ada TIDAK menyajikan index.html.

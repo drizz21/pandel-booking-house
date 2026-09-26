@@ -1,0 +1,33 @@
+# File yang TIDAK boleh di-upload ke Cloudflare Pages
+# Cloudflare Pages membaca file ini untuk mengecualikan asset.
+
+# Kredensial — JANGAN PERNAH ter-deploy
+.env
+.env.*
+*.local
+SETUP-STATUS.md
+supabase-credentials.json
+admin-credentials.json
+
+# Git & tooling
+.git/
+.gitignore
+.netlify/
+.wrangler/
+node_modules/
+
+# Docs internal (tidak perlu di web)
+README.md
+AGENTS.md
+supabase-schema.sql
+wrangler.toml
+netlify.toml
+
+# Script dev
+_*.py
+*.py
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini

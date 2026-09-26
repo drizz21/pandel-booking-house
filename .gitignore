@@ -32,3 +32,10 @@ logs/
 SETUP-STATUS.md
 supabase-credentials.json
 admin-credentials.json
+
+# Cloudflare
+.wrangler/
+
+# Build output & script dev (jangan commit)
+_dist/
+_build-dist.py

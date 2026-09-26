@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Booking Berhasil — Padel Kita Jogja</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:wght@500;600&family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    :root {
+      --paper:#F4F2EC; --paper-2:#ECEAE2; --ink:#0D0D0B; --ink-2:#1A1A16;
+      --mid:#78786E; --border:#D6D3CB; --white:#FFFFFF;
+      --lime:#C6F53E; --gold:#C19A4D; --green:#38A169;
+    }
+    body { font-family:'DM Sans',sans-serif; background:var(--paper); color:var(--ink); min-height:100vh; display:flex; flex-direction:column; }
+
+    .nav { background:var(--white); border-bottom:1px solid var(--border); padding:14px 48px; display:flex; align-items:center; justify-content:space-between; }
+    .nav-logo { display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--ink); }
+    .nav-logo img { height:36px; }
+    .nav-logo-name { font-family:'Playfair Display',serif; font-size:16px; font-weight:600; }
+    .nav-logo-name span { color:var(--gold); }
+
+    .page { flex:1; max-width:680px; margin:0 auto; padding:64px 24px; width:100%; }
+
+    /* success animation */
+    .success-icon {
+      width:72px; height:72px; border-radius:50%;
+      background:var(--lime); display:flex; align-items:center; justify-content:center;
+      margin:0 auto 28px;
+      animation:popIn .5s var(--ease) both;
+    }
+    @keyframes popIn { from{opacity:0;transform:scale(.5)} to{opacity:1;transform:scale(1)} }
+    :root { --ease:cubic-bezier(.22,1,.36,1); }
+    .success-icon svg { width:32px; height:32px; }
+
+    .success-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(40px,8vw,64px); letter-spacing:.02em; line-height:.9; text-align:center; margin-bottom:12px; }
+    .success-sub { font-size:15px; font-weight:300; color:var(--mid); text-align:center; margin-bottom:48px; line-height:1.6; }
+
+    /* booking card */
+    .bk-card { background:var(--ink); border-radius:20px; padding:32px; color:var(--white); margin-bottom:20px; }
+    .bk-code-row { display:flex; align-items:center; justify-content:space-between; margin-bottom:24px; }
+    .bk-code-label { font-family:'Space Grotesk',sans-serif; font-size:10px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:rgba(255,255,255,.3); }
+    .bk-code { font-family:'Bebas Neue',sans-serif; font-size:26px; letter-spacing:.08em; color:var(--lime); }
+    .bk-status { display:inline-flex; align-items:center; gap:6px; background:rgba(198,245,62,.15); border-radius:100px; padding:5px 12px; font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--lime); }
+    .bk-status-dot { width:6px; height:6px; border-radius:50%; background:var(--lime); }
+    .bk-divider { height:1px; background:rgba(255,255,255,.08); margin:20px 0; }
+    .bk-row { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:14px; }
+    .bk-row:last-child { margin-bottom:0; }
+    .bk-key { font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:rgba(255,255,255,.35); }
+    .bk-val { font-family:'Space Grotesk',sans-serif; font-size:14px; font-weight:600; text-align:right; max-width:200px; }
+    .bk-total-val { font-family:'Bebas Neue',sans-serif; font-size:28px; letter-spacing:.02em; color:var(--lime); }
+
+    /* action buttons */
+    .actions { display:flex; flex-direction:column; gap:10px; margin-bottom:32px; }
+    .btn-primary { width:100%; padding:14px; background:var(--ink); color:var(--white); border:none; border-radius:10px; font-family:'Space Grotesk',sans-serif; font-size:13px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; cursor:pointer; text-decoration:none; display:flex; align-items:center; justify-content:center; gap:8px; transition:background .2s; }
+    .btn-primary:hover { background:var(--ink-2); }
+    .btn-wa { width:100%; padding:13px; background:rgba(37,211,102,.1); border:1.5px solid rgba(37,211,102,.3); border-radius:10px; font-family:'Space Grotesk',sans-serif; font-size:13px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:#1a8a40; cursor:pointer; text-decoration:none; display:flex; align-items:center; justify-content:center; gap:8px; transition:background .2s; }
+    .btn-wa:hover { background:rgba(37,211,102,.18); }
+    .btn-ghost { width:100%; padding:12px; background:transparent; border:1.5px solid var(--border); border-radius:10px; font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:600; letter-spacing:.04em; text-transform:uppercase; color:var(--mid); cursor:pointer; text-decoration:none; display:flex; align-items:center; justify-content:center; gap:8px; transition:border-color .2s; }
+    .btn-ghost:hover { border-color:var(--ink); color:var(--ink); }
+
+    /* info */
+    .info-box { background:var(--white); border:1px solid var(--border); border-radius:12px; padding:20px 24px; }
+    .info-title { font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--mid); margin-bottom:14px; }
+    .info-item { display:flex; align-items:flex-start; gap:10px; font-size:13px; font-weight:300; color:var(--mid); margin-bottom:10px; line-height:1.5; }
+    .info-item:last-child { margin-bottom:0; }
+    .info-dot { width:6px; height:6px; border-radius:50%; background:var(--lime); flex-shrink:0; margin-top:5px; }
+
+    /* loading state */
+    .skeleton { background:linear-gradient(90deg,var(--paper-2) 25%,var(--border) 50%,var(--paper-2) 75%); background-size:200% 100%; animation:shimmer 1.5s infinite; border-radius:6px; display:inline-block; }
+    @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+
+    @media(max-width:480px){
+      .nav { padding:14px 20px; }
+      .bk-card { padding:22px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="/" class="nav-logo">
+    <img src="logo-black-gold.svg" alt="Logo">
+    <span class="nav-logo-name">Padel Kita <span>Jogja</span></span>
+  </a>
+</nav>
+
+<main class="page">
+
+  <div class="success-icon" id="successIcon">
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="20 6 9 17 4 12"/>
+    </svg>
+  </div>
+
+  <h1 class="success-title">BOOKING<br>BERHASIL!</h1>
+  <p class="success-sub" id="successSub">Pembayaran diterima. Detail booking dikirim ke WhatsApp kamu.</p>
+
+  <!-- Booking card -->
+  <div class="bk-card" id="bkCard">
+    <div class="bk-code-row">
+      <div>
+        <div class="bk-code-label">Kode Booking</div>
+        <div class="bk-code" id="bk-code">—</div>
+      </div>
+      <div class="bk-status">
+        <span class="bk-status-dot"></span>
+        <span id="bk-status-text">Confirmed</span>
+      </div>
+    </div>
+    <div class="bk-divider"></div>
+    <div class="bk-row"><span class="bk-key">Lapangan</span><span class="bk-val" id="bk-court">—</span></div>
+    <div class="bk-row"><span class="bk-key">Tanggal</span><span class="bk-val" id="bk-date">—</span></div>
+    <div class="bk-row"><span class="bk-key">Waktu</span><span class="bk-val" id="bk-time">—</span></div>
+    <div class="bk-row"><span class="bk-key">Nama</span><span class="bk-val" id="bk-name">—</span></div>
+    <div class="bk-row"><span class="bk-key">WhatsApp</span><span class="bk-val" id="bk-phone">—</span></div>
+    <div class="bk-divider"></div>
+    <div class="bk-row"><span class="bk-key">Total Bayar</span><span class="bk-total-val" id="bk-total">—</span></div>
+  </div>
+
+  <!-- Actions -->
+  <div class="actions">
+    <a id="btn-wa-confirm" href="#" class="btn-wa" target="_blank">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a3.1 3.1 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Konfirmasi via WhatsApp
+    </a>
+    <a href="/" class="btn-ghost">← Booking Lapangan Lagi</a>
+  </div>
+
+  <!-- Info -->
+  <div class="info-box">
+    <div class="info-title">Langkah Berikutnya</div>
+    <div class="info-item"><span class="info-dot"></span>Screenshot atau catat kode booking kamu sebagai bukti.</div>
+    <div class="info-item"><span class="info-dot"></span>Tiba minimal 10 menit sebelum jadwal untuk persiapan.</div>
+    <div class="info-item"><span class="info-dot"></span>Tunjukkan kode booking ke petugas di lapangan.</div>
+    <div class="info-item"><span class="info-dot"></span>Pertanyaan? Chat kami di WhatsApp 0812-xxxx-xxxx.</div>
+  </div>
+
+</main>
+
+<script type="module">
+import { getBookingByCode, getBookingById } from './js/booking/booking.js';
+import { toRupiah }        from './js/utils/currency.js';
+import { toLocaleDateLong } from './js/utils/date.js';
+
+const params = new URLSearchParams(location.search);
+const bookingId   = params.get('booking_id');
+const bookingCode = params.get('code');
+
+async function load() {
+  let booking;
+  try {
+    if (bookingCode)  booking = await getBookingByCode(bookingCode);
+    else if (bookingId) booking = await getBookingById(bookingId);
+  } catch {}
+
+  if (!booking) {
+    document.getElementById('successSub').textContent = 'Booking tidak ditemukan. Hubungi WhatsApp kami.';
+    return;
+  }
+
+  document.getElementById('bk-code').textContent   = booking.booking_code;
+  document.getElementById('bk-court').textContent  = booking.courts?.name ?? '—';
+  document.getElementById('bk-date').textContent   = toLocaleDateLong(booking.booking_date);
+  document.getElementById('bk-time').textContent   = `${booking.start_time?.slice(0,5)} – ${booking.end_time?.slice(0,5)} WIB`;
+  document.getElementById('bk-name').textContent   = booking.customers?.name ?? '—';
+  document.getElementById('bk-phone').textContent  = booking.customers?.phone ?? '—';
+  document.getElementById('bk-total').textContent  = toRupiah(booking.total_price);
+  document.getElementById('bk-status-text').textContent =
+    booking.status === 'paid' ? 'Paid' :
+    booking.status === 'confirmed' ? 'Confirmed' : booking.status;
+
+  // WhatsApp confirm link
+  const phone = booking.customers?.phone?.replace(/\D/g,'');
+  if (phone) {
+    const msg = encodeURIComponent(
+      `Halo Padel Kita Jogja!\n\nSaya sudah booking:\n` +
+      `Kode: ${booking.booking_code}\n` +
+      `Lapangan: ${booking.courts?.name}\n` +
+      `Tanggal: ${toLocaleDateLong(booking.booking_date)}\n` +
+      `Waktu: ${booking.start_time?.slice(0,5)} – ${booking.end_time?.slice(0,5)} WIB\n` +
+      `Total: ${toRupiah(booking.total_price)}\n\nMohon konfirmasi. Terima kasih!`
+    );
+    document.getElementById('btn-wa-confirm').href = `https://wa.me/6281200000000?text=${msg}`;
+  }
+}
+
+load();
+</script>
+</body>
+</html>

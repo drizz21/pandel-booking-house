@@ -1,574 +1,1205 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ACETENNIS — Building Champions On and Off the Court</title>
-
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
-
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            sky: { hero: '#4FC3F7', deep: '#0288D1' },
-            neon: { green: '#39FF14', dark: '#00C853', glow: 'rgba(57,255,20,0.3)' },
-            navy: { deep: '#0A192F' },
-          },
-          fontFamily: { sans: ['Inter', 'sans-serif'] },
-        },
-      },
-    };
-  </script>
-
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Padel Kita Jogja — Komunitas & Booking Lapangan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:wght@500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet"/>
   <style>
-    /* ===== RESET & BASE ===== */
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body { font-family: 'Inter', sans-serif; overflow-x: hidden; color: #111; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
 
-    /* ===== NAVBAR ===== */
-    .navbar {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 50;
-      background: transparent;
-      transition: background 0.4s ease, box-shadow 0.4s ease;
-    }
-    .navbar.scrolled {
-      background: rgba(255,255,255,0.95);
-      box-shadow: 0 2px 20px rgba(0,0,0,0.08);
-    }
-    .navbar.scrolled .nav-link { color: #111; }
-    .navbar.scrolled .nav-link:hover { color: #00C853; }
-    .navbar.scrolled .logo-text { color: #0A192F; }
-    .navbar.scrolled .book-btn { background: #00C853; color: #fff; }
+  :root {
+    --paper:   #F4F2EC;
+    --paper-2: #ECEAE2;
+    --ink:     #0D0D0B;
+    --ink-2:   #1A1A16;
+    --mid:     #78786E;
+    --muted:   #ADAC A4;
+    --border:  #D6D3CB;
+    --white:   #FFFFFF;
+    --lime:    #C6F53E;
+    --lime-2:  #B2DC28;
+    --ease:    cubic-bezier(.22,1,.36,1);
+  }
 
-    .nav-link {
-      color: #fff; font-weight: 600; font-size: 0.875rem;
-      letter-spacing: 0.05em; text-transform: uppercase;
-      transition: color 0.3s ease; position: relative;
-    }
-    .nav-link:hover { color: #39FF14; }
-    .nav-link::after {
-      content: ''; position: absolute; bottom: -4px; left: 0;
-      width: 0; height: 2px; background: #39FF14;
-      transition: width 0.3s ease;
-    }
-    .nav-link:hover::after { width: 100%; }
+  body { font-family:'DM Sans',sans-serif; background:var(--paper); color:var(--ink); overflow-x:hidden; }
+  img  { display:block; max-width:100%; }
 
-    .book-btn {
-      background: #fff; color: #00C853; font-weight: 700;
-      font-size: 0.8rem; letter-spacing: 0.05em; text-transform: uppercase;
-      padding: 0.5rem 1.25rem; border-radius: 9999px; border: none;
-      cursor: pointer; transition: all 0.3s ease;
-      display: flex; align-items: center; gap: 0.4rem;
-    }
-    .book-btn:hover {
-      background: #e0f2e9; transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(0,200,83,0.3);
-    }
-    .book-btn i { font-size: 0.7rem; }
+  /* ─ MICRO ─ */
+  .micro {
+    font-family:'Space Grotesk',sans-serif;
+    font-size:10px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--mid);
+  }
+  .badge {
+    display:inline-flex; align-items:center; gap:6px;
+    font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:600;
+    letter-spacing:.08em; text-transform:uppercase;
+    background:var(--lime); color:var(--ink);
+    border-radius:100px; padding:5px 14px;
+  }
+  .badge.dark { background:var(--ink); color:var(--white); }
+  .badge.outline { background:transparent; color:var(--mid); border:1.5px solid var(--border); }
+  .badge svg { width:10px; height:10px; }
 
-    /* ===== HERO ===== */
-    .hero {
-      position: relative; min-height: 100vh;
-      background: linear-gradient(135deg, #4FC3F7 0%, #81D4FA 40%, #B3E5FC 70%, #E1F5FE 100%);
-      overflow: hidden;
-    }
+  /* ─ BUTTONS ─ */
+  .btn {
+    display:inline-flex; align-items:center; gap:8px;
+    padding:12px 24px; border-radius:100px;
+    font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:700;
+    letter-spacing:.04em; cursor:pointer; border:none; text-decoration:none;
+    transition:transform .22s var(--ease), box-shadow .22s var(--ease);
+  }
+  .btn:hover { transform:translateY(-2px); }
+  .btn-lime  { background:var(--lime); color:var(--ink); box-shadow:0 3px 14px rgba(198,245,62,.3); }
+  .btn-lime:hover { box-shadow:0 6px 24px rgba(198,245,62,.5); }
+  .btn-ink   { background:var(--ink); color:var(--white); }
+  .btn-ink:hover { box-shadow:0 6px 20px rgba(13,13,11,.25); }
+  .btn-ghost { background:transparent; color:var(--ink); border:1.5px solid var(--border); }
+  .btn-ghost:hover { border-color:var(--ink); }
+  .btn-ghost-w { background:rgba(255,255,255,.08); color:var(--white); border:1.5px solid rgba(255,255,255,.2); }
+  .btn-ghost-w:hover { background:rgba(255,255,255,.16); }
 
-    .cloud-layer {
-      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-      pointer-events: none;
-    }
-    .cloud {
-      position: absolute; background: rgba(255,255,255,0.6);
-      border-radius: 50%; filter: blur(2px);
-    }
-    .cloud-1 { width: 350px; height: 120px; top: 8%; left: -5%; animation: float-cloud 25s linear infinite; }
-    .cloud-2 { width: 280px; height: 90px; top: 15%; left: 40%; animation: float-cloud 30s linear infinite; animation-delay: -10s; }
-    .cloud-3 { width: 320px; height: 100px; top: 5%; left: 70%; animation: float-cloud 28s linear infinite; animation-delay: -5s; }
-    .cloud-4 { width: 250px; height: 80px; top: 20%; left: 15%; animation: float-cloud 22s linear infinite; animation-delay: -15s; }
-    .cloud-5 { width: 300px; height: 95px; top: 12%; left: 55%; animation: float-cloud 26s linear infinite; animation-delay: -8s; }
+  /* circle btn */
+  .cbtn {
+    width:42px; height:42px; border-radius:50%; border:1.5px solid var(--border);
+    background:transparent; color:var(--ink);
+    display:inline-flex; align-items:center; justify-content:center;
+    cursor:pointer; text-decoration:none; flex-shrink:0;
+    transition:background .2s, border-color .2s, transform .25s var(--ease);
+  }
+  .cbtn:hover { background:var(--ink); color:var(--white); border-color:var(--ink); transform:rotate(45deg); }
+  .cbtn.white { border-color:rgba(255,255,255,.3); color:var(--white); }
+  .cbtn.white:hover { background:rgba(255,255,255,.12); border-color:rgba(255,255,255,.5); }
+  .cbtn svg { width:14px; height:14px; }
 
-    @keyframes float-cloud {
-      0% { transform: translateX(-10%); }
-      100% { transform: translateX(110%); }
-    }
+  hr.thin { height:1px; border:none; background:var(--border); }
 
-    .hero-text {
-      position: absolute; top: 50%; left: 50%;
-      transform: translate(-50%, -50%); z-index: 2;
-      text-align: center; pointer-events: none;
-    }
-    .hero-text h1 {
-      font-size: clamp(4rem, 12vw, 10rem); font-weight: 900;
-      letter-spacing: 0.08em; color: #fff; line-height: 1;
-      text-shadow: 0 4px 20px rgba(0,0,0,0.15);
-    }
+  /* ─ NAV ─ */
+  nav {
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    background:rgba(244,242,236,.96); backdrop-filter:blur(16px);
+    border-bottom:1px solid var(--border);
+    transition:box-shadow .3s var(--ease);
+  }
+  nav.scrolled {
+    box-shadow:0 2px 20px rgba(0,0,0,.07);
+  }
+  .nav-inner {
+    max-width:1440px; margin:0 auto; padding:16px 52px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .nav-logo { text-decoration:none; color:var(--ink); transition:opacity .2s; }
+  .nav-logo:hover { opacity:.75; }
+  .nav-logo-wrap { display:flex; align-items:center; gap:12px; }
+  .nav-logo-img { height:44px; width:auto; display:block; flex-shrink:0; }
+  .nav-logo-text { display:flex; flex-direction:column; gap:1px; }
+  .nav-logo-name {
+    font-family:'Playfair Display',serif;
+    font-size:17px; font-weight:600; letter-spacing:.01em; line-height:1.1;
+    color:var(--ink);
+  }
+  .nav-logo-name span { color:#C19A4D; }
+  .nav-logo-sub { font-family:'Space Grotesk',sans-serif; font-size:9px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--mid); }
+  .nav-links { display:flex; align-items:center; gap:36px; }
+  .nav-links a {
+    font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:500;
+    letter-spacing:.06em; text-transform:uppercase;
+    color:var(--mid); text-decoration:none; transition:color .2s;
+  }
+  .nav-links a:hover { color:var(--ink); }
+  .nav-cta { display:flex; align-items:center; gap:10px; }
 
-    .silhouette-wrapper {
-      position: absolute; top: 50%; left: 50%;
-      transform: translate(-50%, -60%); z-index: 3;
-      pointer-events: none;
-    }
-    .silhouette-wrapper img {
-      display: block; max-width: 400px; width: 80%; height: auto; object-fit: contain;
-    }
-    .silhouette-placeholder {
-      width: 350px; height: 500px; margin: 0 auto;
-      background: linear-gradient(180deg, #1a1a2e 0%, #16213e 40%, #0f3460 70%, #0a192f 100%);
-      border-radius: 200px 200px 0 0; position: relative; overflow: hidden;
-    }
-    .silhouette-placeholder::before {
-      content: ''; position: absolute; top: 20%; left: 50%;
-      transform: translateX(-50%); width: 60%; height: 50%;
-      background: radial-gradient(ellipse at center, #1a1a2e 0%, transparent 70%);
-    }
-    .silhouette-placeholder::after {
-      content: '\f184'; font-family: 'Font Awesome 6 Free'; font-weight: 900;
-      position: absolute; font-size: 6rem; top: 10%; left: 50%;
-      transform: translateX(-50%); opacity: 0.35; color: #fff;
-    }
+  /* ─ HERO BENTO ─ */
+  #hero { padding-top:70px; }
+  .hero-bento {
+    display:grid; grid-template-columns:1fr 400px;
+    gap:12px; padding:12px 12px 0; min-height:calc(100vh - 70px);
+  }
 
-    .glass-box {
-      position: absolute; bottom: 8%; left: 8%; z-index: 10;
-      background: rgba(255,255,255,0.15); backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255,255,255,0.3);
-      border-radius: 20px; padding: 1.5rem 2rem; max-width: 420px;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .glass-box:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,0.15); }
-    .glass-box .glass-title {
-      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em;
-      text-transform: uppercase; color: #fff; margin-bottom: 0.15rem;
-    }
-    .glass-box .glass-subtitle {
-      font-size: 1rem; font-weight: 600; color: rgba(255,255,255,0.9);
-      margin-bottom: 1rem;
-    }
-    .glass-box .arrow-controls { display: flex; gap: 0.75rem; }
-    .glass-box .arrow-btn {
-      width: 44px; height: 44px; border-radius: 50%;
-      background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.4);
-      color: #fff; font-size: 1rem; cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      transition: all 0.3s ease;
-    }
-    .glass-box .arrow-btn:hover {
-      background: #39FF14; color: #0A192F; border-color: #39FF14; transform: scale(1.1);
-    }
+  /* hero photo panel */
+  .hero-photo-panel {
+    border-radius:20px; overflow:hidden;
+    position:relative; background:var(--ink-2); min-height:520px;
+  }
 
-    /* ===== ABOUT SECTION ===== */
-    .about-section {
-      background: #ffffff; padding: 6rem 0;
-    }
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      align-items: center;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 2rem;
-    }
-    .about-content { max-width: 520px; }
-    .about-heading {
-      font-size: clamp(1.75rem, 4vw, 2.75rem);
-      font-weight: 700; letter-spacing: 0.03em;
-      line-height: 1.2; color: #0A192F; margin-bottom: 1.5rem;
-    }
-    .about-heading span { color: #00C853; }
-    .about-paragraph {
-      font-size: 1.05rem; line-height: 1.8; color: #444; margin-bottom: 2rem;
-    }
-    .about-btn {
-      background: #0A192F; color: #fff; font-weight: 700;
-      font-size: 0.85rem; letter-spacing: 0.05em; text-transform: uppercase;
-      padding: 0.75rem 2rem; border-radius: 9999px; border: none;
-      cursor: pointer; transition: all 0.3s ease;
-      display: inline-flex; align-items: center; gap: 0.5rem;
-    }
-    .about-btn:hover {
-      background: #00C853; transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(0,200,83,0.3);
-    }
-    .about-btn i { font-size: 0.75rem; }
+  /* slideshow */
+  .hero-slides { position:absolute; inset:0; }
+  .hero-slide {
+    position:absolute; inset:0;
+    background-size:cover; background-position:center 30%;
+    opacity:0; transition:opacity 1.2s var(--ease), transform 8s ease-out;
+    transform:scale(1.06);
+  }
+  .hero-slide.active { opacity:.88; transform:scale(1); }
+  .hero-slide.prev   { opacity:0;   transform:scale(1.03); }
 
-    /* Stats card */
-    .stats-card {
-      background: #f8fafc; border-radius: 20px;
-      padding: 2.5rem; border: 1px solid #e2e8f0;
-      text-align: center;
-    }
-    .stats-card .stat-item { margin-bottom: 2rem; }
-    .stats-card .stat-item:last-child { margin-bottom: 0; }
-    .stats-card .stat-number {
-      font-size: 3rem; font-weight: 900; color: #00C853;
-      line-height: 1; margin-bottom: 0.25rem;
-    }
-    .stats-card .stat-label {
-      font-size: 0.85rem; font-weight: 600;
-      color: #444; text-transform: uppercase; letter-spacing: 0.05em;
-    }
+  /* slide dots */
+  .hero-slide-dots {
+    position:absolute; bottom:20px; left:50%; transform:translateX(-50%);
+    z-index:4; display:flex; align-items:center; gap:7px;
+  }
+  .hsd {
+    width:6px; height:6px; border-radius:50%;
+    background:rgba(255,255,255,.35); cursor:pointer;
+    transition:background .3s, width .3s var(--ease);
+  }
+  .hsd.active { background:var(--white); width:20px; border-radius:3px; }
+  .hero-photo-overlay {
+    position:absolute; inset:0;
+    background:linear-gradient(to bottom, rgba(13,13,11,.1) 0%, rgba(13,13,11,.02) 40%, rgba(13,13,11,.7) 85%);
+  }
+  .hero-photo-content {
+    position:absolute; inset:0; padding:36px 40px;
+    display:flex; flex-direction:column; justify-content:space-between;
+  }
+  .hero-members {
+    display:inline-flex; align-items:center; gap:10px;
+    background:rgba(255,255,255,.12); backdrop-filter:blur(12px);
+    border:1px solid rgba(255,255,255,.2); border-radius:100px;
+    padding:7px 16px 7px 8px; align-self:flex-start;
+  }
+  .hero-avatars { display:flex; }
+  .hero-avatar {
+    width:28px; height:28px; border-radius:50%;
+    border:2px solid rgba(255,255,255,.5); overflow:hidden; margin-left:-8px;
+  }
+  .hero-avatar:first-child { margin-left:0; }
+  .hero-avatar img { width:100%; height:100%; object-fit:cover; }
+  .hero-members-label { font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:600; color:var(--white); }
+  .hero-members-num { color:var(--lime); }
 
-    /* 15 Years Excellence */
-    .years-section {
-      max-width: 1200px; margin: 0 auto; padding: 0 2rem; margin-top: 3rem;
-    }
-    .years-box {
-      background: #f0f9ff; border-radius: 16px; padding: 2rem 2.5rem;
-      border: 1px solid #bae6fd; display: flex; align-items: center; gap: 2rem;
-    }
-    .years-number {
-      font-size: 4rem; font-weight: 900; color: #00C853;
-      line-height: 1; min-width: 120px; text-align: center;
-    }
-    .years-content h3 {
-      font-size: 1.25rem; font-weight: 700; color: #0A192F; margin-bottom: 0.75rem;
-    }
-    .years-content ul { list-style: none; padding: 0; }
-    .years-content ul li {
-      font-size: 0.95rem; color: #444; padding: 0.35rem 0;
-      display: flex; align-items: center; gap: 0.6rem;
-    }
-    .years-content ul li i { color: #00C853; font-size: 0.8rem; }
+  .hero-headline-block { }
+  .hero-headline {
+    font-family:'Bebas Neue',sans-serif;
+    font-size:clamp(56px,8vw,96px); line-height:.92;
+    letter-spacing:.01em; color:var(--white);
+    margin-bottom:20px;
+  }
+  .hero-headline .dim { opacity:.4; }
+  .hero-sub-row {
+    display:flex; align-items:flex-end; justify-content:space-between; gap:20px;
+  }
+  .hero-sub {
+    font-size:14px; font-weight:300; color:rgba(255,255,255,.65);
+    line-height:1.65; max-width:360px;
+  }
+  .hero-ctas { display:flex; gap:8px; flex-shrink:0; }
 
-    /* ===== TRAINING PROGRAM SECTION ===== */
-    .training-section {
-      background: #ffffff; padding: 6rem 0;
-    }
-    .training-header {
-      text-align: center; margin-bottom: 3rem; max-width: 1200px; margin-left: auto; margin-right: auto; padding: 0 2rem;
-    }
-    .training-heading {
-      font-size: clamp(1.75rem, 4vw, 2.75rem);
-      font-weight: 700; letter-spacing: 0.03em;
-      color: #0A192F; margin-bottom: 0.5rem;
-    }
-    .training-subheading {
-      font-size: 1rem; color: #666; font-weight: 400;
-    }
-    .training-carousel-wrapper { position: relative; max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
-    .carousel-track {
-      display: flex; gap: 1.5rem;
-      overflow-x: auto; scroll-snap-type: x mandatory;
-      scroll-behavior: smooth; padding: 1rem 0;
-      scrollbar-width: none;
-    }
-    .carousel-track::-webkit-scrollbar { display: none; }
-    .carousel-card {
-      scroll-snap-align: start; flex: 0 0 340px;
-      background: #f8fafc; border-radius: 20px; overflow: hidden;
-      border: 1px solid #e2e8f0; transition: all 0.4s ease;
-    }
-    .carousel-card:hover {
-      transform: scale(1.03); box-shadow: 0 12px 32px rgba(0,0,0,0.1);
-    }
-    .card-image {
-      width: 100%; height: 200px;
-      background: linear-gradient(135deg, #e2e8f0, #cbd5e1);
-      display: flex; align-items: center; justify-content: center;
-      position: relative; overflow: hidden;
-    }
-    .card-image i { font-size: 4rem; color: #00C853; opacity: 0.6; }
-    .card-body { padding: 1.5rem; }
-    .card-body h3 {
-      font-size: 1.25rem; font-weight: 700; color: #0A192F; margin-bottom: 0.5rem;
-    }
-    .card-body p {
-      font-size: 0.9rem; color: #666; line-height: 1.6; margin-bottom: 1rem;
-    }
-    .card-tag {
-      display: inline-block; background: #39FF14; color: #0A192F;
-      font-size: 0.7rem; font-weight: 700; padding: 0.25rem 0.75rem;
-      border-radius: 9999px; text-transform: uppercase; letter-spacing: 0.05em;
-    }
-    .carousel-arrow {
-      position: absolute; top: 50%; transform: translateY(-50%);
-      width: 50px; height: 50px; border-radius: 50%;
-      background: #0A192F; color: #fff; border: none; cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.1rem; transition: all 0.3s ease; z-index: 5;
-    }
-    .carousel-arrow:hover { background: #00C853; transform: translateY(-50%) scale(1.1); }
-    .carousel-arrow.prev { left: -10px; }
-    .carousel-arrow.next { right: -10px; }
+  /* right bento column */
+  .hero-right { display:flex; flex-direction:column; gap:12px; }
 
-    /* ===== RESPONSIVE ===== */
-    @media (max-width: 768px) {
-      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
-      .about-content { max-width: 100%; }
-      .hero-text h1 { font-size: clamp(2.5rem, 10vw, 5rem); }
-      .silhouette-wrapper { transform: translate(-50%, -55%); }
-      .glass-box { bottom: 4%; left: 4%; right: 4%; max-width: none; padding: 1rem 1.25rem; }
-      .glass-box .glass-subtitle { font-size: 0.85rem; }
-      .carousel-card { flex: 0 0 280px; }
-      .carousel-arrow.prev { left: 5px; }
-      .carousel-arrow.next { right: 5px; }
-      .years-box { flex-direction: column; text-align: center; }
-      .years-number { min-width: auto; }
-    }
-    @media (max-width: 480px) {
-      .nav-link { font-size: 0.6rem; letter-spacing: 0.02em; }
-      .book-btn { font-size: 0.65rem; padding: 0.4rem 0.8rem; }
-      .nav-link span { display: none; }
-      .carousel-card { flex: 0 0 85vw; }
-    }
+  /* CTA card (dark) */
+  .hero-cta-card {
+    background:var(--ink); border-radius:20px; padding:36px 32px;
+    display:flex; flex-direction:column; gap:20px;
+    flex:1;
+  }
+  .hero-cta-index { font-family:'Space Grotesk',sans-serif; font-size:10px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:rgba(255,255,255,.25); }
+  .hero-cta-q {
+    font-family:'Space Grotesk',sans-serif; font-size:clamp(16px,1.8vw,22px);
+    font-weight:700; line-height:1.3; color:var(--white); letter-spacing:-.01em;
+  }
+  .hero-cta-q em { font-style:italic; font-weight:300; opacity:.65; }
+  .hero-cta-bottom { display:flex; align-items:center; justify-content:space-between; margin-top:auto; }
+  .hero-since { font-family:'Space Grotesk',sans-serif; font-size:9px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:rgba(255,255,255,.2); }
+
+  /* stat mini cards */
+  .hero-stats-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .hero-stat-card {
+    border-radius:14px; padding:20px 18px;
+    border:1.5px solid var(--border); background:var(--paper);
+  }
+  .hero-stat-card.lime { background:var(--lime); border-color:var(--lime); }
+  .hero-stat-num {
+    font-family:'Bebas Neue',sans-serif; font-size:36px; line-height:1;
+    letter-spacing:.02em; color:var(--ink);
+  }
+  .hero-stat-label { font-family:'Space Grotesk',sans-serif; font-size:10px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--mid); margin-top:4px; }
+  .hero-stat-card.lime .hero-stat-label { color:var(--ink); opacity:.65; }
+
+  /* ─ WORDMARK + INDEX ROW ─ */
+  .wordmark-row {
+    display:grid; grid-template-columns:auto 1fr;
+    border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+    margin-top:12px;
+  }
+  .wordmark {
+    font-family:'Bebas Neue',sans-serif;
+    font-size:clamp(72px,12vw,160px); line-height:.88; letter-spacing:-.01em;
+    padding:12px 52px 8px; border-right:1px solid var(--border); color:var(--ink);
+  }
+  .index-list { padding:20px 52px; display:flex; flex-direction:column; justify-content:center; }
+  .index-item {
+    display:flex; align-items:center; justify-content:space-between;
+    padding:13px 0; border-bottom:1px solid var(--border);
+    text-decoration:none; color:var(--ink);
+    transition:padding-left .2s;
+  }
+  .index-item:last-child { border-bottom:none; }
+  .index-item:hover { padding-left:6px; }
+  .ii-num { font-family:'Space Grotesk',sans-serif; font-size:10px; font-weight:700; letter-spacing:.1em; color:var(--muted); min-width:36px; }
+  .ii-label { font-family:'Space Grotesk',sans-serif; font-size:13px; font-weight:600; letter-spacing:.04em; text-transform:uppercase; flex:1; }
+  .ii-arr { color:var(--border); transition:color .2s, transform .25s var(--ease); }
+  .index-item:hover .ii-arr { color:var(--ink); transform:rotate(45deg); }
+
+  /* ─ COUNTDOWN ─ */
+  #countdown {
+    position:relative; min-height:380px; overflow:hidden;
+    border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+    display:flex;
+  }
+  .cd-bg { position:absolute; inset:0; background-image:url('https://images.unsplash.com/photo-1554068865-24cecd4e34b8?w=1600&q=80&auto=format&fit=crop'); background-size:cover; background-position:center; }
+  .cd-veil { position:absolute; inset:0; background:rgba(13,13,11,.65); }
+  .cd-inner { position:relative; z-index:2; width:100%; padding:52px; display:flex; flex-direction:column; justify-content:space-between; }
+  .cd-top { display:flex; align-items:flex-start; justify-content:space-between; }
+  .cd-lbl { font-family:'Space Grotesk',sans-serif; font-size:10px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:rgba(255,255,255,.4); }
+  .cd-num-row { font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,.2); }
+  .cd-mid { text-align:center; }
+  .cd-sublbl { font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:rgba(255,255,255,.38); margin-bottom:18px; }
+  .cd-timer { display:flex; align-items:center; justify-content:center; gap:0; }
+  .cd-unit { text-align:center; padding:0 24px; }
+  .cd-dig { font-family:'Bebas Neue',sans-serif; font-size:clamp(60px,10vw,112px); line-height:1; color:rgba(255,255,255,.88); letter-spacing:.04em; }
+  .cd-unit-pill { display:inline-block; border:1px solid rgba(255,255,255,.18); border-radius:100px; padding:3px 12px; font-family:'Space Grotesk',sans-serif; font-size:9px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:rgba(255,255,255,.35); margin-top:8px; }
+  .cd-sep { font-family:'Bebas Neue',sans-serif; font-size:72px; color:rgba(255,255,255,.18); line-height:1; padding-bottom:22px; }
+  .cd-bot { display:flex; align-items:flex-end; justify-content:space-between; }
+  .cd-date { font-family:'Space Grotesk',sans-serif; font-size:14px; font-weight:600; color:rgba(255,255,255,.75); letter-spacing:.04em; text-transform:uppercase; }
+  .cd-venue { font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:400; color:rgba(255,255,255,.35); letter-spacing:.06em; margin-top:4px; text-transform:uppercase; }
+
+  /* ─ BOOKING SECTION ─ */
+  #booking { border-bottom:1px solid var(--border); }
+  .bk-header {
+    display:flex; align-items:flex-end; justify-content:space-between;
+    max-width:1440px; margin:0 auto;
+    padding:64px 52px 44px; border-bottom:1px solid var(--border);
+  }
+  .bk-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(44px,7vw,88px); line-height:.9; letter-spacing:.02em; margin-top:10px; }
+  .bk-sub { font-size:14px; font-weight:300; color:var(--mid); line-height:1.65; max-width:280px; text-align:right; }
+
+  /* court strip */
+  .court-strip { display:flex; overflow-x:auto; border-bottom:1px solid var(--border); scrollbar-width:none; }
+  .court-strip::-webkit-scrollbar { display:none; }
+  .court-tab {
+    flex:0 0 auto; width:240px; cursor:pointer;
+    border-right:1px solid var(--border);
+    transition:background .2s;
+  }
+  .court-tab:last-child { border-right:none; }
+  .court-tab-img { height:140px; overflow:hidden; }
+  .court-tab-img img { width:100%; height:100%; object-fit:cover; opacity:.75; transition:opacity .3s, transform .45s var(--ease); }
+  .court-tab:hover .court-tab-img img, .court-tab.active .court-tab-img img { opacity:1; transform:scale(1.04); }
+  .court-tab-body { padding:14px 18px 16px; border-top:1px solid var(--border); }
+  .court-tab-name { font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; }
+  .court-tab-meta { font-size:11px; color:var(--mid); font-weight:300; margin-top:2px; }
+  .court-avail {
+    display:inline-block; margin-top:7px;
+    font-family:'Space Grotesk',sans-serif; font-size:9px; font-weight:700;
+    letter-spacing:.08em; text-transform:uppercase;
+    padding:3px 9px; border-radius:100px;
+    background:rgba(100,200,90,.1); color:#2d8a24;
+  }
+  .court-avail.penuh { background:rgba(200,80,80,.1); color:#b71c1c; }
+  .court-tab.active { background:var(--ink); }
+  .court-tab.active .court-tab-name { color:var(--white); }
+  .court-tab.active .court-tab-meta { color:rgba(255,255,255,.4); }
+  .court-tab.active .court-avail { background:rgba(198,245,62,.15); color:#8bc34a; }
+
+  /* calendar + form */
+  .bk-body {
+    display:grid; grid-template-columns:1fr 1.1fr;
+    max-width:1440px; margin:0 auto;
+  }
+  .bk-cal-panel { padding:44px 52px; border-right:1px solid var(--border); }
+  .bk-form-panel { padding:44px 52px; }
+
+  /* calendar widget */
+  .cal-nav { display:flex; align-items:center; justify-content:space-between; margin-bottom:28px; }
+  .cal-month-label { font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:700; }
+  .cal-btn {
+    width:32px; height:32px; border-radius:50%;
+    border:1.5px solid var(--border); background:transparent;
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer; transition:background .2s, border-color .2s;
+  }
+  .cal-btn:hover { background:var(--ink); border-color:var(--ink); color:var(--white); }
+  .cal-btn svg { width:12px; height:12px; }
+  .cal-header { display:grid; grid-template-columns:repeat(7,1fr); margin-bottom:6px; }
+  .cal-header span { font-family:'Space Grotesk',sans-serif; font-size:9px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); text-align:center; padding:4px 0; }
+  .cal-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:3px; }
+  .cal-cell {
+    aspect-ratio:1; border-radius:8px;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    cursor:pointer; position:relative;
+    font-family:'Space Grotesk',sans-serif; font-size:13px; font-weight:500;
+    transition:background .18s;
+  }
+  .cal-cell:hover:not(.empty):not(.past) { background:var(--paper-2); }
+  .cal-cell.empty, .cal-cell.past { opacity:.25; cursor:default; }
+  .cal-cell.today { background:var(--ink); color:var(--white); font-weight:700; }
+  .cal-cell.selected { background:var(--lime); color:var(--ink); font-weight:700; box-shadow:0 4px 14px rgba(198,245,62,.35); }
+  .cal-cell.has-avail::after { content:''; position:absolute; bottom:3px; width:4px; height:4px; border-radius:50%; background:#4caf50; }
+  .cal-cell.today.has-avail::after, .cal-cell.selected.has-avail::after { background:rgba(13,13,11,.4); }
+  .cal-cell.all-full::after { background:#ef5350; }
+  .cal-legend { display:flex; align-items:center; gap:18px; margin-top:18px; }
+  .leg { display:flex; align-items:center; gap:5px; font-family:'Space Grotesk',sans-serif; font-size:10px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--mid); }
+  .leg-dot { width:7px; height:7px; border-radius:50%; }
+
+  /* slots */
+  .slots-wrap { margin-top:36px; }
+  .slots-heading { font-family:'Space Grotesk',sans-serif; font-size:10px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--mid); margin-bottom:16px; }
+  .slots-group { margin-bottom:20px; }
+  .slots-group-lbl {
+    display:flex; align-items:center; gap:8px; margin-bottom:10px;
+    font-family:'Space Grotesk',sans-serif; font-size:9px; font-weight:700;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--muted);
+  }
+  .slots-group-lbl::after { content:''; flex:1; height:1px; background:var(--border); }
+  .slots-row { display:flex; flex-wrap:wrap; gap:7px; }
+  .slot-pill {
+    padding:8px 15px; border-radius:8px;
+    border:1.5px solid var(--border); background:transparent;
+    font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:600;
+    color:var(--mid); cursor:pointer; transition:all .16s;
+  }
+  .slot-pill:hover:not(.booked) { border-color:var(--ink); color:var(--ink); }
+  .slot-pill.selected { background:var(--lime); border-color:var(--lime); color:var(--ink); }
+  .slot-pill.booked { opacity:.28; cursor:not-allowed; text-decoration:line-through; }
+  .slot-pill.few { border-color:#F57C00; color:#E65100; }
+
+  /* booking form */
+  .bf-court-preview {
+    display:flex; align-items:center; gap:14px;
+    padding:14px 16px; border-radius:10px;
+    border:1.5px solid var(--border); background:var(--paper-2); margin-bottom:24px;
+  }
+  .bf-thumb { width:54px; height:38px; border-radius:6px; overflow:hidden; flex-shrink:0; }
+  .bf-thumb img { width:100%; height:100%; object-fit:cover; }
+  .bf-court-nm { font-family:'Space Grotesk',sans-serif; font-size:13px; font-weight:700; }
+  .bf-court-ch { font-family:'Space Grotesk',sans-serif; font-size:10px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--mid); text-decoration:underline; cursor:pointer; margin-top:2px; }
+  .bf-summary { display:grid; grid-template-columns:1fr 1fr; gap:9px; margin-bottom:24px; }
+  .bf-sum { padding:13px 14px; border-radius:8px; border:1.5px solid var(--border); }
+  .bf-sum-lbl { font-family:'Space Grotesk',sans-serif; font-size:9px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); margin-bottom:4px; }
+  .bf-sum-val { font-family:'Space Grotesk',sans-serif; font-size:14px; font-weight:700; }
+  .bf-sum-val.empty { color:var(--muted); font-weight:400; font-size:12px; }
+  .bf-lbl { display:block; font-family:'Space Grotesk',sans-serif; font-size:10px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--mid); margin-bottom:7px; }
+  .bf-inp, .bf-sel {
+    width:100%; padding:12px 15px; border-radius:8px;
+    border:1.5px solid var(--border); background:transparent; color:var(--ink);
+    font-family:'DM Sans',sans-serif; font-size:14px; outline:none;
+    transition:border-color .2s; margin-bottom:15px; appearance:none;
+  }
+  .bf-inp::placeholder { color:var(--muted); }
+  .bf-inp:focus, .bf-sel:focus { border-color:var(--ink); }
+  .bf-inp-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .bf-price-row { display:flex; align-items:center; justify-content:space-between; padding:14px 0; border-top:1px solid var(--border); margin:6px 0 18px; }
+  .bf-price-lbl { font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:600; color:var(--mid); }
+  .bf-price-val { font-family:'Bebas Neue',sans-serif; font-size:30px; letter-spacing:.02em; }
+  .bf-submit { width:100%; padding:14px; background:var(--ink); color:var(--white); border:none; border-radius:8px; font-family:'Space Grotesk',sans-serif; font-size:13px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; cursor:pointer; transition:background .2s, transform .2s var(--ease); }
+  .bf-submit:hover { transform:translateY(-1px); background:var(--ink-2); }
+  .bf-wa { width:100%; padding:12px; background:transparent; border:1.5px solid var(--border); border-radius:8px; font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:600; letter-spacing:.04em; text-transform:uppercase; color:var(--ink); cursor:pointer; margin-top:9px; display:flex; align-items:center; justify-content:center; gap:8px; transition:border-color .2s; }
+  .bf-wa:hover { border-color:var(--ink); }
+
+  /* ─ SERVICES BENTO ─ */
+  #services {
+    border-bottom:1px solid var(--border);
+    max-width:1440px; margin:0 auto;
+  }
+  .svc-header { display:flex; align-items:flex-end; justify-content:space-between; padding:64px 52px 48px; border-bottom:1px solid var(--border); }
+  .svc-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(40px,6vw,72px); line-height:.9; letter-spacing:.02em; margin-top:10px; }
+  /* bento: 3 equal cards */
+  .svc-grid { display:grid; grid-template-columns:repeat(3,1fr); }
+  .svc-card { border-right:1px solid var(--border); padding:40px 40px 48px; }
+  .svc-card:last-child { border-right:none; }
+  .svc-num { font-family:'Space Grotesk',sans-serif; font-size:10px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); margin-bottom:20px; }
+  .svc-card-title { font-family:'Bebas Neue',sans-serif; font-size:34px; letter-spacing:.02em; line-height:1; margin-bottom:14px; }
+  .svc-card-body { font-size:14px; font-weight:300; color:var(--mid); line-height:1.65; margin-bottom:28px; }
+  .svc-img { border-radius:10px; overflow:hidden; }
+  .svc-img img { width:100%; height:180px; object-fit:cover; transition:transform .5s var(--ease); }
+  .svc-card:hover .svc-img img { transform:scale(1.04); }
+  /* stagger vertical */
+  .svc-card:nth-child(1) .svc-img { margin-top:0; }
+  .svc-card:nth-child(2) .svc-img { margin-top:48px; }
+  .svc-card:nth-child(3) .svc-img { margin-top:24px; }
+
+  /* ─ ABOUT BENTO ─ */
+  #about { border-bottom:1px solid var(--border); }
+  .about-grid {
+    display:grid; grid-template-columns:1fr 1fr;
+    max-width:1440px; margin:0 auto;
+  }
+  .about-left { padding:72px 52px; border-right:1px solid var(--border); }
+  .about-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(44px,6vw,80px); line-height:.9; letter-spacing:.02em; margin:12px 0 28px; }
+  .about-body { font-size:15px; font-weight:300; color:var(--mid); line-height:1.75; margin-bottom:32px; max-width:440px; }
+  .about-founded { display:flex; align-items:center; gap:16px; margin-bottom:36px; }
+  .about-founded-label { font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--mid); }
+  .about-founded-year { background:var(--lime); color:var(--ink); font-family:'Bebas Neue',sans-serif; font-size:36px; letter-spacing:.02em; padding:4px 18px; border-radius:8px; line-height:1; }
+  .about-right { padding:72px 52px; display:flex; flex-direction:column; gap:12px; }
+  .about-img-main { border-radius:14px; overflow:hidden; height:320px; }
+  .about-img-main img { width:100%; height:100%; object-fit:cover; }
+  .about-img-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .about-img-sm { border-radius:10px; overflow:hidden; height:180px; }
+  .about-img-sm img { width:100%; height:100%; object-fit:cover; }
+
+  /* ─ HOW TO JOIN ─ */
+  #how { background:var(--paper-2); border-bottom:1px solid var(--border); }
+  .how-inner { max-width:1440px; margin:0 auto; padding:64px 52px; display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start; }
+  .how-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(40px,5.5vw,72px); line-height:.9; letter-spacing:.02em; margin:12px 0 36px; }
+  .how-steps { }
+  .how-step { display:flex; align-items:flex-start; gap:0; border-bottom:1px solid var(--border); }
+  .how-step:last-child { border-bottom:none; }
+  .how-step-num { font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:700; letter-spacing:.08em; color:var(--muted); min-width:48px; padding:20px 0; }
+  .how-step-content { padding:20px 0; flex:1; }
+  .how-step-title { font-family:'Space Grotesk',sans-serif; font-size:14px; font-weight:700; }
+  .how-step-desc { font-size:13px; font-weight:300; color:var(--mid); margin-top:4px; line-height:1.55; display:none; }
+  .how-step.open .how-step-desc { display:block; }
+  .how-step-arr { padding:20px 0; color:var(--muted); transition:transform .25s var(--ease), color .2s; }
+  .how-step.open .how-step-arr { transform:rotate(90deg); color:var(--ink); }
+  .how-img { border-radius:14px; overflow:hidden; }
+  .how-img img { width:100%; height:360px; object-fit:cover; }
+
+  /* ─ COACHES ─ */
+  #coaches { background:var(--ink); border-bottom:1px solid rgba(255,255,255,.08); }
+  .coaches-inner {
+    max-width:1440px; margin:0 auto;
+    display:grid; grid-template-columns:1fr 1fr;
+  }
+  .coaches-photo { overflow:hidden; min-height:480px; }
+  .coaches-photo img { width:100%; height:100%; object-fit:cover; object-position:center top; }
+  .coaches-content { padding:72px 52px; display:flex; flex-direction:column; justify-content:space-between; }
+  .coaches-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(44px,5.5vw,72px); line-height:.9; letter-spacing:.02em; color:var(--white); margin:12px 0 20px; }
+  .coaches-body { font-size:15px; font-weight:300; color:rgba(255,255,255,.55); line-height:1.7; max-width:400px; margin-bottom:40px; }
+  /* coach tabs */
+  .coach-tabs { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:32px; }
+  .coach-tab {
+    display:flex; align-items:center; gap:8px;
+    padding:8px 16px 8px 8px; border-radius:100px;
+    border:1.5px solid rgba(255,255,255,.12); background:transparent;
+    cursor:pointer; transition:background .2s, border-color .2s;
+  }
+  .coach-tab:hover { border-color:rgba(255,255,255,.3); background:rgba(255,255,255,.05); }
+  .coach-tab.active { background:var(--lime); border-color:var(--lime); }
+  .coach-tab-avatar { width:28px; height:28px; border-radius:50%; overflow:hidden; flex-shrink:0; }
+  .coach-tab-avatar img { width:100%; height:100%; object-fit:cover; }
+  .coach-tab-name { font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:700; color:rgba(255,255,255,.7); }
+  .coach-tab.active .coach-tab-name { color:var(--ink); }
+  /* testimonial */
+  .coach-testi { display:none; }
+  .coach-testi.active { display:block; }
+  .coach-testi-quote { font-family:'Space Grotesk',sans-serif; font-size:16px; font-weight:400; line-height:1.6; color:rgba(255,255,255,.8); margin-bottom:16px; font-style:italic; }
+  .coach-testi-meta { font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:600; color:rgba(255,255,255,.35); letter-spacing:.06em; text-transform:uppercase; }
+
+  /* ─ JOURNAL ─ */
+  #journal { border-bottom:1px solid var(--border); padding:64px 52px; max-width:1440px; margin:0 auto; }
+  .journal-header { display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:36px; }
+  .journal-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(36px,5vw,60px); line-height:.9; letter-spacing:.02em; margin-top:10px; }
+  .journal-mosaic { display:grid; grid-template-columns:1.5fr 1fr; grid-template-rows:280px 200px; gap:10px; }
+  .j-item { border-radius:12px; overflow:hidden; position:relative; background:var(--ink-2); }
+  .j-item:first-child { grid-row:1/3; }
+  .j-item img { width:100%; height:100%; object-fit:cover; opacity:.8; transition:opacity .3s, transform .5s var(--ease); }
+  .j-item:hover img { opacity:1; transform:scale(1.03); }
+  .j-tag { position:absolute; bottom:14px; left:14px; font-family:'Space Grotesk',sans-serif; font-size:10px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,.55); }
+
+  /* ─ LOCATION ─ */
+  #location { border-bottom:1px solid var(--border); }
+  .loc-grid { display:grid; grid-template-columns:1fr 1fr; max-width:1440px; margin:0 auto; }
+  .loc-left { padding:72px 52px; border-right:1px solid var(--border); }
+  .loc-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(44px,6vw,80px); line-height:.9; letter-spacing:.02em; margin:12px 0 24px; }
+  .loc-body { font-size:14px; font-weight:300; color:var(--mid); line-height:1.7; max-width:400px; margin-bottom:36px; }
+  .loc-right { padding:72px 52px; }
+  .loc-row { display:flex; align-items:center; justify-content:space-between; padding:18px 0; border-bottom:1px solid var(--border); }
+  .loc-row:last-child { border-bottom:none; }
+  .loc-row-key { font-family:'Space Grotesk',sans-serif; font-size:10px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); }
+  .loc-row-val { font-family:'Space Grotesk',sans-serif; font-size:14px; font-weight:600; }
+
+  /* ─ FOOTER ─ */
+  footer { background:var(--ink); padding:64px 52px 36px; }
+  .ft-top { display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:48px; padding-bottom:52px; border-bottom:1px solid rgba(255,255,255,.07); }
+  .ft-wm { font-family:'Bebas Neue',sans-serif; font-size:48px; color:var(--white); letter-spacing:.04em; line-height:1; }
+  .ft-tagline { font-size:13px; font-weight:300; color:rgba(255,255,255,.38); line-height:1.65; margin:14px 0 26px; max-width:250px; }
+  .ft-nl { display:flex; gap:8px; }
+  .ft-nl input { flex:1; padding:11px 15px; background:rgba(255,255,255,.06); border:1.5px solid rgba(255,255,255,.1); border-radius:8px; color:var(--white); font-family:'DM Sans',sans-serif; font-size:13px; outline:none; transition:border-color .2s; }
+  .ft-nl input::placeholder { color:rgba(255,255,255,.22); }
+  .ft-nl input:focus { border-color:rgba(255,255,255,.36); }
+  .ft-nl-btn { padding:11px 18px; border-radius:8px; background:rgba(255,255,255,.09); border:1.5px solid rgba(255,255,255,.14); color:var(--white); font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:700; letter-spacing:.04em; cursor:pointer; transition:background .2s; }
+  .ft-nl-btn:hover { background:rgba(255,255,255,.18); }
+  .ft-col-title { font-family:'Space Grotesk',sans-serif; font-size:10px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:rgba(255,255,255,.28); margin-bottom:18px; }
+  .ft-links { list-style:none; display:flex; flex-direction:column; gap:10px; }
+  .ft-links a { color:rgba(255,255,255,.45); font-size:13px; font-weight:300; text-decoration:none; transition:color .2s; }
+  .ft-links a:hover { color:var(--white); }
+  .ft-bot { display:flex; align-items:center; justify-content:space-between; padding-top:22px; font-family:'Space Grotesk',sans-serif; font-size:11px; color:rgba(255,255,255,.22); }
+  .ft-bot-links { display:flex; gap:18px; }
+  .ft-bot-links a { color:rgba(255,255,255,.22); text-decoration:none; transition:color .2s; }
+  .ft-bot-links a:hover { color:rgba(255,255,255,.6); }
+
+  /* ─ REVEAL ─ */
+  .rev { opacity:0; transform:translateY(22px); transition:opacity .65s var(--ease), transform .65s var(--ease); }
+  .rev.on { opacity:1; transform:none; }
+
+  /* ─ RESPONSIVE ─ */
+  @media(max-width:1100px){
+    .nav-inner { padding:18px 32px; }
+    .hero-bento { grid-template-columns:1fr 320px; padding:10px 10px 0; }
+    .wordmark { padding:10px 32px 8px; }
+    .index-list, .bk-header, .svc-header, #journal, .loc-left, .loc-right, .coaches-content, .about-left, .about-right, .how-inner { padding-left:32px; padding-right:32px; }
+    .bk-cal-panel, .bk-form-panel { padding:36px 32px; }
+    .ft-top { grid-template-columns:1fr 1fr; gap:32px; }
+    footer { padding-left:32px; padding-right:32px; }
+  }
+  @media(max-width:768px){
+    .nav-links { display:none; }
+    .hero-bento { grid-template-columns:1fr; }
+    .hero-right { display:none; }
+    .wordmark-row { grid-template-columns:1fr; }
+    .wordmark { border-right:none; border-bottom:1px solid var(--border); font-size:clamp(60px,20vw,120px); }
+    .bk-header { flex-direction:column; align-items:flex-start; gap:10px; }
+    .bk-sub { text-align:left; }
+    .bk-body { grid-template-columns:1fr; }
+    .bk-cal-panel { border-right:none; border-bottom:1px solid var(--border); }
+    .svc-grid { grid-template-columns:1fr; }
+    .svc-card { border-right:none; border-bottom:1px solid var(--border); }
+    .svc-card:nth-child(n) .svc-img { margin-top:0; }
+    .about-grid, .how-inner, .coaches-inner, .loc-grid { grid-template-columns:1fr; }
+    .about-left, .coaches-content { border-right:none; border-bottom:1px solid rgba(255,255,255,.08); }
+    .loc-left { border-right:none; border-bottom:1px solid var(--border); }
+    .coaches-photo { min-height:300px; }
+    .journal-mosaic { grid-template-columns:1fr 1fr; grid-template-rows:auto; }
+    .j-item:first-child { grid-row:auto; grid-column:span 2; height:220px; }
+    .j-item { height:150px; }
+    .ft-top { grid-template-columns:1fr; }
+    .ft-bot { flex-direction:column; gap:12px; text-align:center; }
+    .bf-inp-row { grid-template-columns:1fr; }
+  }
+  @media(prefers-reduced-motion:reduce){
+    .rev, .hero-photo-panel img { transition:none; }
+  }
   </style>
 </head>
-
 <body>
 
-  <!-- ===== NAVBAR ===== -->
-  <nav class="navbar" id="navbar">
-    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-      <a href="#" class="logo-text text-white font-extrabold text-xl tracking-widest transition-colors duration-400">
-        ACETENNIS
+<!-- ── NAV ── -->
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <div class="nav-logo-wrap">
+        <img class="nav-logo-img" src="logo-black-gold.svg" alt="Padel Kita Jogja Logo">
+        <div class="nav-logo-text">
+          <div class="nav-logo-name">Padel Kita <span>Jogja</span></div>
+          <div class="nav-logo-sub">Komunitas Padel Yogyakarta</div>
+        </div>
+      </div>
+    </a>
+    <div class="nav-links">
+      <a href="#booking">// Booking</a>
+      <a href="#services">// Program</a>
+      <a href="#about">// Tentang</a>
+      <a href="#how">// Cara Daftar</a>
+      <a href="#coaches">// Pelatih</a>
+    </div>
+    <div class="nav-cta">
+      <a href="#booking" class="btn btn-lime">Book Lapangan ↗</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ── HERO BENTO ── -->
+<section id="hero">
+  <div class="hero-bento">
+
+    <!-- photo panel -->
+    <div class="hero-photo-panel">
+      <!-- slideshow -->
+      <div class="hero-slides" id="heroSlides">
+        <div class="hero-slide active" style="background-image:url('https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?w=1400&q=85&auto=format&fit=crop')"></div>
+        <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1554068865-24cecd4e34b8?w=1400&q=85&auto=format&fit=crop')"></div>
+        <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1529900748604-07564a03e7a6?w=1400&q=85&auto=format&fit=crop')"></div>
+        <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=1400&q=85&auto=format&fit=crop')"></div>
+        <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1516817210965-f4dcd2c4c773?w=1400&q=85&auto=format&fit=crop')"></div>
+        <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?w=1400&q=85&auto=format&fit=crop')"></div>
+      </div>
+      <!-- dots -->
+      <div class="hero-slide-dots" id="heroSlideDots">
+        <span class="hsd active" data-i="0"></span>
+        <span class="hsd" data-i="1"></span>
+        <span class="hsd" data-i="2"></span>
+        <span class="hsd" data-i="3"></span>
+        <span class="hsd" data-i="4"></span>
+        <span class="hsd" data-i="5"></span>
+      </div>
+      <div class="hero-photo-overlay"></div>
+      <div class="hero-photo-content">
+        <!-- members badge -->
+        <div class="hero-members">
+          <div class="hero-avatars">
+            <div class="hero-avatar"><img src="https://i.pravatar.cc/60?img=11" alt=""></div>
+            <div class="hero-avatar"><img src="https://i.pravatar.cc/60?img=21" alt=""></div>
+            <div class="hero-avatar"><img src="https://i.pravatar.cc/60?img=31" alt=""></div>
+            <div class="hero-avatar"><img src="https://i.pravatar.cc/60?img=41" alt=""></div>
+          </div>
+          <span class="hero-members-label"><span class="hero-members-num">1.200+</span> Anggota Aktif</span>
+        </div>
+        <!-- headline -->
+        <div class="hero-headline-block">
+          <h1 class="hero-headline">RAKET,<br>TAWA, <span class="dim">&</span><br>KOMUNITAS</h1>
+          <div class="hero-sub-row">
+            <p class="hero-sub">Komunitas padel Jogja yang welcoming — friendly match, sesi latihan, dan teman main baru setiap minggu.</p>
+            <div class="hero-ctas">
+              <a href="#how" class="btn btn-lime">Bergabung ↗</a>
+              <a href="#services" class="btn btn-ghost-w">Program</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- right column -->
+    <div class="hero-right">
+      <!-- dark CTA card -->
+      <div class="hero-cta-card">
+        <div class="hero-cta-index">— Tentang Komunitas</div>
+        <p class="hero-cta-q">Siap mencoba <em>ayunan pertama</em> di lapangan padel?<br><strong>Daftar dan langsung main bersama kami.</strong></p>
+        <div class="hero-cta-bottom">
+          <span class="hero-since micro" style="color:rgba(255,255,255,.2)">Est. 2021 · Jogja</span>
+          <a href="#how" class="cbtn white">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+      <!-- stat cards -->
+      <div class="hero-stats-row">
+        <div class="hero-stat-card lime">
+          <div class="hero-stat-num">4</div>
+          <div class="hero-stat-label">Lapangan</div>
+        </div>
+        <div class="hero-stat-card">
+          <div class="hero-stat-num">48+</div>
+          <div class="hero-stat-label">Sesi/bulan</div>
+        </div>
+        <div class="hero-stat-card">
+          <div class="hero-stat-num">98%</div>
+          <div class="hero-stat-label">Kepuasan</div>
+        </div>
+        <div class="hero-stat-card">
+          <div class="hero-stat-num">06–22</div>
+          <div class="hero-stat-label">Jam Buka</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- wordmark + index -->
+  <div class="wordmark-row">
+    <div class="wordmark">PADEL<br>KITA</div>
+    <div class="index-list">
+      <a href="#booking" class="index-item">
+        <span class="ii-num">// 01</span><span class="ii-label">Booking Lapangan</span>
+        <span class="ii-arr"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></span>
       </a>
-      <div class="hidden md:flex items-center gap-8">
-        <a href="#" class="nav-link">Home</a>
-        <a href="#" class="nav-link">Training</a>
-        <a href="#" class="nav-link">Programs</a>
-        <a href="#" class="nav-link">Coaches</a>
-        <a href="#" class="nav-link">Tournaments</a>
-        <a href="#" class="nav-link">Membership</a>
-      </div>
-      <button class="book-btn">
-        <i class="fas fa-calendar-check"></i>
-        <span>Book a Lesson</span>
-      </button>
+      <a href="#services" class="index-item">
+        <span class="ii-num">// 02</span><span class="ii-label">Program & Aktivitas</span>
+        <span class="ii-arr"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></span>
+      </a>
+      <a href="#about" class="index-item">
+        <span class="ii-num">// 03</span><span class="ii-label">Tentang Padel Kita</span>
+        <span class="ii-arr"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></span>
+      </a>
+      <a href="#how" class="index-item">
+        <span class="ii-num">// 04</span><span class="ii-label">Cara Bergabung</span>
+        <span class="ii-arr"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></span>
+      </a>
+      <a href="#coaches" class="index-item">
+        <span class="ii-num">// 05</span><span class="ii-label">Pelatih & Komunitas</span>
+        <span class="ii-arr"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></span>
+      </a>
     </div>
-  </nav>
+  </div>
+</section>
 
-  <!-- ===== HERO SECTION ===== -->
-  <section class="hero" id="hero">
-    <div class="cloud-layer" id="cloudLayer">
-      <div class="cloud cloud-1"></div>
-      <div class="cloud cloud-2"></div>
-      <div class="cloud cloud-3"></div>
-      <div class="cloud cloud-4"></div>
-      <div class="cloud cloud-5"></div>
+<!-- ── COUNTDOWN ── -->
+<div id="countdown">
+  <div class="cd-bg"></div>
+  <div class="cd-veil"></div>
+  <div class="cd-inner">
+    <div class="cd-top">
+      <span class="cd-lbl">Sesi Komunitas Berikutnya</span>
+      <span class="cd-num-row">// 03 — Jadwal</span>
     </div>
-
-    <div class="hero-text">
-      <h1>PLAY STRONG</h1>
-    </div>
-
-    <div class="silhouette-wrapper">
-      <div class="silhouette-placeholder">
-        <!-- <img src="images/female-silhouette.png" alt="Jumping female tennis player silhouette" /> -->
-      </div>
-    </div>
-
-    <div class="glass-box">
-      <p class="glass-title">Since 1998</p>
-      <p class="glass-subtitle">Building Champions...</p>
-      <div class="arrow-controls">
-        <button class="arrow-btn" aria-label="Previous"><i class="fas fa-arrow-left"></i></button>
-        <button class="arrow-btn" aria-label="Next"><i class="fas fa-arrow-right"></i></button>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== ABOUT SECTION ===== -->
-  <section class="about-section" id="about">
-    <div class="about-grid">
-      <!-- Left: Content -->
-      <div class="about-content">
-        <h2 class="about-heading">BUILDING CHAMPIONS <span>ON AND OFF THE COURT</span></h2>
-        <p class="about-paragraph">
-          At ACETENNIS, we believe tennis is more than a sport — it's a lifestyle that builds character,
-          discipline, and lifelong confidence. Our world-class academy has been shaping athletes since 1998,
-          combining elite coaching with a commitment to personal growth.
-        </p>
-        <button class="about-btn">
-          <i class="fas fa-arrow-right"></i>
-          Book a Lesson
-        </button>
-
-        <!-- Stats Card -->
-        <div class="stats-card" style="margin-top: 2.5rem;">
-          <div class="stat-item">
-            <div class="stat-number" data-target="500">0</div>
-            <div class="stat-label">+ Active Players</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-number" data-target="20">0</div>
-            <div class="stat-label">+ Professional Coaches</div>
-          </div>
+    <div class="cd-mid">
+      <div class="cd-sublbl">Sesi Dimulai Dalam</div>
+      <div class="cd-timer">
+        <div class="cd-unit">
+          <div class="cd-dig" id="cdD">04</div>
+          <span class="cd-unit-pill">Hari</span>
+        </div>
+        <div class="cd-sep">:</div>
+        <div class="cd-unit">
+          <div class="cd-dig" id="cdH">14</div>
+          <span class="cd-unit-pill">Jam</span>
+        </div>
+        <div class="cd-sep">:</div>
+        <div class="cd-unit">
+          <div class="cd-dig" id="cdM">32</div>
+          <span class="cd-unit-pill">Menit</span>
         </div>
       </div>
-
-      <!-- Right: Portrait + 15 Years -->
+    </div>
+    <div class="cd-bot">
       <div>
-        <!-- Portrait Card -->
-        <div style="background: #f8fafc; border-radius: 20px; overflow: hidden; border: 1px solid #e2e8f0; margin-bottom: 2rem;">
-          <div style="width: 100%; height: 300px; background: linear-gradient(135deg, #e2e8f0, #cbd5e1); display: flex; align-items: center; justify-content: center;">
-            <i class="fas fa-user" style="font-size: 6rem; color: #00C853; opacity: 0.5;"></i>
-          </div>
-          <div style="padding: 1.5rem; text-align: center;">
-            <p style="font-weight: 700; color: #0A192F; font-size: 1.1rem;">Male Player Portrait</p>
-            <p style="font-size: 0.85rem; color: #666;">Black shirt — professional shot</p>
-          </div>
-        </div>
+        <div class="cd-date">Sabtu, 04 Oktober 2026 · 08:00 WIB</div>
+        <div class="cd-venue">Lapangan A — Padel Kita Jogja / Sleman</div>
+      </div>
+      <a href="#booking" class="cbtn white">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</div>
 
-        <!-- 15 Years of Excellence -->
-        <div class="years-box">
-          <div class="years-number">15</div>
-          <div class="years-content">
-            <h3>Years of Excellence</h3>
-            <ul>
-              <li><i class="fas fa-check-circle"></i> Founded in 1998</li>
-              <li><i class="fas fa-check-circle"></i> 20+ professional coaches</li>
-              <li><i class="fas fa-check-circle"></i> 500+ active players trained</li>
-              <li><i class="fas fa-check-circle"></i> National tournament winners</li>
-              <li><i class="fas fa-check-circle"></i> Premier training facility</li>
-            </ul>
+<!-- ── BOOKING ── -->
+<section id="booking" class="rev">
+  <div class="bk-header">
+    <div>
+      <span class="micro">// 01 — Reservasi</span>
+      <h2 class="bk-title">BOOK<br>LAPANGAN</h2>
+    </div>
+    <p class="bk-sub">Pilih lapangan, cek ketersediaan real-time, konfirmasi dalam hitungan detik.</p>
+  </div>
+
+  <!-- court strip -->
+  <div class="court-strip" id="courtStrip">
+    <div class="court-tab active" data-idx="0" data-price="150000" data-name="Court A — Indoor">
+      <div class="court-tab-img"><img src="https://images.unsplash.com/photo-1554068865-24cecd4e34b8?w=400&q=75&auto=format&fit=crop" alt="Court A"></div>
+      <div class="court-tab-body">
+        <div class="court-tab-name">Court A</div>
+        <div class="court-tab-meta">Indoor · Kaca · AC</div>
+        <span class="court-avail">4 slot tersedia</span>
+      </div>
+    </div>
+    <div class="court-tab" data-idx="1" data-price="120000" data-name="Court B — Outdoor">
+      <div class="court-tab-img"><img src="https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?w=400&q=75&auto=format&fit=crop" alt="Court B"></div>
+      <div class="court-tab-body">
+        <div class="court-tab-name">Court B</div>
+        <div class="court-tab-meta">Outdoor · Sintetis</div>
+        <span class="court-avail">6 slot tersedia</span>
+      </div>
+    </div>
+    <div class="court-tab" data-idx="2" data-price="200000" data-name="Court C — VIP">
+      <div class="court-tab-img"><img src="https://images.unsplash.com/photo-1529900748604-07564a03e7a6?w=400&q=75&auto=format&fit=crop" alt="Court C"></div>
+      <div class="court-tab-body">
+        <div class="court-tab-name">Court C</div>
+        <div class="court-tab-meta">Indoor · VIP · Premium</div>
+        <span class="court-avail penuh">Penuh hari ini</span>
+      </div>
+    </div>
+    <div class="court-tab" data-idx="3" data-price="100000" data-name="Court D — Junior">
+      <div class="court-tab-img"><img src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=400&q=75&auto=format&fit=crop" alt="Court D"></div>
+      <div class="court-tab-body">
+        <div class="court-tab-name">Court D</div>
+        <div class="court-tab-meta">Indoor · Junior · Pemula</div>
+        <span class="court-avail">3 slot tersedia</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="bk-body">
+    <!-- calendar panel -->
+    <div class="bk-cal-panel">
+      <div class="cal-nav">
+        <button class="cal-btn" id="calPrev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <span class="cal-month-label" id="calMonthLbl">Oktober 2026</span>
+        <button class="cal-btn" id="calNext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></button>
+      </div>
+      <div class="cal-header">
+        <span>Min</span><span>Sen</span><span>Sel</span><span>Rab</span><span>Kam</span><span>Jum</span><span>Sab</span>
+      </div>
+      <div class="cal-grid" id="calGrid"></div>
+      <div class="cal-legend">
+        <div class="leg"><span class="leg-dot" style="background:#4caf50"></span>Tersedia</div>
+        <div class="leg"><span class="leg-dot" style="background:#ef5350"></span>Penuh</div>
+        <div class="leg"><span class="leg-dot" style="background:var(--lime)"></span>Dipilih</div>
+      </div>
+      <!-- slots -->
+      <div class="slots-wrap">
+        <div class="slots-heading">Slot Waktu — <span id="selDateLbl">Pilih tanggal</span></div>
+        <div id="slotsBox"><p style="font-size:13px;color:var(--muted);font-weight:300;padding:18px 0">Pilih tanggal untuk melihat slot tersedia.</p></div>
+      </div>
+    </div>
+
+    <!-- form panel -->
+    <div class="bk-form-panel">
+      <div class="bf-court-preview">
+        <div class="bf-thumb"><img id="bfImg" src="https://images.unsplash.com/photo-1554068865-24cecd4e34b8?w=200&q=75" alt=""></div>
+        <div>
+          <div class="bf-court-nm" id="bfCourtNm">Court A — Indoor</div>
+          <div class="bf-court-ch">Ganti lapangan ↑</div>
+        </div>
+      </div>
+      <div class="bf-summary">
+        <div class="bf-sum"><div class="bf-sum-lbl">Tanggal</div><div class="bf-sum-val empty" id="bfDate">Belum dipilih</div></div>
+        <div class="bf-sum"><div class="bf-sum-lbl">Waktu</div><div class="bf-sum-val empty" id="bfTime">Belum dipilih</div></div>
+        <div class="bf-sum"><div class="bf-sum-lbl">Durasi</div><div class="bf-sum-val">90 Menit</div></div>
+        <div class="bf-sum"><div class="bf-sum-lbl">Lapangan</div><div class="bf-sum-val" id="bfCourtSum">Court A</div></div>
+      </div>
+      <div class="bf-inp-row">
+        <div><label class="bf-lbl">Nama Lengkap</label><input class="bf-inp" type="text" placeholder="Nama kamu"></div>
+        <div><label class="bf-lbl">No. WhatsApp</label><input class="bf-inp" type="tel" placeholder="08xx-xxxx-xxxx"></div>
+      </div>
+      <label class="bf-lbl">Jumlah Pemain</label>
+      <select class="bf-sel"><option>2 Pemain</option><option selected>4 Pemain</option></select>
+      <div class="bf-price-row">
+        <span class="bf-price-lbl">Total Pembayaran</span>
+        <span class="bf-price-val" id="bfPrice">Rp 150.000</span>
+      </div>
+      <button class="bf-submit">Konfirmasi Booking →</button>
+      <button class="bf-wa">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a3.1 3.1 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Chat via WhatsApp
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ── SERVICES ── -->
+<section id="services">
+  <div class="svc-header rev">
+    <div>
+      <span class="micro">// 02 — Program</span>
+      <h2 class="svc-title">APA YANG<br>KAMI TAWARKAN</h2>
+    </div>
+    <a href="#booking" class="btn btn-ghost">Daftar Sekarang ↗</a>
+  </div>
+  <div class="svc-grid">
+    <div class="svc-card rev">
+      <div class="svc-num">① — Komunitas</div>
+      <div class="svc-card-title">WEEKLY GAMES</div>
+      <p class="svc-card-body">Sesi main bersama tiap Sabtu & Minggu. Semua level welcome — dari pemula hingga pemain kompetitif. Daftar, datang, main.</p>
+      <a href="#booking" class="cbtn" style="margin-bottom:20px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      <div class="svc-img"><img src="https://images.unsplash.com/photo-1554068865-24cecd4e34b8?w=500&q=75&auto=format&fit=crop" alt="Weekly games" loading="lazy"></div>
+    </div>
+    <div class="svc-card rev">
+      <div class="svc-num">② — Pelatihan</div>
+      <div class="svc-card-title">COACHING & CLINIC</div>
+      <p class="svc-card-body">Privat & grup bersama pelatih bersertifikat WPT. Teknik dasar, taktik, analisis permainan, hingga persiapan turnamen.</p>
+      <a href="#booking" class="cbtn" style="margin-bottom:20px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      <div class="svc-img"><img src="https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?w=500&q=75&auto=format&fit=crop" alt="Coaching" loading="lazy"></div>
+    </div>
+    <div class="svc-card rev">
+      <div class="svc-num">③ — Event</div>
+      <div class="svc-card-title">TURNAMEN & MEETUP</div>
+      <p class="svc-card-body">Turnamen komunitas bulanan, fun match antar member, dan gathering di luar lapangan. Padel lebih seru dengan teman baru.</p>
+      <a href="#booking" class="cbtn" style="margin-bottom:20px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      <div class="svc-img"><img src="https://images.unsplash.com/photo-1529900748604-07564a03e7a6?w=500&q=75&auto=format&fit=crop" alt="Events" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ABOUT ── -->
+<section id="about" class="rev">
+  <div class="about-grid">
+    <div class="about-left">
+      <span class="micro">// 03 — Tentang Kami</span>
+      <h2 class="about-title">PADEL<br>LEBIH SERU<br>BERSAMA</h2>
+      <p class="about-body">Padel Kita Jogja lahir dari cinta terhadap olahraga dan keyakinan bahwa olahraga menyatukan orang. Kami bukan sekadar tempat main — kami adalah komunitas.</p>
+      <div class="about-founded">
+        <span class="about-founded-label">Berdiri sejak</span>
+        <span class="about-founded-year">2021</span>
+      </div>
+      <a href="#how" class="btn btn-ink">Cara Bergabung ↗</a>
+    </div>
+    <div class="about-right">
+      <div class="about-img-main"><img src="https://images.unsplash.com/photo-1554068865-24cecd4e34b8?w=700&q=80&auto=format&fit=crop" alt="Lapangan padel" loading="lazy"></div>
+      <div class="about-img-row">
+        <div class="about-img-sm"><img src="https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?w=400&q=75&auto=format&fit=crop" alt="Main padel" loading="lazy"></div>
+        <div class="about-img-sm"><img src="https://images.unsplash.com/photo-1529900748604-07564a03e7a6?w=400&q=75&auto=format&fit=crop" alt="Komunitas" loading="lazy"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── HOW TO JOIN ── -->
+<section id="how">
+  <div class="how-inner rev">
+    <div>
+      <span class="micro">// 04 — Cara Daftar</span>
+      <h2 class="how-title">CARA<br>BERGABUNG</h2>
+      <div class="how-steps" id="howSteps">
+        <div class="how-step open" data-idx="0">
+          <div class="how-step-num">01</div>
+          <div class="how-step-content">
+            <div class="how-step-title">Isi Formulir Pendaftaran</div>
+            <div class="how-step-desc">Daftar lewat website atau langsung WhatsApp kami. Isi nama, level permainan, dan jadwal yang kamu inginkan.</div>
           </div>
+          <div class="how-step-arr"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></div>
+        </div>
+        <div class="how-step" data-idx="1">
+          <div class="how-step-num">02</div>
+          <div class="how-step-content">
+            <div class="how-step-title">Gabung Grup WhatsApp</div>
+            <div class="how-step-desc">Kamu akan langsung dimasukkan ke grup komunitas dan mendapat info jadwal, event, serta update lapangan terbaru.</div>
+          </div>
+          <div class="how-step-arr"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></div>
+        </div>
+        <div class="how-step" data-idx="2">
+          <div class="how-step-num">03</div>
+          <div class="how-step-content">
+            <div class="how-step-title">Book Sesi Pertama</div>
+            <div class="how-step-desc">Pilih jadwal dan lapangan yang cocok lewat website. Konfirmasi otomatis dikirim via WhatsApp — mudah dan cepat.</div>
+          </div>
+          <div class="how-step-arr"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></div>
+        </div>
+        <div class="how-step" data-idx="3">
+          <div class="how-step-num">04</div>
+          <div class="how-step-content">
+            <div class="how-step-title">Datang & Langsung Main!</div>
+            <div class="how-step-desc">Tiba 10 menit sebelum waktu, ambil raket rental jika perlu, dan nikmati permainan bersama teman-teman baru.</div>
+          </div>
+          <div class="how-step-arr"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></div>
         </div>
       </div>
     </div>
-  </section>
-
-  <!-- ===== TRAINING PROGRAM SECTION ===== -->
-  <section class="training-section" id="training">
-    <div class="training-header">
-      <h2 class="training-heading">Training Programs</h2>
-      <p class="training-subheading">Choose your path to greatness</p>
+    <div class="how-img">
+      <img src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=700&q=80&auto=format&fit=crop" alt="Cara bergabung" loading="lazy">
     </div>
+  </div>
+</section>
 
-    <div class="training-carousel-wrapper">
-      <button class="carousel-arrow prev" aria-label="Scroll left">
-        <i class="fas fa-arrow-left"></i>
-      </button>
-      <button class="carousel-arrow next" aria-label="Scroll right">
-        <i class="fas fa-arrow-right"></i>
-      </button>
-
-      <div class="carousel-track" id="carouselTrack">
-        <!-- Beginner Training Card -->
-        <div class="carousel-card">
-          <div class="card-image">
-            <i class="fas fa-futbol"></i>
+<!-- ── COACHES ── -->
+<section id="coaches">
+  <div class="coaches-inner">
+    <div class="coaches-photo">
+      <img src="https://images.unsplash.com/photo-1554068865-24cecd4e34b8?w=700&q=80&auto=format&fit=crop" alt="Pelatih Padel Kita" loading="lazy">
+    </div>
+    <div class="coaches-content rev">
+      <div>
+        <span class="micro" style="color:rgba(255,255,255,.28)">// 05 — Pelatih</span>
+        <h2 class="coaches-title">PELATIH<br>KAMI</h2>
+        <p class="coaches-body">Pelatih bersertifikat WPT yang passionate dalam mengajar — baik untuk pemula maupun pemain kompetitif. Setiap sesi dirancang untuk perkembanganmu.</p>
+      </div>
+      <!-- avatar tabs -->
+      <div>
+        <div class="coach-tabs" id="coachTabs">
+          <div class="coach-tab active" data-tidx="0">
+            <div class="coach-tab-avatar"><img src="https://i.pravatar.cc/60?img=15" alt="Coach Danu"></div>
+            <span class="coach-tab-name">Coach Danu</span>
           </div>
-          <div class="card-body">
-            <span class="card-tag">Beginner</span>
-            <h3>Beginner Training</h3>
-            <p>Learn the fundamentals of tennis with our expert coaches. Perfect for newcomers looking to build a solid foundation.</p>
-            <button class="book-btn" style="width: 100%; justify-content: center;">
-              <i class="fas fa-arrow-right"></i> Details
-            </button>
+          <div class="coach-tab" data-tidx="1">
+            <div class="coach-tab-avatar"><img src="https://i.pravatar.cc/60?img=22" alt="Coach Rina"></div>
+            <span class="coach-tab-name">Coach Rina</span>
+          </div>
+          <div class="coach-tab" data-tidx="2">
+            <div class="coach-tab-avatar"><img src="https://i.pravatar.cc/60?img=33" alt="Coach Bimo"></div>
+            <span class="coach-tab-name">Coach Bimo</span>
           </div>
         </div>
-
-        <!-- Advanced Training Card -->
-        <div class="carousel-card">
-          <div class="card-image" style="background: linear-gradient(135deg, #0a192f, #16213e);">
-            <i class="fas fa-bolt" style="color: #39FF14;"></i>
-          </div>
-          <div class="card-body">
-            <span class="card-tag" style="background: #0A192F; color: #fff;">Advanced</span>
-            <h3>Advanced Training</h3>
-            <p>Elevate your game with intensive coaching, match strategy, and performance optimization for competitive players.</p>
-            <button class="book-btn" style="width: 100%; justify-content: center;">
-              <i class="fas fa-arrow-right"></i> Details
-            </button>
-          </div>
+        <!-- testimonials -->
+        <div class="coach-testi active" id="testi-0">
+          <p class="coach-testi-quote">"Setelah latihan 2 bulan sama Coach Danu, smash saya jauh lebih konsisten. Cara ngajarnya sabar dan selalu tahu di mana kelemahan saya."</p>
+          <div class="coach-testi-meta">— Rizky P. · Member 1 Tahun</div>
         </div>
-
-        <!-- Additional placeholder cards for carousel feel -->
-        <div class="carousel-card">
-          <div class="card-image">
-            <i class="fas fa-dumbbell"></i>
-          </div>
-          <div class="card-body">
-            <span class="card-tag">Fitness</span>
-            <h3>Fitness Conditioning</h3>
-            <p>Strength and conditioning programs designed specifically for tennis athletes to boost performance and prevent injury.</p>
-            <button class="book-btn" style="width: 100%; justify-content: center;">
-              <i class="fas fa-arrow-right"></i> Details
-            </button>
-          </div>
+        <div class="coach-testi" id="testi-1">
+          <p class="coach-testi-quote">"Coach Rina paling enak buat pemula. Gerakannya diajarkan pelan-pelan, tidak overwhelming. Sekarang sudah bisa ikut weekly games!"</p>
+          <div class="coach-testi-meta">— Sari D. · Member Baru</div>
         </div>
-
-        <div class="carousel-card">
-          <div class="card-image" style="background: linear-gradient(135deg, #0a192f, #16213e);">
-            <i class="fas fa-trophy" style="color: #39FF14;"></i>
-          </div>
-          <div class="card-body">
-            <span class="card-tag" style="background: #0A192F; color: #fff;">Competitive</span>
-            <h3>Competitive Prep</h3>
-            <p>Tournament-ready preparation with match simulation, mental training, and tactical analysis.</p>
-            <button class="book-btn" style="width: 100%; justify-content: center;">
-              <i class="fas fa-arrow-right"></i> Details
-            </button>
-          </div>
+        <div class="coach-testi" id="testi-2">
+          <p class="coach-testi-quote">"Kalau mau serius di turnamen, Coach Bimo orangnya. Analisis taktikal, mental game, semuanya dibahas. Level saya naik drastis dalam 3 bulan."</p>
+          <div class="coach-testi-meta">— Budi S. · Member 2 Tahun</div>
         </div>
+        <a href="#booking" class="btn btn-lime" style="margin-top:24px">Book Sesi Trial ↗</a>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ===== SCRIPTS ===== -->
-  <script>
-    // Navbar scroll effect
-    const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-      navbar.classList.toggle('scrolled', window.scrollY > 50);
-    });
+<!-- ── JOURNAL ── -->
+<section id="journal" class="rev">
+  <div class="journal-header">
+    <div>
+      <span class="micro">// Jurnal Komunitas</span>
+      <h2 class="journal-title">MOMEN<br>KOMUNITAS</h2>
+    </div>
+    <a href="#" class="btn btn-ghost">Lihat Semua ↗</a>
+  </div>
+  <div class="journal-mosaic">
+    <div class="j-item">
+      <img src="https://images.unsplash.com/photo-1554068865-24cecd4e34b8?w=800&q=75&auto=format&fit=crop" alt="Journal" loading="lazy">
+      <div class="j-tag">#WEEKLYRUN / COURT A</div>
+    </div>
+    <div class="j-item">
+      <img src="https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?w=500&q=75&auto=format&fit=crop" alt="Journal" loading="lazy">
+      <div class="j-tag">#AFTERGAME</div>
+    </div>
+    <div class="j-item">
+      <img src="https://images.unsplash.com/photo-1529900748604-07564a03e7a6?w=500&q=75&auto=format&fit=crop" alt="Journal" loading="lazy">
+      <div class="j-tag">#CLINICSERIES</div>
+    </div>
+  </div>
+</section>
 
-    // Parallax cloud effect
-    const cloudLayer = document.getElementById('cloudLayer');
-    window.addEventListener('scroll', () => {
-      cloudLayer.style.transform = `translateX(${window.scrollY * 0.3}px)`;
-    });
+<!-- ── LOCATION ── -->
+<section id="location" class="rev">
+  <div class="loc-grid">
+    <div class="loc-left">
+      <span class="micro">// Lokasi</span>
+      <h2 class="loc-title">TEMUKAN<br>KAMI DI<br>JOGJA</h2>
+      <p class="loc-body">Berlokasi di Sleman, 15 menit dari pusat kota Yogyakarta. Parkir luas, café, loker, dan ruang ganti tersedia.</p>
+      <a href="https://maps.google.com" target="_blank" class="btn btn-ink">Buka di Maps ↗</a>
+    </div>
+    <div class="loc-right">
+      <div class="loc-row"><span class="loc-row-key">Alamat</span><span class="loc-row-val">Jl. Magelang KM 8, Sleman</span></div>
+      <div class="loc-row"><span class="loc-row-key">Jam Buka</span><span class="loc-row-val">06.00 – 22.00 WIB</span></div>
+      <div class="loc-row"><span class="loc-row-key">WhatsApp</span><span class="loc-row-val">0812-xxxx-xxxx</span></div>
+      <div class="loc-row"><span class="loc-row-key">Instagram</span><span class="loc-row-val">@padelkitajogja</span></div>
+      <div class="loc-row"><span class="loc-row-key">Lapangan</span><span class="loc-row-val">4 Court (Indoor & Outdoor)</span></div>
+      <div class="loc-row"><span class="loc-row-key">Fasilitas</span><span class="loc-row-val">Café · Loker · Parkir Luas</span></div>
+    </div>
+  </div>
+</section>
 
-    // Carousel scroll
-    const track = document.getElementById('carouselTrack');
-    document.querySelector('.carousel-arrow.prev').addEventListener('click', () => {
-      track.scrollBy({ left: -360, behavior: 'smooth' });
-    });
-    document.querySelector('.carousel-arrow.next').addEventListener('click', () => {
-      track.scrollBy({ left: 360, behavior: 'smooth' });
-    });
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="ft-top">
+    <div>
+      <div class="ft-wm">PADEL<br>KITA</div>
+      <p class="ft-tagline">Komunitas & fasilitas padel terbaik di Yogyakarta. Buka setiap hari 06.00–22.00 WIB.</p>
+      <div class="ft-nl">
+        <input type="email" placeholder="Email kamu">
+        <button class="ft-nl-btn">Daftar →</button>
+      </div>
+    </div>
+    <div>
+      <div class="ft-col-title">Lapangan</div>
+      <ul class="ft-links">
+        <li><a href="#">Court A — Indoor</a></li>
+        <li><a href="#">Court B — Outdoor</a></li>
+        <li><a href="#">Court C — VIP</a></li>
+        <li><a href="#">Court D — Junior</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="ft-col-title">Program</div>
+      <ul class="ft-links">
+        <li><a href="#">Weekly Games</a></li>
+        <li><a href="#">Coaching Privat</a></li>
+        <li><a href="#">Klinik Padel</a></li>
+        <li><a href="#">Turnamen</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="ft-col-title">Info</div>
+      <ul class="ft-links">
+        <li><a href="#">Tentang Kami</a></li>
+        <li><a href="#">Harga Sewa</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Kontak</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="ft-bot">
+    <span>© 2026 Padel Kita Jogja. All rights reserved.</span>
+    <div class="ft-bot-links">
+      <a href="#">Privasi</a><a href="#">Syarat</a>
+    </div>
+  </div>
+</footer>
 
-    // Counter animation for stats
-    function animateCounters() {
-      const counters = document.querySelectorAll('.stat-number[data-target]');
-      counters.forEach(counter => {
-        const target = parseInt(counter.dataset.target);
-        const duration = 2000;
-        const start = performance.now();
-        function update(now) {
-          const elapsed = now - start;
-          const progress = Math.min(elapsed / duration, 1);
-          const eased = 1 - Math.pow(1 - progress, 3);
-          counter.textContent = Math.floor(eased * target);
-          if (progress < 1) requestAnimationFrame(update);
-          else counter.textContent = target + '+';
-        }
-        requestAnimationFrame(update);
-      });
-    }
+<script type="module">
+import { initBookingCalendar, bindBookingSubmit } from './js/booking/calendar.js';
 
-    // Trigger counter animation when about section enters viewport
-    const aboutObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) { animateCounters(); aboutObserver.disconnect(); }
-      });
-    }, { threshold: 0.3 });
-    const aboutSection = document.getElementById('about');
-    if (aboutSection) aboutObserver.observe(aboutSection);
-  </script>
+// ── NAV ──
+const nav = document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>60),{passive:true});
+
+// ── HERO SLIDESHOW ──
+(()=>{
+  const slides = document.querySelectorAll('.hero-slide');
+  const dots   = document.querySelectorAll('.hsd');
+  if(!slides.length) return;
+  let cur = 0, timer;
+
+  function goTo(n) {
+    slides[cur].classList.remove('active');
+    slides[cur].classList.add('prev');
+    dots[cur].classList.remove('active');
+    const prevIdx = cur;
+    setTimeout(()=> slides[prevIdx].classList.remove('prev'), 1300);
+    cur = (n + slides.length) % slides.length;
+    slides[cur].classList.add('active');
+    dots[cur].classList.add('active');
+  }
+  function next() { goTo(cur + 1); }
+  function start() { timer = setInterval(next, 4500); }
+  function stop()  { clearInterval(timer); }
+
+  dots.forEach(d => d.addEventListener('click', () => { stop(); goTo(parseInt(d.dataset.i)); start(); }));
+  const panel = document.querySelector('.hero-photo-panel');
+  if(panel){ panel.addEventListener('mouseenter', stop); panel.addEventListener('mouseleave', start); }
+  start();
+})();
+
+// ── COUNTDOWN ──
+(()=>{
+  const T = new Date('2026-10-04T08:00:00+07:00');
+  const fmt = n => String(n).padStart(2,'0');
+  function upd(){
+    const d = T - new Date(); if(d <= 0) return;
+    const eD = document.getElementById('cdD'), eH = document.getElementById('cdH'), eM = document.getElementById('cdM');
+    if(eD) eD.textContent = fmt(Math.floor(d/86400000));
+    if(eH) eH.textContent = fmt(Math.floor(d%86400000/3600000));
+    if(eM) eM.textContent = fmt(Math.floor(d%3600000/60000));
+  }
+  upd(); setInterval(upd, 30000);
+})();
+
+// ── REVEAL ON SCROLL ──
+const ro = new IntersectionObserver(es=>{
+  es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('on'); ro.unobserve(e.target); } });
+}, {threshold:.08, rootMargin:'0px 0px -30px 0px'});
+document.querySelectorAll('.rev').forEach(el=>ro.observe(el));
+document.querySelectorAll('.svc-grid .svc-card').forEach((c,i)=>c.style.transitionDelay=`${i*80}ms`);
+
+// ── HOW STEPS accordion ──
+document.querySelectorAll('.how-step').forEach(s=>{
+  s.addEventListener('click',()=>{
+    document.querySelectorAll('.how-step').forEach(x=>x.classList.remove('open'));
+    s.classList.add('open');
+  });
+});
+
+// ── COACH TABS ──
+document.querySelectorAll('.coach-tab').forEach(t=>{
+  t.addEventListener('click',()=>{
+    document.querySelectorAll('.coach-tab').forEach(x=>x.classList.remove('active'));
+    document.querySelectorAll('.coach-testi').forEach(x=>x.classList.remove('active'));
+    t.classList.add('active');
+    const el = document.getElementById('testi-'+t.dataset.tidx);
+    if(el) el.classList.add('active');
+  });
+});
+
+// ── BOOKING CALENDAR (Supabase) ──
+(async () => {
+  try {
+    await initBookingCalendar();
+    bindBookingSubmit();
+
+    // Prev / Next bulan
+    const calPrev = document.getElementById('calPrev');
+    const calNext = document.getElementById('calNext');
+    // Modul calendar menangani render; tombol bulan diganti lewat event custom
+    window.__pkjCalNav = (delta) => {
+      const ev = new CustomEvent('pkj-cal-nav', {detail: delta});
+      document.dispatchEvent(ev);
+    };
+    if(calPrev) calPrev.addEventListener('click', () => window.__pkjCalNav(-1));
+    if(calNext) calNext.addEventListener('click', () => window.__pkjCalNav(1));
+  } catch (err) {
+    console.error('Booking init error:', err);
+    const box = document.getElementById('slotsBox');
+    if(box) box.innerHTML = '<p style="font-size:13px;color:#c62828;font-weight:400;padding:18px 0">Gagal memuat data booking. Cek koneksi Supabase.</p>';
+  }
+})();
+</script>
 
 </body>
 </html>

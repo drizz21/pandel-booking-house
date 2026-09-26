@@ -642,6 +642,8 @@ function renderSummary() {
 }
 
 function updateTotals() {
+  // Catatan: nilai ini hanya ESTIMASI untuk tampilan.
+  // Nilai final dihitung server (checkout_attach_customer) saat submit.
   const fee   = method ? calcAdminFee(booking.price, method) : 0;
   const total = booking.price + fee;
   $('sumFee').textContent    = fee > 0 ? toRupiah(fee) : 'Gratis';
@@ -707,10 +709,10 @@ function bindSubmit() {
     $('submitTx').textContent = 'Memproses…';
 
     try {
-      const adminFee = calcAdminFee(booking.price, method);
+      // Server yang menghitung admin fee & total (anti manipulasi dari klien).
       await attachCustomerToBooking(bookingId, {
         name, phone: normalizePhone(phone), email,
-        paymentMethod: method, adminFee,
+        paymentMethod: method,
       });
 
       const result = await processPayment(bookingId, method);

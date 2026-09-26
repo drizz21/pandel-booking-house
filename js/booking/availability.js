@@ -1,5 +1,8 @@
 // ============================================================
 // js/booking/availability.js — cek ketersediaan slot real-time
+//
+// KEAMANAN: view booked_slots memakai security_invoker + kolom
+// terbatas (tanpa booking_code / data pelanggan).
 // ============================================================
 import { supabase } from '../supabase.js';
 import { CONFIG }   from '../config.js';

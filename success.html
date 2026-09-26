@@ -260,18 +260,18 @@ async function load() {
     booking.status === 'confirmed' ? 'Confirmed' : booking.status;
 
   // WhatsApp confirm link
-  const phone = booking.customers?.phone?.replace(/\D/g,'');
-  if (phone) {
-    const msg = encodeURIComponent(
-      `Halo Padel Kita Jogja!\n\nSaya sudah booking:\n` +
-      `Kode: ${booking.booking_code}\n` +
-      `Lapangan: ${booking.courts?.name}\n` +
-      `Tanggal: ${toLocaleDateLong(booking.booking_date)}\n` +
-      `Waktu: ${booking.start_time?.slice(0,5)} – ${booking.end_time?.slice(0,5)} WIB\n` +
-      `Total: ${toRupiah(booking.total_price)}\n\nMohon konfirmasi. Terima kasih!`
-    );
-    document.getElementById('btn-wa-confirm').href = `https://wa.me/6281200000000?text=${msg}`;
-  }
+  // Nomor HP pelanggan tidak lagi dikirim via ?code= (privasi).
+  // Tombol tetap aktif memakai nomor admin.
+  const msg = encodeURIComponent(
+    `Halo Padel Kita Jogja!\n\nSaya sudah booking:\n` +
+    `Kode: ${booking.booking_code}\n` +
+    `Lapangan: ${booking.courts?.name}\n` +
+    `Tanggal: ${toLocaleDateLong(booking.booking_date)}\n` +
+    `Waktu: ${booking.start_time?.slice(0,5)} – ${booking.end_time?.slice(0,5)} WIB\n` +
+    `Total: ${toRupiah(booking.total_price)}\n\nMohon konfirmasi. Terima kasih!`
+  );
+  const waBtn = document.getElementById('btn-wa-confirm');
+  if (waBtn) waBtn.href = `https://wa.me/6281200000000?text=${msg}`;
 }
 
 load();

@@ -194,6 +194,13 @@ $$ LANGUAGE plpgsql;
 
 -- ─────────────────────────────────────────────────────────────
 -- 8. ROW LEVEL SECURITY (RLS)
+--
+-- ARSITEKTUR KEAMANAN (lihat supabase/migrations/20260926_harden_rls.sql):
+--   anon TIDAK punya akses langsung ke customers/bookings/payments.
+--   Semua alur publik lewat RPC SECURITY DEFINER:
+--     create_booking_hold, checkout_attach_customer, get_booking_public,
+--     get_booking_by_code_public, release_hold
+--   Harga, admin fee, dan kode booking dihitung di server (anti manipulasi).
 -- ─────────────────────────────────────────────────────────────
 
 ALTER TABLE courts        ENABLE ROW LEVEL SECURITY;
@@ -203,38 +210,37 @@ ALTER TABLE payments      ENABLE ROW LEVEL SECURITY;
 ALTER TABLE blocked_slots ENABLE ROW LEVEL SECURITY;
 ALTER TABLE admins        ENABLE ROW LEVEL SECURITY;
 
--- Courts: public read, admin write
+-- Courts: public read (data non-sensitif), admin write
 CREATE POLICY "courts_public_read"  ON courts FOR SELECT USING (true);
 CREATE POLICY "courts_admin_write"  ON courts FOR ALL
-  USING (EXISTS (SELECT 1 FROM admins WHERE id = auth.uid()));
+  USING (is_admin());
 
--- Bookings: public insert (booking baru), public read by code, admin full
-CREATE POLICY "bookings_public_insert" ON bookings FOR INSERT WITH CHECK (true);
-CREATE POLICY "bookings_public_read"   ON bookings FOR SELECT
-  USING (status IN ('paid','confirmed') OR auth.uid() IS NOT NULL);
-CREATE POLICY "bookings_admin_all"     ON bookings FOR ALL
-  USING (EXISTS (SELECT 1 FROM admins WHERE id = auth.uid()));
+-- Bookings: TIDAK ada akses tulis/baca penuh untuk anon.
+-- anon hanya boleh baca KOLOM ketersediaan (grant kolom terpisah)
+-- via policy di bawah; harga & booking_code tidak di-grant.
+CREATE POLICY "bookings_anon_availability" ON bookings FOR SELECT TO anon
+  USING (status IN ('held','paid','confirmed'));
+CREATE POLICY "bookings_admin_all" ON bookings FOR ALL
+  USING (is_admin()) WITH CHECK (is_admin());
 
--- Customers: insert only public, admin read all
-CREATE POLICY "customers_public_insert" ON customers FOR INSERT WITH CHECK (true);
-CREATE POLICY "customers_admin_read"    ON customers FOR SELECT
-  USING (EXISTS (SELECT 1 FROM admins WHERE id = auth.uid()));
+-- Customers: hanya admin. anon menyimpan data lewat RPC checkout_attach_customer.
+CREATE POLICY "customers_admin_all" ON customers FOR ALL
+  USING (is_admin()) WITH CHECK (is_admin());
 
--- Payments: insert public, admin read
-CREATE POLICY "payments_public_insert" ON payments FOR INSERT WITH CHECK (true);
-CREATE POLICY "payments_admin_all"     ON payments FOR ALL
-  USING (EXISTS (SELECT 1 FROM admins WHERE id = auth.uid()));
+-- Payments: hanya admin. Dibuat oleh Edge Function (service key).
+CREATE POLICY "payments_admin_all" ON payments FOR ALL
+  USING (is_admin()) WITH CHECK (is_admin());
 
 -- Blocked slots: public read, admin write
 CREATE POLICY "blocked_public_read" ON blocked_slots FOR SELECT USING (true);
 CREATE POLICY "blocked_admin_write" ON blocked_slots FOR ALL
-  USING (EXISTS (SELECT 1 FROM admins WHERE id = auth.uid()));
+  USING (is_admin()) WITH CHECK (is_admin());
 
 -- Admins: admin only
 CREATE POLICY "admins_self_read" ON admins FOR SELECT
   USING (id = auth.uid());
 CREATE POLICY "admins_superadmin_all" ON admins FOR ALL
-  USING (EXISTS (SELECT 1 FROM admins WHERE id = auth.uid() AND role = 'superadmin'));
+  USING (is_admin()) WITH CHECK (is_admin());
 
 -- ─────────────────────────────────────────────────────────────
 -- 9. REALTIME — enable untuk kalender realtime

@@ -281,7 +281,6 @@ export function bindBookingSubmit() {
         date:      state.selectedDate,
         startTime: state.selectedSlot,
         endTime,
-        price:     state.activeCourt.price_per_slot,
       });
 
       location.href = `/checkout.html?booking_id=${booking.id}`;

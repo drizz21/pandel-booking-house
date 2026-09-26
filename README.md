@@ -27,20 +27,36 @@ padel-booking/
 ├── index.html          ← Landing page + booking calendar
 ├── checkout.html       ← Halaman checkout (nama, WA, email, payment)
 ├── success.html        ← Konfirmasi booking sukses
+├── 404.html            ← Halaman error 404 (WAJIB ada utk Cloudflare Pages)
+│
+├── assets/             ← favicon, icon, logo, og-image, webmanifest
+│   ├── favicon.ico / favicon.svg
+│   ├── favicon-16x16.png ... favicon-96x96.png
+│   ├── apple-touch-icon.png
+│   ├── android-chrome-192x192.png / -512x512.png
+│   ├── logo-black-gold.svg
+│   ├── og-image.png
+│   └── site.webmanifest
 │
 ├── admin/
 │   ├── login.html      ← Login admin
 │   ├── index.html      ← Dashboard admin
-│   ├── bookings.html   ← (TODO) Semua booking
-│   ├── calendar.html   ← (TODO) Kalender admin + block slot
-│   └── courts.html     ← (TODO) Manajemen lapangan
+│   ├── bookings.html   ← Semua booking
+│   ├── calendar.html   ← Kalender admin + block slot
+│   └── courts.html     ← Manajemen lapangan
+│
+├── css/
+│   └── admin.css
+│
+├── images/             ← Gambar web (sudah teroptimasi)
 │
 ├── js/
 │   ├── config.js       ← Konfigurasi (Supabase URL, Midtrans key)
 │   ├── supabase.js     ← Supabase client singleton
 │   ├── booking/
 │   │   ├── availability.js  ← Cek ketersediaan slot + realtime
-│   │   └── booking.js       ← Hold, update, get booking
+│   │   ├── booking.js       ← Hold, update, get booking
+│   │   └── calendar.js      ← Widget kalender booking
 │   ├── checkout/
 │   │   ├── checkout.js      ← Controller checkout page
 │   │   ├── validation.js    ← Validasi form
@@ -51,10 +67,32 @@ padel-booking/
 │       ├── date.js          ← Helper tanggal/slot
 │       └── currency.js      ← Format Rupiah + admin fee
 │
+├── supabase/
+│   └── functions/      ← Edge Functions (create-payment, payment-webhook)
+│
+├── _headers            ← Security & cache headers (Cloudflare Pages)
+├── _redirects          ← Pretty URL redirects (Cloudflare Pages)
+├── _build-dist.py      ← Build whitelist → _dist/ (JANGAN deploy --dir=.)
+├── wrangler.toml       ← Konfigurasi Cloudflare Pages
 ├── supabase-schema.sql ← Schema database lengkap
-├── logo-black-gold.svg
 └── README.md
 ```
+
+---
+
+## Deploy (Cloudflare Pages)
+
+```bash
+python _build-dist.py     # build ke _dist/ (whitelist — cegah file sensitif ikut)
+npx wrangler pages deploy _dist --project-name=padel-kita-jogja --branch=main --commit-dirty=true
+```
+
+> **JANGAN** pakai `wrangler pages deploy .` — file internal seperti `.env.local`,
+> `README.md`, dan `supabase-schema.sql` akan ikut ter-upload ke publik.
+
+> **WAJIB** ada `404.html` di root. Tanpa itu Cloudflare Pages menganggap situs ini
+> SPA dan semua path tak dikenal akan membalas `index.html` dengan status 200.
+
 
 ---
 

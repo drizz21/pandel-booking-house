@@ -45,10 +45,13 @@ function renderCourtStrip() {
   const strip = $('courtStrip');
   if (!strip) return;
 
+  // Fallback gambar lokal per index court
+  const LOCAL_IMG = ['images/web/court-a.jpg','images/web/court-b.jpg','images/web/court-c.jpg','images/web/court-d.jpg'];
+
   strip.innerHTML = state.courts.map((c, i) => `
     <div class="court-tab${i === 0 ? ' active' : ''}" data-court-id="${c.id}">
       <div class="court-tab-img">
-        <img src="${c.image_url || 'https://images.unsplash.com/photo-1554068865-24cecd4e34b8?w=400&q=75&auto=format&fit=crop'}" alt="${c.name}">
+        <img src="${c.image_url || LOCAL_IMG[i % LOCAL_IMG.length]}" alt="${c.name}">
       </div>
       <div class="court-tab-body">
         <div class="court-tab-name">${c.name}</div>
@@ -228,7 +231,11 @@ function updateSummary() {
   if (state.activeCourt) {
     if (courtNm)  courtNm.textContent  = state.activeCourt.name;
     if (courtSum) courtSum.textContent = state.activeCourt.name;
-    if (img)      img.src = state.activeCourt.image_url || img.src;
+    if (img) {
+      const idx = state.courts.findIndex(c => c.id === state.activeCourt.id);
+      const LOCAL = ['images/web/court-a.jpg','images/web/court-b.jpg','images/web/court-c.jpg','images/web/court-d.jpg'];
+      img.src = state.activeCourt.image_url || LOCAL[Math.max(0, idx) % LOCAL.length];
+    }
     if (priceEl)  priceEl.textContent = toRupiah(state.activeCourt.price_per_slot);
   }
   if (dateEl && state.selectedDate) {

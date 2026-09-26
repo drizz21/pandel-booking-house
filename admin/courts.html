@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lapangan — Admin</title>
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/admin.css"/>
+</head>
+<body>
+
+<aside class="sidebar">
+  <div>
+    <div class="sb-logo">
+      <div class="sb-logo-mark">PK</div>
+      <div>
+        <div class="sb-logo-nm">Padel Kita</div>
+        <div class="sb-logo-sub">Admin Panel</div>
+      </div>
+    </div>
+    <div class="sb-sec">Menu</div>
+    <a href="index.html" class="sb-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      Dashboard
+    </a>
+    <a href="bookings.html" class="sb-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      Semua Booking
+    </a>
+    <a href="calendar.html" class="sb-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      Kalender
+    </a>
+    <a href="courts.html" class="sb-link active">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+      Lapangan
+    </a>
+    <div class="sb-sec">Lainnya</div>
+    <a href="../index.html" class="sb-link" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      Lihat Website
+    </a>
+  </div>
+  <div class="sb-bottom">
+    <div class="sb-user">
+      <div class="sb-avatar" id="sbInit">A</div>
+      <div>
+        <div class="sb-user-nm" id="sbName">Admin</div>
+        <div class="sb-user-rl" id="sbRole">Staff</div>
+      </div>
+    </div>
+    <button class="sb-logout" id="btnLogout">Keluar</button>
+  </div>
+</aside>
+
+<main class="main">
+
+  <div class="page-hd">
+    <div>
+      <div class="page-title">Kelola Lapangan</div>
+      <div class="page-sub">Tambah, ubah, atau nonaktifkan lapangan</div>
+    </div>
+    <button class="btn-sm btn-lime" id="btnAdd" style="padding:12px 22px;font-size:12px">+ Tambah Lapangan</button>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Lapangan</th>
+          <th>Tipe</th>
+          <th>Permukaan</th>
+          <th>Kapasitas</th>
+          <th>Harga / Slot</th>
+          <th>Urutan</th>
+          <th>Status</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody id="tbody">
+        <tr><td colspan="8" class="empty">Memuat data…</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="form-card">
+    <div style="font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;margin-bottom:16px">Ringkasan</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px">
+      <div>
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mid)">Total Lapangan</div>
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:700" id="sumTotal">—</div>
+      </div>
+      <div>
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mid)">Aktif</div>
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:700;color:var(--green)" id="sumActive">—</div>
+      </div>
+      <div>
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mid)">Harga Rata-rata</div>
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:700" id="sumAvg">—</div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- modal form -->
+<div class="modal-bg hidden" id="modal">
+  <div class="modal">
+    <div class="modal-title" id="mTitle">Tambah Lapangan</div>
+    <div class="modal-sub" id="mSub">Isi detail lapangan baru</div>
+
+    <div class="form-grid">
+      <div class="fld">
+        <label class="fld-lbl">Nama Lapangan</label>
+        <input class="fld-inp" type="text" id="fName" placeholder="Court A">
+      </div>
+      <div class="fld">
+        <label class="fld-lbl">Tipe</label>
+        <select class="fld-sel" id="fType">
+          <option value="indoor">Indoor</option>
+          <option value="outdoor">Outdoor</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-grid">
+      <div class="fld">
+        <label class="fld-lbl">Permukaan</label>
+        <select class="fld-sel" id="fSurface">
+          <option value="glass">Kaca (glass)</option>
+          <option value="synthetic">Sintetis</option>
+          <option value="artificial_grass">Rumput Sintetis</option>
+        </select>
+      </div>
+      <div class="fld">
+        <label class="fld-lbl">Kapasitas Pemain</label>
+        <input class="fld-inp" type="number" id="fCap" value="4" min="2" max="8">
+      </div>
+    </div>
+
+    <div class="form-grid">
+      <div class="fld">
+        <label class="fld-lbl">Harga per Slot (Rp)</label>
+        <input class="fld-inp" type="number" id="fPrice" placeholder="150000" step="10000">
+        <div class="fld-hint">Harga untuk 90 menit</div>
+      </div>
+      <div class="fld">
+        <label class="fld-lbl">Urutan Tampil</label>
+        <input class="fld-inp" type="number" id="fSort" value="1" min="1">
+      </div>
+    </div>
+
+    <div class="fld">
+      <label class="fld-lbl">Deskripsi</label>
+      <textarea class="fld-ta" id="fDesc" placeholder="Indoor premium dengan lantai kaca dan AC"></textarea>
+    </div>
+
+    <div class="fld">
+      <label class="fld-lbl">URL Gambar</label>
+      <input class="fld-inp" type="text" id="fImg" placeholder="images/web/court-a.jpg">
+      <div class="fld-hint">Kosongkan untuk pakai gambar default</div>
+    </div>
+
+    <div class="fld">
+      <label class="fld-lbl">Status</label>
+      <select class="fld-sel" id="fActive">
+        <option value="true">Aktif — bisa dipesan</option>
+        <option value="false">Nonaktif — disembunyikan</option>
+      </select>
+    </div>
+
+    <div class="modal-actions">
+      <button class="modal-btn" style="background:var(--paper);color:var(--ink)" id="mClose">Batal</button>
+      <button class="modal-btn" style="background:var(--ink);color:#fff" id="mSave">Simpan</button>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+import { supabase } from '../js/supabase.js';
+import { toRupiah } from '../js/utils/currency.js';
+
+const $ = id => document.getElementById(id);
+
+// ── AUTH GUARD ────────────────────────────────────────────────
+const { data: { session } } = await supabase.auth.getSession();
+if (!session) { location.replace('login.html'); throw new Error('no session'); }
+const { data: admin } = await supabase.from('admins').select('name, role').eq('id', session.user.id).maybeSingle();
+if (!admin) { location.replace('login.html'); throw new Error('not admin'); }
+
+$('sbName').textContent = admin.name;
+$('sbRole').textContent = admin.role;
+$('sbInit').textContent = admin.name[0].toUpperCase();
+$('btnLogout').onclick = async () => { await supabase.auth.signOut(); location.href = 'login.html'; };
+
+// ── STATE ─────────────────────────────────────────────────────
+let courts = [];
+let editId = null;
+
+const TYPE_LBL = { indoor:'Indoor', outdoor:'Outdoor' };
+const SURF_LBL = { glass:'Kaca', synthetic:'Sintetis', artificial_grass:'Rumput' };
+
+// ── LOAD ──────────────────────────────────────────────────────
+async function load() {
+  const { data, error } = await supabase.from('courts').select('*').order('sort_order');
+  if (error) {
+    $('tbody').innerHTML = `<tr><td colspan="8" class="empty">Gagal memuat: ${error.message}</td></tr>`;
+    return;
+  }
+  courts = data ?? [];
+  render();
+}
+
+function render() {
+  if (!courts.length) {
+    $('tbody').innerHTML = '<tr><td colspan="8" class="empty">Belum ada lapangan</td></tr>';
+  } else {
+    $('tbody').innerHTML = courts.map(c => `
+      <tr>
+        <td>
+          <div class="td-nm">${c.name}</div>
+          <div class="td-meta">${c.description ?? ''}</div>
+        </td>
+        <td>${TYPE_LBL[c.type] ?? c.type}</td>
+        <td style="font-size:12px;color:var(--mid)">${SURF_LBL[c.surface] ?? c.surface ?? '—'}</td>
+        <td>${c.capacity ?? 4} pemain</td>
+        <td style="font-weight:600">${toRupiah(c.price_per_slot)}</td>
+        <td>${c.sort_order ?? 0}</td>
+        <td>
+          <span class="badge" style="color:${c.is_active ? '#047857' : '#6B7280'};background:${c.is_active ? 'rgba(4,120,87,.12)' : 'rgba(107,114,128,.12)'}">
+            <span class="badge-dot" style="background:${c.is_active ? '#047857' : '#6B7280'}"></span>
+            ${c.is_active ? 'Aktif' : 'Nonaktif'}
+          </span>
+        </td>
+        <td>
+          <div class="td-actions">
+            <button class="td-btn" data-edit="${c.id}">Edit</button>
+            <button class="td-btn" data-toggle="${c.id}">${c.is_active ? 'Nonaktifkan' : 'Aktifkan'}</button>
+            <button class="td-btn danger" data-del="${c.id}">Hapus</button>
+          </div>
+        </td>
+      </tr>
+    `).join('');
+  }
+
+  // ringkasan
+  const active = courts.filter(c => c.is_active);
+  $('sumTotal').textContent  = courts.length;
+  $('sumActive').textContent = active.length;
+  $('sumAvg').textContent    = active.length
+    ? toRupiah(Math.round(active.reduce((s,c) => s + c.price_per_slot, 0) / active.length))
+    : '—';
+}
+
+// ── ACTIONS ───────────────────────────────────────────────────
+document.addEventListener('click', async (e) => {
+  const ed = e.target.closest('[data-edit]');
+  const tg = e.target.closest('[data-toggle]');
+  const dl = e.target.closest('[data-del]');
+
+  if (ed) openForm(ed.dataset.edit);
+
+  if (tg) {
+    const c = courts.find(x => x.id === tg.dataset.toggle);
+    if (!c) return;
+    await supabase.from('courts').update({ is_active: !c.is_active }).eq('id', c.id);
+    await load();
+  }
+
+  if (dl) {
+    const c = courts.find(x => x.id === dl.dataset.del);
+    if (!c) return;
+    if (!confirm(`Hapus lapangan "${c.name}"?\n\nBooking yang sudah ada akan tetap tersimpan.`)) return;
+
+    const { error } = await supabase.from('courts').delete().eq('id', c.id);
+    if (error) {
+      alert('Tidak bisa dihapus: lapangan ini masih dipakai booking.\n\nSolusi: nonaktifkan saja.');
+      return;
+    }
+    await load();
+  }
+});
+
+// ── FORM MODAL ────────────────────────────────────────────────
+function openForm(id = null) {
+  editId = id;
+  const c = id ? courts.find(x => x.id === id) : null;
+
+  $('mTitle').textContent = c ? 'Edit Lapangan' : 'Tambah Lapangan';
+  $('mSub').textContent   = c ? c.name : 'Isi detail lapangan baru';
+
+  $('fName').value   = c?.name ?? '';
+  $('fType').value   = c?.type ?? 'indoor';
+  $('fSurface').value = c?.surface ?? 'glass';
+  $('fCap').value    = c?.capacity ?? 4;
+  $('fPrice').value  = c?.price_per_slot ?? '';
+  $('fSort').value   = c?.sort_order ?? (courts.length + 1);
+  $('fDesc').value   = c?.description ?? '';
+  $('fImg').value    = c?.image_url ?? '';
+  $('fActive').value = String(c?.is_active ?? true);
+
+  $('modal').classList.remove('hidden');
+}
+
+$('btnAdd').onclick = () => openForm(null);
+$('mClose').onclick = () => $('modal').classList.add('hidden');
+$('modal').addEventListener('click', e => { if (e.target === $('modal')) $('modal').classList.add('hidden'); });
+
+$('mSave').onclick = async () => {
+  const payload = {
+    name:           $('fName').value.trim(),
+    type:           $('fType').value,
+    surface:        $('fSurface').value,
+    capacity:       parseInt($('fCap').value) || 4,
+    price_per_slot: parseInt($('fPrice').value) || 0,
+    sort_order:     parseInt($('fSort').value) || 1,
+    description:    $('fDesc').value.trim() || null,
+    image_url:      $('fImg').value.trim() || null,
+    is_active:      $('fActive').value === 'true',
+  };
+
+  if (!payload.name) { alert('Nama lapangan wajib diisi'); return; }
+  if (payload.price_per_slot <= 0) { alert('Harga harus lebih dari 0'); return; }
+
+  const { error } = editId
+    ? await supabase.from('courts').update(payload).eq('id', editId)
+    : await supabase.from('courts').insert(payload);
+
+  if (error) { alert('Gagal menyimpan: ' + error.message); return; }
+
+  $('modal').classList.add('hidden');
+  await load();
+};
+
+load();
+</script>
+</body>
+</html>

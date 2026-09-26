@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kalender — Admin</title>
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/admin.css"/>
+</head>
+<body>
+
+<aside class="sidebar">
+  <div>
+    <div class="sb-logo">
+      <div class="sb-logo-mark">PK</div>
+      <div>
+        <div class="sb-logo-nm">Padel Kita</div>
+        <div class="sb-logo-sub">Admin Panel</div>
+      </div>
+    </div>
+    <div class="sb-sec">Menu</div>
+    <a href="index.html" class="sb-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      Dashboard
+    </a>
+    <a href="bookings.html" class="sb-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      Semua Booking
+    </a>
+    <a href="calendar.html" class="sb-link active">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      Kalender
+    </a>
+    <a href="courts.html" class="sb-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+      Lapangan
+    </a>
+    <div class="sb-sec">Lainnya</div>
+    <a href="../index.html" class="sb-link" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      Lihat Website
+    </a>
+  </div>
+  <div class="sb-bottom">
+    <div class="sb-user">
+      <div class="sb-avatar" id="sbInit">A</div>
+      <div>
+        <div class="sb-user-nm" id="sbName">Admin</div>
+        <div class="sb-user-rl" id="sbRole">Staff</div>
+      </div>
+    </div>
+    <button class="sb-logout" id="btnLogout">Keluar</button>
+  </div>
+</aside>
+
+<main class="main">
+
+  <div class="page-hd">
+    <div>
+      <div class="page-title">Kalender & Ketersediaan</div>
+      <div class="page-sub">Lihat jadwal per lapangan, blokir slot untuk maintenance atau event</div>
+    </div>
+    <div class="page-date" id="nowTime">—</div>
+  </div>
+
+  <!-- court selector -->
+  <div class="toolbar">
+    <span class="toolbar-title">Lapangan</span>
+    <select class="sel" id="courtSel" style="min-width:200px"></select>
+    <button class="btn-sm btn-lime" id="btnBlock">+ Blokir Slot</button>
+    <button class="btn-sm btn-outline" id="btnRefresh">Refresh</button>
+  </div>
+
+  <div style="display:grid;grid-template-columns:380px 1fr;gap:20px;align-items:start" id="grid">
+
+    <!-- kalender -->
+    <div class="cal-wrap">
+      <div class="cal-hd">
+        <span class="cal-month" id="calMonth">—</span>
+        <div class="cal-nav">
+          <button class="cal-nav-btn" id="calPrev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg></button>
+          <button class="cal-nav-btn" id="calNext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></button>
+        </div>
+      </div>
+      <div class="cal-days">
+        <span class="cal-day-nm">Min</span><span class="cal-day-nm">Sen</span>
+        <span class="cal-day-nm">Sel</span><span class="cal-day-nm">Rab</span>
+        <span class="cal-day-nm">Kam</span><span class="cal-day-nm">Jum</span>
+        <span class="cal-day-nm">Sab</span>
+      </div>
+      <div class="cal-cells" id="calCells"></div>
+
+      <div class="slot-legend">
+        <div class="slot-legend-item"><span class="slot-legend-dot" style="background:var(--green)"></span>Ada booking</div>
+        <div class="slot-legend-item"><span class="slot-legend-dot" style="background:var(--red)"></span>Diblokir</div>
+        <div class="slot-legend-item"><span class="slot-legend-dot" style="background:var(--ink)"></span>Dipilih</div>
+      </div>
+    </div>
+
+    <!-- slot detail -->
+    <div>
+      <div class="form-card">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px">
+          <div>
+            <div style="font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700" id="slotTitle">—</div>
+            <div style="font-size:12px;color:var(--mid);margin-top:3px" id="slotSub">Pilih tanggal di kalender</div>
+          </div>
+          <div style="text-align:right">
+            <div style="font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mid)">Terisi</div>
+            <div style="font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700" id="slotCount">—</div>
+          </div>
+        </div>
+        <div class="slot-grid" id="slotGrid">
+          <div class="empty" style="grid-column:1/-1">Pilih tanggal untuk melihat slot</div>
+        </div>
+      </div>
+
+      <!-- blocked list -->
+      <div class="form-card">
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;margin-bottom:16px">Slot Diblokir</div>
+        <div id="blockList"><div class="empty">Belum ada slot diblokir</div></div>
+      </div>
+    </div>
+
+  </div>
+
+</main>
+
+<!-- modal block -->
+<div class="modal-bg hidden" id="modal">
+  <div class="modal">
+    <div class="modal-title">Blokir Slot</div>
+    <div class="modal-sub">Slot ini tidak bisa dipesan customer</div>
+    <div class="fld">
+      <label class="fld-lbl">Lapangan</label>
+      <select class="fld-sel" id="bCourt"></select>
+    </div>
+    <div class="fld">
+      <label class="fld-lbl">Tanggal</label>
+      <input class="fld-inp" type="date" id="bDate">
+    </div>
+    <div class="fld">
+      <label class="fld-lbl">Jam Mulai</label>
+      <input class="fld-inp" type="time" id="bStart" value="06:00">
+    </div>
+    <div class="fld">
+      <label class="fld-lbl">Jam Selesai</label>
+      <input class="fld-inp" type="time" id="bEnd" value="22:00">
+    </div>
+    <div class="fld">
+      <label class="fld-lbl">Alasan</label>
+      <input class="fld-inp" type="text" id="bReason" placeholder="Maintenance, event privat, dll">
+      <div class="fld-hint">Kosongkan jam untuk blokir seharian penuh</div>
+    </div>
+    <div class="modal-actions">
+      <button class="modal-btn" style="background:var(--paper);color:var(--ink)" id="bClose">Batal</button>
+      <button class="modal-btn" style="background:var(--red);color:#fff" id="bSave">Blokir</button>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+import { supabase } from '../js/supabase.js';
+import { toDateStr, toLocaleDateLong } from '../js/utils/date.js';
+
+const $ = id => document.getElementById(id);
+
+// ── AUTH GUARD ────────────────────────────────────────────────
+const { data: { session } } = await supabase.auth.getSession();
+if (!session) { location.replace('login.html'); throw new Error('no session'); }
+const { data: admin } = await supabase.from('admins').select('name, role').eq('id', session.user.id).maybeSingle();
+if (!admin) { location.replace('login.html'); throw new Error('not admin'); }
+
+$('sbName').textContent = admin.name;
+$('sbRole').textContent = admin.role;
+$('sbInit').textContent = admin.name[0].toUpperCase();
+$('btnLogout').onclick = async () => { await supabase.auth.signOut(); location.href = 'login.html'; };
+$('nowTime').textContent = new Date().toLocaleDateString('id-ID',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+
+// ── STATE ─────────────────────────────────────────────────────
+const MONTHS = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+const OPEN = 6, CLOSE = 22, DUR = 90;
+
+let courts = [];
+let courtId = null;
+let viewY, viewM;
+let selectedDate = toDateStr(new Date());
+let slots = [];
+
+// ── INIT ──────────────────────────────────────────────────────
+async function init() {
+  const { data } = await supabase.from('courts').select('*').eq('is_active', true).order('sort_order');
+  courts = data ?? [];
+  if (!courts.length) return;
+
+  courtId = courts[0].id;
+  $('courtSel').innerHTML = courts.map(c => `<option value="${c.id}">${c.name} — ${c.type}</option>`).join('');
+  $('bCourt').innerHTML   = courts.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+
+  const d = new Date(selectedDate + 'T00:00:00');
+  viewY = d.getFullYear(); viewM = d.getMonth();
+
+  renderCalendar();
+  await loadSlots();
+  await loadBlocked();
+}
+
+// ── CALENDAR ──────────────────────────────────────────────────
+function renderCalendar() {
+  $('calMonth').textContent = `${MONTHS[viewM]} ${viewY}`;
+  const first = new Date(viewY, viewM, 1).getDay();
+  const days  = new Date(viewY, viewM + 1, 0).getDate();
+  const today = new Date(); today.setHours(0,0,0,0);
+
+  let html = '';
+  for (let i = 0; i < first; i++) html += '<div class="cal-cell empty"></div>';
+
+  for (let d = 1; d <= days; d++) {
+    const ds = toDateStr(new Date(viewY, viewM, d));
+    const dt = new Date(viewY, viewM, d);
+    const isPast  = dt < today;
+    const isToday = dt.getTime() === today.getTime();
+    const isSel   = ds === selectedDate;
+
+    const cls = ['cal-cell', isPast ? 'past' : '', isToday ? 'today' : '', isSel ? 'selected' : ''].filter(Boolean).join(' ');
+    html += `<div class="${cls}" data-date="${ds}">${d}</div>`;
+  }
+  $('calCells').innerHTML = html;
+
+  $('calCells').querySelectorAll('.cal-cell[data-date]').forEach(el => {
+    el.addEventListener('click', async () => {
+      selectedDate = el.dataset.date;
+      renderCalendar();
+      await loadSlots();
+    });
+  });
+
+  markBookedDays();
+}
+
+async function markBookedDays() {
+  const start = toDateStr(new Date(viewY, viewM, 1));
+  const end   = toDateStr(new Date(viewY, viewM + 1, 0));
+
+  const { data } = await supabase
+    .from('bookings')
+    .select('booking_date')
+    .eq('court_id', courtId)
+    .gte('booking_date', start)
+    .lte('booking_date', end)
+    .in('status', ['held','paid','confirmed']);
+
+  const dates = new Set((data ?? []).map(b => b.booking_date));
+
+  const { data: blk } = await supabase
+    .from('blocked_slots')
+    .select('block_date')
+    .gte('block_date', start)
+    .lte('block_date', end)
+    .or(`court_id.eq.${courtId},court_id.is.null`);
+
+  const blkDates = new Set((blk ?? []).map(b => b.block_date));
+
+  $('calCells').querySelectorAll('.cal-cell[data-date]').forEach(el => {
+    if (dates.has(el.dataset.date))   el.classList.add('has-bk');
+    if (blkDates.has(el.dataset.date)) el.classList.add('blocked');
+  });
+}
+
+// ── SLOTS ─────────────────────────────────────────────────────
+function genSlots() {
+  const out = [];
+  let cur = OPEN * 60;
+  while (cur + DUR <= CLOSE * 60) {
+    const s = `${String(Math.floor(cur/60)).padStart(2,'0')}:${String(cur%60).padStart(2,'0')}`;
+    const e = `${String(Math.floor((cur+DUR)/60)).padStart(2,'0')}:${String((cur+DUR)%60).padStart(2,'0')}`;
+    out.push({ start:s, end:e });
+    cur += DUR;
+  }
+  return out;
+}
+
+async function loadSlots() {
+  $('slotTitle').textContent = toLocaleDateLong(selectedDate);
+  const court = courts.find(c => c.id === courtId);
+  $('slotSub').textContent = `${court?.name ?? ''} · ${court?.type ?? ''}`;
+
+  const [{ data: bk }, { data: blk }] = await Promise.all([
+    supabase.from('bookings')
+      .select('start_time, end_time, status, booking_code, customers(name)')
+      .eq('court_id', courtId).eq('booking_date', selectedDate)
+      .in('status', ['held','paid','confirmed']),
+    supabase.from('blocked_slots')
+      .select('start_time, end_time, reason')
+      .eq('block_date', selectedDate)
+      .or(`court_id.eq.${courtId},court_id.is.null`),
+  ]);
+
+  const now = new Date();
+  const ov = (a1,a2,b1,b2) => a1 < b2 && a2 > b1;
+
+  slots = genSlots().map(s => {
+    const dt = new Date(`${selectedDate}T${s.start}:00+07:00`);
+    if (dt < now) return { ...s, st:'past' };
+
+    for (const b of (blk ?? [])) {
+      if (!b.start_time) return { ...s, st:'blocked', note: b.reason };
+      if (ov(s.start, s.end, b.start_time.slice(0,5), b.end_time.slice(0,5)))
+        return { ...s, st:'blocked', note: b.reason };
+    }
+    for (const b of (bk ?? [])) {
+      if (ov(s.start, s.end, String(b.start_time).slice(0,5), String(b.end_time).slice(0,5)))
+        return { ...s, st: b.status === 'held' ? 'held' : 'booked', note: `${b.booking_code} · ${b.customers?.name ?? '—'}` };
+    }
+    return { ...s, st:'available' };
+  });
+
+  const filled = slots.filter(s => ['booked','held','blocked'].includes(s.st)).length;
+  $('slotCount').textContent = `${filled}/${slots.length}`;
+
+  const LBL = { available:'Tersedia', booked:'Booked', held:'Held', blocked:'Diblokir', past:'Lewat' };
+  const CLS = { available:'avail', booked:'bk', held:'hd', blocked:'bl', past:'' };
+
+  $('slotGrid').innerHTML = slots.map(s => `
+    <div class="slot-card ${s.st === 'booked' ? 'booked' : s.st === 'held' ? 'held' : s.st === 'blocked' ? 'blocked' : ''}">
+      <div class="slot-time">${s.start}–${s.end}</div>
+      <div class="slot-st ${CLS[s.st]}">${LBL[s.st]}</div>
+      ${s.note ? `<div class="slot-nm">${s.note}</div>` : ''}
+    </div>
+  `).join('');
+}
+
+// ── BLOCKED LIST ──────────────────────────────────────────────
+async function loadBlocked() {
+  const { data } = await supabase
+    .from('blocked_slots')
+    .select('*, courts(name)')
+    .order('block_date', { ascending: false })
+    .limit(30);
+
+  if (!data?.length) {
+    $('blockList').innerHTML = '<div class="empty">Belum ada slot diblokir</div>';
+    return;
+  }
+
+  $('blockList').innerHTML = data.map(b => `
+    <div class="modal-row">
+      <span>
+        <span style="font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700">${b.block_date}</span>
+        <span style="font-size:12px;color:var(--mid);margin-left:8px">
+          ${b.start_time ? `${String(b.start_time).slice(0,5)}–${String(b.end_time).slice(0,5)}` : 'Seharian'}
+        </span>
+        <div style="font-size:11px;color:var(--mid);margin-top:3px">
+          ${b.courts?.name ?? 'Semua lapangan'}${b.reason ? ` · ${b.reason}` : ''}
+        </div>
+      </span>
+      <button class="td-btn danger" data-unblock="${b.id}">Hapus</button>
+    </div>
+  `).join('');
+}
+
+document.addEventListener('click', async (e) => {
+  const btn = e.target.closest('[data-unblock]');
+  if (!btn) return;
+  if (!confirm('Hapus blokir ini?')) return;
+  await supabase.from('blocked_slots').delete().eq('id', btn.dataset.unblock);
+  await loadBlocked();
+  await loadSlots();
+  await markBookedDays();
+});
+
+// ── BLOCK MODAL ───────────────────────────────────────────────
+$('btnBlock').onclick = () => {
+  $('bCourt').value = courtId;
+  $('bDate').value  = selectedDate;
+  $('modal').classList.remove('hidden');
+};
+$('bClose').onclick = () => $('modal').classList.add('hidden');
+$('modal').addEventListener('click', e => { if (e.target === $('modal')) $('modal').classList.add('hidden'); });
+
+$('bSave').onclick = async () => {
+  const payload = {
+    court_id:   $('bCourt').value || null,
+    block_date: $('bDate').value,
+    start_time: $('bStart').value || null,
+    end_time:   $('bEnd').value || null,
+    reason:     $('bReason').value.trim() || null,
+    created_by: session.user.id,
+  };
+  if (!payload.block_date) { alert('Pilih tanggal'); return; }
+
+  const { error } = await supabase.from('blocked_slots').insert(payload);
+  if (error) { alert('Gagal: ' + error.message); return; }
+
+  $('modal').classList.add('hidden');
+  $('bReason').value = '';
+  await loadBlocked();
+  await loadSlots();
+  await markBookedDays();
+};
+
+// ── EVENTS ────────────────────────────────────────────────────
+$('courtSel').addEventListener('change', async (e) => {
+  courtId = e.target.value;
+  renderCalendar();
+  await loadSlots();
+});
+
+$('calPrev').onclick = () => {
+  viewM--; if (viewM < 0) { viewM = 11; viewY--; }
+  renderCalendar();
+};
+$('calNext').onclick = () => {
+  viewM++; if (viewM > 11) { viewM = 0; viewY++; }
+  renderCalendar();
+};
+$('btnRefresh').onclick = async () => { await loadSlots(); await loadBlocked(); await markBookedDays(); };
+
+// ── REALTIME ──────────────────────────────────────────────────
+supabase.channel('admin-cal')
+  .on('postgres_changes', { event:'*', schema:'public', table:'bookings' }, async () => {
+    await loadSlots(); await markBookedDays();
+  })
+  .on('postgres_changes', { event:'*', schema:'public', table:'blocked_slots' }, async () => {
+    await loadSlots(); await loadBlocked(); await markBookedDays();
+  })
+  .subscribe();
+
+init();
+</script>
+</body>
+</html>

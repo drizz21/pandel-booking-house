@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Semua Booking — Admin</title>
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/admin.css"/>
+</head>
+<body>
+
+<aside class="sidebar">
+  <div>
+    <div class="sb-logo">
+      <div class="sb-logo-mark">PK</div>
+      <div>
+        <div class="sb-logo-nm">Padel Kita</div>
+        <div class="sb-logo-sub">Admin Panel</div>
+      </div>
+    </div>
+    <div class="sb-sec">Menu</div>
+    <a href="index.html" class="sb-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      Dashboard
+    </a>
+    <a href="bookings.html" class="sb-link active">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      Semua Booking
+    </a>
+    <a href="calendar.html" class="sb-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      Kalender
+    </a>
+    <a href="courts.html" class="sb-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+      Lapangan
+    </a>
+    <div class="sb-sec">Lainnya</div>
+    <a href="../index.html" class="sb-link" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      Lihat Website
+    </a>
+  </div>
+  <div class="sb-bottom">
+    <div class="sb-user">
+      <div class="sb-avatar" id="sbInit">A</div>
+      <div>
+        <div class="sb-user-nm" id="sbName">Admin</div>
+        <div class="sb-user-rl" id="sbRole">Staff</div>
+      </div>
+    </div>
+    <button class="sb-logout" id="btnLogout">Keluar</button>
+  </div>
+</aside>
+
+<main class="main">
+
+  <div class="page-hd">
+    <div>
+      <div class="page-title">Semua Booking</div>
+      <div class="page-sub">Kelola seluruh reservasi lapangan</div>
+    </div>
+    <div class="page-date" id="nowTime">—</div>
+  </div>
+
+  <!-- stats -->
+  <div class="stats">
+    <div class="stat featured">
+      <div class="stat-lbl">Total Pendapatan</div>
+      <div class="stat-num" id="stRev">—</div>
+      <div class="stat-sub">Semua booking lunas</div>
+    </div>
+    <div class="stat">
+      <div class="stat-lbl">Total Booking</div>
+      <div class="stat-num" id="stAll">—</div>
+      <div class="stat-sub">Sepanjang waktu</div>
+    </div>
+    <div class="stat">
+      <div class="stat-lbl">Confirmed</div>
+      <div class="stat-num" id="stConf" style="color:var(--green)">—</div>
+      <div class="stat-sub">Sudah dikonfirmasi</div>
+    </div>
+    <div class="stat">
+      <div class="stat-lbl">Perlu Tindakan</div>
+      <div class="stat-num" id="stPend" style="color:var(--orange)">—</div>
+      <div class="stat-sub">Paid / pending</div>
+    </div>
+  </div>
+
+  <!-- toolbar -->
+  <div class="toolbar">
+    <span class="toolbar-title">Daftar Booking</span>
+    <input class="inp" type="text" id="search" placeholder="Cari kode / nama / WA…">
+    <select class="sel" id="fStatus">
+      <option value="">Semua Status</option>
+      <option value="pending">Pending</option>
+      <option value="held">Held</option>
+      <option value="paid">Paid</option>
+      <option value="confirmed">Confirmed</option>
+      <option value="cancelled">Cancelled</option>
+      <option value="expired">Expired</option>
+    </select>
+    <select class="sel" id="fCourt">
+      <option value="">Semua Lapangan</option>
+    </select>
+    <input class="inp" type="date" id="fDate" style="width:160px">
+    <button class="btn-sm btn-outline" id="btnReset">Reset</button>
+    <button class="btn-sm btn-lime" id="btnExport">Export CSV</button>
+  </div>
+
+  <!-- table -->
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Kode</th>
+          <th>Pelanggan</th>
+          <th>Lapangan</th>
+          <th>Tanggal</th>
+          <th>Waktu</th>
+          <th>Total</th>
+          <th>Metode</th>
+          <th>Status</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody id="tbody">
+        <tr><td colspan="9" class="empty">Memuat data…</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div style="font-family:'Space Grotesk',sans-serif;font-size:12px;color:var(--mid)">
+    Menampilkan <span id="cnt">0</span> booking
+  </div>
+
+</main>
+
+<!-- modal detail -->
+<div class="modal-bg hidden" id="modal">
+  <div class="modal">
+    <div class="modal-title">Detail Booking</div>
+    <div class="modal-sub" id="mCode">—</div>
+    <div id="mBody"></div>
+    <div class="modal-actions">
+      <button class="modal-btn" style="background:var(--paper);color:var(--ink)" id="mClose">Tutup</button>
+      <button class="modal-btn" style="background:var(--green);color:#fff" id="mConfirm">Konfirmasi</button>
+      <button class="modal-btn" style="background:var(--red);color:#fff" id="mCancel">Batalkan</button>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+import { supabase } from '../js/supabase.js';
+import { toRupiah } from '../js/utils/currency.js';
+
+const $ = id => document.getElementById(id);
+let ALL = [];
+let sel = null;
+
+// ── AUTH GUARD ────────────────────────────────────────────────
+const { data: { session } } = await supabase.auth.getSession();
+if (!session) { location.replace('login.html'); throw new Error('no session'); }
+
+const { data: admin } = await supabase.from('admins').select('name, role').eq('id', session.user.id).maybeSingle();
+if (!admin) { location.replace('login.html'); throw new Error('not admin'); }
+
+$('sbName').textContent = admin.name;
+$('sbRole').textContent = admin.role;
+$('sbInit').textContent = admin.name[0].toUpperCase();
+$('btnLogout').onclick = async () => { await supabase.auth.signOut(); location.href = 'login.html'; };
+
+$('nowTime').textContent = new Date().toLocaleDateString('id-ID',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+
+// ── STATUS BADGE ──────────────────────────────────────────────
+const ST = {
+  pending:   { l:'Pending',   c:'#D97706', b:'rgba(217,119,6,.12)' },
+  held:      { l:'Held',      c:'#2563EB', b:'rgba(37,99,235,.12)' },
+  paid:      { l:'Paid',      c:'#059669', b:'rgba(5,150,105,.12)' },
+  confirmed: { l:'Confirmed', c:'#047857', b:'rgba(4,120,87,.12)' },
+  cancelled: { l:'Cancelled', c:'#DC2626', b:'rgba(220,38,38,.12)' },
+  expired:   { l:'Expired',   c:'#6B7280', b:'rgba(107,114,128,.12)' },
+};
+const badge = s => {
+  const x = ST[s] ?? { l:s, c:'#6B7280', b:'rgba(107,114,128,.12)' };
+  return `<span class="badge" style="color:${x.c};background:${x.b}"><span class="badge-dot" style="background:${x.c}"></span>${x.l}</span>`;
+};
+
+const METHOD = { qris:'QRIS', va:'Virtual Account', ewallet:'E-Wallet', credit_card:'Kartu Kredit', mock:'Mock' };
+
+// ── LOAD ──────────────────────────────────────────────────────
+async function load() {
+  const { data, error } = await supabase
+    .from('bookings')
+    .select('*, courts(name), customers(name, phone, email)')
+    .order('created_at', { ascending: false })
+    .limit(500);
+
+  if (error) { $('tbody').innerHTML = `<tr><td colspan="9" class="empty">Gagal memuat: ${error.message}</td></tr>`; return; }
+
+  ALL = data ?? [];
+  fillCourts();
+  renderStats();
+  applyFilter();
+}
+
+function fillCourts() {
+  const names = [...new Set(ALL.map(b => b.courts?.name).filter(Boolean))].sort();
+  $('fCourt').innerHTML = '<option value="">Semua Lapangan</option>' +
+    names.map(n => `<option value="${n}">${n}</option>`).join('');
+}
+
+function renderStats() {
+  const paid = ALL.filter(b => ['paid','confirmed'].includes(b.status));
+  $('stRev').textContent  = toRupiah(paid.reduce((s,b) => s + (b.total_price ?? 0), 0));
+  $('stAll').textContent  = ALL.length;
+  $('stConf').textContent = ALL.filter(b => b.status === 'confirmed').length;
+  $('stPend').textContent = ALL.filter(b => ['paid','pending'].includes(b.status)).length;
+}
+
+// ── FILTER + RENDER ───────────────────────────────────────────
+function applyFilter() {
+  const q  = $('search').value.trim().toLowerCase();
+  const st = $('fStatus').value;
+  const ct = $('fCourt').value;
+  const dt = $('fDate').value;
+
+  const rows = ALL.filter(b => {
+    if (st && b.status !== st) return false;
+    if (ct && b.courts?.name !== ct) return false;
+    if (dt && b.booking_date !== dt) return false;
+    if (q) {
+      const hay = `${b.booking_code} ${b.customers?.name ?? ''} ${b.customers?.phone ?? ''} ${b.customers?.email ?? ''}`.toLowerCase();
+      if (!hay.includes(q)) return false;
+    }
+    return true;
+  });
+
+  $('cnt').textContent = rows.length;
+
+  if (!rows.length) {
+    $('tbody').innerHTML = '<tr><td colspan="9" class="empty">Tidak ada booking sesuai filter</td></tr>';
+    return;
+  }
+
+  $('tbody').innerHTML = rows.map(b => `
+    <tr>
+      <td><span class="td-code">${b.booking_code}</span></td>
+      <td>
+        <div class="td-nm">${b.customers?.name ?? '—'}</div>
+        <div class="td-meta">${b.customers?.phone ?? ''}</div>
+      </td>
+      <td>${b.courts?.name ?? '—'}</td>
+      <td>${b.booking_date}</td>
+      <td>${String(b.start_time).slice(0,5)}–${String(b.end_time).slice(0,5)}</td>
+      <td style="font-weight:600">${toRupiah(b.total_price)}</td>
+      <td style="font-size:12px;color:var(--mid)">${METHOD[b.payment_method] ?? '—'}</td>
+      <td>${badge(b.status)}</td>
+      <td>
+        <div class="td-actions">
+          <button class="td-btn" data-act="detail" data-id="${b.id}">Detail</button>
+          ${b.status === 'paid' ? `<button class="td-btn ok" data-act="confirm" data-id="${b.id}">Confirm</button>` : ''}
+          ${['pending','held','paid','confirmed'].includes(b.status) ? `<button class="td-btn danger" data-act="cancel" data-id="${b.id}">Batal</button>` : ''}
+        </div>
+      </td>
+    </tr>
+  `).join('');
+}
+
+// ── ACTIONS ───────────────────────────────────────────────────
+document.addEventListener('click', async (e) => {
+  const btn = e.target.closest('[data-act]');
+  if (!btn) return;
+  const { act, id } = btn.dataset;
+
+  if (act === 'detail') openModal(id);
+  if (act === 'confirm') { await setStatus(id, 'confirmed'); }
+  if (act === 'cancel')  {
+    if (confirm('Batalkan booking ini?')) await setStatus(id, 'cancelled');
+  }
+});
+
+async function setStatus(id, status) {
+  const { error } = await supabase.from('bookings').update({ status }).eq('id', id);
+  if (error) { alert('Gagal: ' + error.message); return; }
+  closeModal();
+  await load();
+}
+
+function openModal(id) {
+  sel = ALL.find(b => b.id === id);
+  if (!sel) return;
+  const b = sel;
+  $('mCode').textContent = b.booking_code;
+
+  const rows = [
+    ['Lapangan', b.courts?.name],
+    ['Tanggal', b.booking_date],
+    ['Waktu', `${String(b.start_time).slice(0,5)} – ${String(b.end_time).slice(0,5)}`],
+    ['Nama', b.customers?.name],
+    ['WhatsApp', b.customers?.phone],
+    ['Email', b.customers?.email || '—'],
+    ['Harga', toRupiah(b.price)],
+    ['Biaya admin', b.admin_fee > 0 ? toRupiah(b.admin_fee) : 'Gratis'],
+    ['Total', toRupiah(b.total_price)],
+    ['Metode', METHOD[b.payment_method] ?? '—'],
+    ['Dibuat', new Date(b.created_at).toLocaleString('id-ID')],
+  ];
+  if (b.hold_expires_at) rows.push(['Hold sampai', new Date(b.hold_expires_at).toLocaleString('id-ID')]);
+
+  $('mBody').innerHTML = rows.map(([k,v]) =>
+    `<div class="modal-row"><span class="modal-k">${k}</span><span class="modal-v">${v ?? '—'}</span></div>`
+  ).join('') + `<div class="modal-row"><span class="modal-k">Status</span><span class="modal-v">${badge(b.status)}</span></div>`;
+
+  $('mConfirm').style.display = b.status === 'paid' ? '' : 'none';
+  $('mCancel').style.display  = ['pending','held','paid','confirmed'].includes(b.status) ? '' : 'none';
+  $('modal').classList.remove('hidden');
+}
+
+function closeModal() { $('modal').classList.add('hidden'); }
+
+$('mClose').onclick   = closeModal;
+$('mConfirm').onclick = () => sel && setStatus(sel.id, 'confirmed');
+$('mCancel').onclick  = () => sel && confirm('Batalkan booking ini?') && setStatus(sel.id, 'cancelled');
+$('modal').addEventListener('click', e => { if (e.target === $('modal')) closeModal(); });
+
+// ── EXPORT CSV ────────────────────────────────────────────────
+$('btnExport').onclick = () => {
+  const head = ['Kode','Nama','WhatsApp','Email','Lapangan','Tanggal','Mulai','Selesai','Harga','Admin Fee','Total','Metode','Status'];
+  const rows = ALL.map(b => [
+    b.booking_code, b.customers?.name ?? '', b.customers?.phone ?? '', b.customers?.email ?? '',
+    b.courts?.name ?? '', b.booking_date, b.start_time, b.end_time,
+    b.price, b.admin_fee ?? 0, b.total_price, b.payment_method ?? '', b.status,
+  ]);
+  const csv = [head, ...rows].map(r => r.map(c => `"${String(c ?? '').replace(/"/g,'""')}"`).join(',')).join('\n');
+  const url = URL.createObjectURL(new Blob(['\ufeff' + csv], { type:'text/csv;charset=utf-8' }));
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `booking-padel-${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+};
+
+// ── EVENTS ────────────────────────────────────────────────────
+['search','fStatus','fCourt','fDate'].forEach(id => {
+  $(id).addEventListener('input', applyFilter);
+  $(id).addEventListener('change', applyFilter);
+});
+$('btnReset').onclick = () => {
+  $('search').value = ''; $('fStatus').value = ''; $('fCourt').value = ''; $('fDate').value = '';
+  applyFilter();
+};
+
+// ── REALTIME ──────────────────────────────────────────────────
+supabase.channel('admin-bookings-all')
+  .on('postgres_changes', { event:'*', schema:'public', table:'bookings' }, () => load())
+  .subscribe();
+
+load();
+</script>
+</body>
+</html>

@@ -46,7 +46,7 @@ function renderCourtStrip() {
   if (!strip) return;
 
   // Fallback gambar lokal per index court
-  const LOCAL_IMG = ['images/web/court-a.jpg','images/web/court-b.jpg','images/web/court-c.jpg','images/web/court-d.jpg'];
+  const LOCAL_IMG = ['images/court-a.jpg','images/court-b.jpg','images/court-c.jpg','images/court-d.jpg'];
 
   strip.innerHTML = state.courts.map((c, i) => `
     <div class="court-tab${i === 0 ? ' active' : ''}" data-court-id="${c.id}">
@@ -233,7 +233,7 @@ function updateSummary() {
     if (courtSum) courtSum.textContent = state.activeCourt.name;
     if (img) {
       const idx = state.courts.findIndex(c => c.id === state.activeCourt.id);
-      const LOCAL = ['images/web/court-a.jpg','images/web/court-b.jpg','images/web/court-c.jpg','images/web/court-d.jpg'];
+      const LOCAL = ['images/court-a.jpg','images/court-b.jpg','images/court-c.jpg','images/court-d.jpg'];
       img.src = state.activeCourt.image_url || LOCAL[Math.max(0, idx) % LOCAL.length];
     }
     if (priceEl)  priceEl.textContent = toRupiah(state.activeCourt.price_per_slot);

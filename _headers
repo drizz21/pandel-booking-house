@@ -8,19 +8,16 @@
   Permissions-Policy: geolocation=(), microphone=(), camera=()
   Strict-Transport-Security: max-age=31536000; includeSubDomains
 
-# Jangan cache HTML — selalu ambil versi terbaru
+# HTML — jangan cache, selalu ambil versi terbaru
 /*.html
   Cache-Control: public, max-age=0, must-revalidate
 
-# Cache aset statis lama (gambar, font, icon)
-/images/*
+# Aset statis (icon, favicon, logo, og-image) — immutable
+/assets/*
   Cache-Control: public, max-age=31536000, immutable
 
-/favicon*
-  Cache-Control: public, max-age=31536000, immutable
-/apple-touch-icon.png
-  Cache-Control: public, max-age=31536000, immutable
-/android-chrome*
+# Gambar — immutable
+/images/*
   Cache-Control: public, max-age=31536000, immutable
 
 # CSS & JS — cache sedang (bisa berubah saat update)

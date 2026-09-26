@@ -2,17 +2,26 @@
 node_modules/
 .npm/
 
-# Netlify
+# Build output (dibuat ulang oleh _build-dist.py)
+_dist/
+
+# Cloudflare / Netlify tooling cache
+.wrangler/
 .netlify/
 
-# Supabase
+# Supabase CLI
 supabase/.temp/
 supabase/.branches/
 
-# Env & secrets — JANGAN commit
+# Env & secrets — JANGAN pernah di-commit
 .env
 .env.local
 *.local
+
+# File internal — berisi kredensial / catatan setup
+SETUP-STATUS.md
+supabase-credentials.json
+admin-credentials.json
 
 # OS
 .DS_Store
@@ -27,15 +36,3 @@ desktop.ini
 # Logs
 *.log
 logs/
-
-# File internal — berisi kredensial
-SETUP-STATUS.md
-supabase-credentials.json
-admin-credentials.json
-
-# Cloudflare
-.wrangler/
-
-# Build output & script dev (jangan commit)
-_dist/
-_build-dist.py

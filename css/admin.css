@@ -256,16 +256,159 @@ tbody tr:hover td { background:var(--paper); }
 .slot-st.bl { color:var(--red); }
 .slot-nm { font-size:11px; color:var(--mid); margin-top:5px; }
 
-/* ── RESPONSIVE ── */
-@media(max-width:1100px){
-  .sidebar { width:200px; }
-  .main { margin-left:200px; padding:28px; }
-  .stats { grid-template-columns:1fr 1fr; }
+/* ── MOBILE TOPBAR (hamburger) ── */
+.mobile-bar {
+  display:none;
+  position:fixed; top:0; left:0; right:0; z-index:60;
+  background:var(--ink); padding:12px 16px;
+  align-items:center; justify-content:space-between;
 }
-@media(max-width:768px){
-  .sidebar { transform:translateX(-100%); }
-  .main { margin-left:0; padding:20px; }
-  .stats { grid-template-columns:1fr 1fr; }
+.mobile-bar-logo {
+  display:flex; align-items:center; gap:8px;
+}
+.mobile-bar-mark {
+  width:26px; height:26px; border-radius:6px; background:var(--lime);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:800; color:var(--ink);
+}
+.mobile-bar-nm {
+  font-family:'Space Grotesk',sans-serif; font-size:13px; font-weight:700; color:var(--white);
+}
+.mobile-toggle {
+  width:38px; height:38px; border-radius:8px;
+  background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.12);
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; color:var(--white); flex-shrink:0;
+}
+.mobile-toggle svg { width:18px; height:18px; }
+.sb-overlay {
+  display:none; position:fixed; inset:0; background:rgba(0,0,0,.5);
+  z-index:55; backdrop-filter:blur(2px);
+}
+.sb-overlay.on { display:block; }
+
+/* ── RESPONSIVE ── */
+
+/* TABLET */
+@media(max-width:1100px){
+  .sidebar { width:200px; padding:22px 16px; }
+  .main { margin-left:200px; padding:28px 24px; }
+  .stats { grid-template-columns:1fr 1fr; gap:12px; }
+  .page-title { font-size:21px; }
+  .stat-num { font-size:28px; }
+  .stat { padding:18px 20px; }
+}
+
+/* TABLET KECIL — sidebar jadi drawer */
+@media(max-width:900px){
+  .mobile-bar { display:flex; }
+  .sidebar {
+    transform:translateX(-100%);
+    transition:transform .28s cubic-bezier(.22,1,.36,1);
+    z-index:70; width:260px; padding:24px 20px;
+  }
+  .sidebar.open { transform:translateX(0); }
+  .main { margin-left:0; padding:76px 20px 32px; }
+  .stats { grid-template-columns:1fr 1fr; gap:12px; }
   .form-grid { grid-template-columns:1fr; }
-  .table-wrap { overflow-x:auto; }
+  .page-hd { flex-direction:column; align-items:flex-start; gap:14px; margin-bottom:24px; }
+  .toolbar { gap:8px; }
+  .toolbar-title { width:100%; margin-right:0; }
+  .inp { width:100%; }
+  .sel { flex:1; min-width:140px; }
+  table { min-width:760px; }
+  .table-wrap { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  th, td { padding:11px 14px; }
+  .cal-wrap { padding:20px 16px; }
+  .slot-grid { grid-template-columns:repeat(auto-fill,minmax(130px,1fr)); }
+  #grid { grid-template-columns:1fr !important; }
+  .modal { padding:24px; border-radius:14px; }
+  .form-card { padding:20px; }
+}
+
+/* MOBILE */
+@media(max-width:600px){
+  .mobile-bar { padding:10px 13px; }
+  .mobile-bar-mark { width:24px; height:24px; font-size:10px; }
+  .mobile-bar-nm { font-size:12px; }
+  .mobile-toggle { width:34px; height:34px; }
+
+  .sidebar { width:78vw; max-width:290px; padding:20px 16px; }
+  .sb-logo { margin-bottom:28px; }
+  .sb-logo-nm { font-size:13px; }
+  .sb-link { padding:9px 11px; font-size:12px; }
+  .sb-sec { margin-top:18px; }
+
+  .main { padding:66px 14px 28px; }
+
+  .page-title { font-size:19px; }
+  .page-sub { font-size:12px; }
+  .page-date { font-size:10px; }
+
+  .stats { grid-template-columns:1fr 1fr; gap:10px; margin-bottom:22px; }
+  .stat { padding:15px 16px; border-radius:12px; }
+  .stat-lbl { font-size:9px; margin-bottom:7px; letter-spacing:.1em; }
+  .stat-num { font-size:23px; }
+  .stat-sub { font-size:10px; margin-top:4px; }
+
+  .toolbar { gap:7px; margin-bottom:12px; }
+  .inp, .sel { padding:9px 12px; font-size:12px; border-radius:7px; }
+  .btn-sm { padding:9px 13px; font-size:10px; }
+
+  table { min-width:700px; }
+  th { padding:10px 12px; font-size:9px; }
+  td { padding:10px 12px; font-size:12px; }
+  .td-code { font-size:11px; }
+  .td-meta { font-size:10px; }
+  .badge { font-size:9px; padding:3px 8px; }
+  .td-btn { padding:4px 9px; font-size:9px; }
+  .empty { padding:36px 18px; font-size:13px; }
+
+  .form-card { padding:16px; border-radius:12px; margin-bottom:14px; }
+  .fld { margin-bottom:13px; }
+  .fld-lbl { font-size:9px; margin-bottom:6px; }
+  .fld-inp, .fld-sel, .fld-ta { padding:11px 13px; font-size:13px; border-radius:7px; }
+
+  .cal-wrap { padding:16px 12px; border-radius:12px; margin-bottom:14px; }
+  .cal-hd { margin-bottom:16px; }
+  .cal-month { font-size:15px; }
+  .cal-nav-btn { width:30px; height:30px; }
+  .cal-day-nm { font-size:8px; padding:4px 0; }
+  .cal-cell { font-size:11px; border-radius:6px; }
+  .slot-legend { gap:12px; margin-top:14px; }
+  .slot-legend-item { font-size:9px; gap:5px; }
+  .slot-legend-dot { width:6px; height:6px; }
+
+  .slot-grid { grid-template-columns:repeat(auto-fill,minmax(115px,1fr)); gap:7px; }
+  .slot-card { padding:11px 12px; border-radius:8px; }
+  .slot-time { font-size:13px; }
+  .slot-st { font-size:8px; margin-top:3px; }
+  .slot-nm { font-size:10px; margin-top:4px; }
+
+  .modal { padding:20px 16px; border-radius:12px; max-height:92vh; }
+  .modal-title { font-size:16px; }
+  .modal-sub { font-size:11px; margin-bottom:18px; }
+  .modal-row { padding:9px 0; font-size:12px; gap:12px; }
+  .modal-k { font-size:9px; }
+  .modal-actions { flex-direction:column; gap:8px; margin-top:18px; }
+  .modal-btn { padding:12px; font-size:11px; }
+}
+
+/* MOBILE KECIL */
+@media(max-width:400px){
+  .main { padding:62px 11px 24px; }
+  .mobile-bar { padding:9px 11px; }
+  .mobile-bar-nm { font-size:11px; }
+  .stats { grid-template-columns:1fr; }
+  .stat-num { font-size:21px; }
+  .page-title { font-size:17px; }
+  .slot-grid { grid-template-columns:1fr 1fr; }
+  .cal-cell { font-size:10px; }
+  th, td { padding:9px 10px; }
+}
+
+/* ── DRAWER STATE (harus paling akhir agar menang cascade) ── */
+@media(max-width:900px){
+  .sidebar { transform:translateX(-100%); }
+  .sidebar.open { transform:translateX(0); }
 }

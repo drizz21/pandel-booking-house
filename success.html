@@ -4,7 +4,28 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Booking Berhasil — Padel Kita Jogja</title>
+
+  <!-- Favicon & App Icons -->
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="favicon-48x48.png">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="mask-icon" href="favicon.svg" color="#C6F53E">
+  <link rel="manifest" href="site.webmanifest">
+  <meta name="theme-color" content="#0D0D0B">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Padel Kita">
+  <meta name="mobile-web-app-capable" content="yes">
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Padel Kita Jogja — Komunitas & Booking Lapangan">
+  <meta property="og:description" content="Booking lapangan padel premium di Yogyakarta. Komunitas, coaching, dan turnamen.">
+  <meta property="og:image" content="og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="og-image.png">
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:wght@500;600&family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400&display=swap" rel="stylesheet"/>
@@ -73,9 +94,72 @@
     .skeleton { background:linear-gradient(90deg,var(--paper-2) 25%,var(--border) 50%,var(--paper-2) 75%); background-size:200% 100%; animation:shimmer 1.5s infinite; border-radius:6px; display:inline-block; }
     @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
 
-    @media(max-width:480px){
-      .nav { padding:14px 20px; }
-      .bk-card { padding:22px; }
+    /* ── RESPONSIVE ── */
+
+    /* TABLET */
+    @media(max-width:768px){
+      .nav { padding:13px 24px; }
+      .nav-logo img { height:30px; }
+      .nav-logo-name { font-size:14px; }
+      .page { padding:48px 20px; max-width:100%; }
+      .success-icon { width:64px; height:64px; margin-bottom:22px; }
+      .success-icon svg { width:28px; height:28px; }
+      .success-title { font-size:clamp(36px,9vw,52px); }
+      .success-sub { font-size:14px; margin-bottom:36px; }
+      .bk-card { padding:26px; border-radius:16px; }
+      .bk-code { font-size:22px; }
+      .bk-total-val { font-size:24px; }
+      .info-box { padding:18px 20px; }
+    }
+
+    /* MOBILE */
+    @media(max-width:600px){
+      .nav { padding:11px 16px; }
+      .nav-logo { gap:8px; }
+      .nav-logo img { height:26px; }
+      .nav-logo-name { font-size:13px; }
+
+      .page { padding:36px 14px; }
+
+      .success-icon { width:56px; height:56px; margin-bottom:18px; }
+      .success-icon svg { width:24px; height:24px; }
+      .success-title { font-size:clamp(32px,10vw,44px); line-height:.92; margin-bottom:10px; }
+      .success-sub { font-size:13px; margin-bottom:28px; line-height:1.55; }
+
+      .bk-card { padding:20px 16px; border-radius:14px; margin-bottom:14px; }
+      .bk-code-row { flex-direction:column; align-items:flex-start; gap:10px; margin-bottom:18px; }
+      .bk-code-label { font-size:9px; }
+      .bk-code { font-size:20px; }
+      .bk-status { font-size:10px; padding:4px 10px; }
+      .bk-status-dot { width:5px; height:5px; }
+      .bk-divider { margin:15px 0; }
+      .bk-row { margin-bottom:11px; gap:12px; }
+      .bk-key { font-size:9px; }
+      .bk-val { font-size:12px; max-width:60%; }
+      .bk-total-val { font-size:22px; }
+
+      .actions { gap:8px; margin-bottom:24px; }
+      .btn-primary { padding:13px; font-size:12px; border-radius:9px; }
+      .btn-wa { padding:12px; font-size:12px; border-radius:9px; }
+      .btn-ghost { padding:11px; font-size:11px; border-radius:9px; }
+
+      .info-box { padding:16px; border-radius:11px; }
+      .info-title { font-size:10px; margin-bottom:12px; }
+      .info-item { font-size:12px; gap:8px; margin-bottom:8px; line-height:1.5; }
+      .info-dot { width:5px; height:5px; margin-top:4px; }
+    }
+
+    /* MOBILE KECIL */
+    @media(max-width:400px){
+      .nav { padding:10px 13px; }
+      .nav-logo img { height:23px; }
+      .nav-logo-name { font-size:12px; }
+      .page { padding:28px 11px; }
+      .success-title { font-size:clamp(28px,11vw,38px); }
+      .bk-card { padding:17px 13px; }
+      .bk-code { font-size:18px; }
+      .bk-total-val { font-size:20px; }
+      .bk-val { font-size:11px; }
     }
   </style>
 </head>

@@ -4,7 +4,28 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Padel Kita Jogja — Komunitas & Booking Lapangan</title>
+
+  <!-- Favicon & App Icons -->
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="favicon-48x48.png">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="mask-icon" href="favicon.svg" color="#C6F53E">
+  <link rel="manifest" href="site.webmanifest">
+  <meta name="theme-color" content="#0D0D0B">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Padel Kita">
+  <meta name="mobile-web-app-capable" content="yes">
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Padel Kita Jogja — Komunitas & Booking Lapangan">
+  <meta property="og:description" content="Booking lapangan padel premium di Yogyakarta. Komunitas, coaching, dan turnamen.">
+  <meta property="og:image" content="og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="og-image.png">
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:wght@500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet"/>
@@ -539,39 +560,235 @@
   .rev.on { opacity:1; transform:none; }
 
   /* ─ RESPONSIVE ─ */
+
+  /* TABLET BESAR / LAPTOP KECIL */
   @media(max-width:1100px){
-    .nav-inner { padding:18px 32px; }
-    .hero-bento { grid-template-columns:1fr 320px; padding:10px 10px 0; }
+    .nav-inner { padding:16px 32px; }
+    .hero-bento { grid-template-columns:1fr 300px; padding:10px 10px 0; gap:10px; }
     .wordmark { padding:10px 32px 8px; }
     .index-list, .bk-header, .svc-header, #journal, .loc-left, .loc-right, .coaches-content, .about-left, .about-right, .how-inner { padding-left:32px; padding-right:32px; }
-    .bk-cal-panel, .bk-form-panel { padding:36px 32px; }
+    .bk-cal-panel, .bk-form-panel { padding:32px; }
     .ft-top { grid-template-columns:1fr 1fr; gap:32px; }
     footer { padding-left:32px; padding-right:32px; }
+    .hero-headline { font-size:clamp(44px,6.5vw,72px); }
   }
-  @media(max-width:768px){
-    .nav-links { display:none; }
-    .hero-bento { grid-template-columns:1fr; }
+
+  /* TABLET */
+  @media(max-width:900px){
+    .nav-inner { padding:14px 24px; }
+    .nav-links { gap:20px; }
+    .nav-links a { font-size:11px; }
+    .hero-bento { grid-template-columns:1fr; padding:8px 8px 0; }
     .hero-right { display:none; }
-    .wordmark-row { grid-template-columns:1fr; }
-    .wordmark { border-right:none; border-bottom:1px solid var(--border); font-size:clamp(60px,20vw,120px); }
-    .bk-header { flex-direction:column; align-items:flex-start; gap:10px; }
-    .bk-sub { text-align:left; }
+    .hero-photo-panel { min-height:clamp(340px,52vh,460px); }
+    .hero-photo-content { padding:22px 22px 24px; }
+    .hero-headline { font-size:clamp(40px,7.5vw,58px); margin-bottom:12px; }
+    .hero-sub-row { flex-direction:column; align-items:flex-start; gap:12px; }
+    .hero-sub { font-size:13px; max-width:100%; }
+    .hero-ctas { flex-shrink:1; width:100%; flex-wrap:wrap; }
+    .wordmark { padding:8px 24px 6px; font-size:clamp(56px,14vw,110px); }
+    .index-list { padding:16px 24px; }
+    .index-item { padding:11px 0; }
+    .cd-inner { padding:40px 24px; }
+    .cd-dig { font-size:clamp(48px,11vw,80px); }
+    .cd-unit { padding:0 14px; }
+    .cd-sep { font-size:52px; padding-bottom:16px; }
+    .cd-bot { flex-direction:column; align-items:flex-start; gap:14px; }
+    .bk-header, .svc-header, #journal, .loc-left, .loc-right, .coaches-content, .about-left, .about-right, .how-inner { padding-left:24px; padding-right:24px; }
+    .bk-title, .svc-title { font-size:clamp(36px,8vw,56px); }
+    .bk-cal-panel, .bk-form-panel { padding:28px 24px; }
     .bk-body { grid-template-columns:1fr; }
     .bk-cal-panel { border-right:none; border-bottom:1px solid var(--border); }
     .svc-grid { grid-template-columns:1fr; }
-    .svc-card { border-right:none; border-bottom:1px solid var(--border); }
+    .svc-card { border-right:none; border-bottom:1px solid var(--border); padding:32px 24px 40px; }
     .svc-card:nth-child(n) .svc-img { margin-top:0; }
     .about-grid, .how-inner, .coaches-inner, .loc-grid { grid-template-columns:1fr; }
     .about-left, .coaches-content { border-right:none; border-bottom:1px solid rgba(255,255,255,.08); }
+    .about-right { padding-top:0; }
     .loc-left { border-right:none; border-bottom:1px solid var(--border); }
-    .coaches-photo { min-height:300px; }
+    .coaches-photo { min-height:280px; }
     .journal-mosaic { grid-template-columns:1fr 1fr; grid-template-rows:auto; }
-    .j-item:first-child { grid-row:auto; grid-column:span 2; height:220px; }
-    .j-item { height:150px; }
-    .ft-top { grid-template-columns:1fr; }
-    .ft-bot { flex-direction:column; gap:12px; text-align:center; }
-    .bf-inp-row { grid-template-columns:1fr; }
+    .j-item:first-child { grid-row:auto; grid-column:span 2; height:200px; }
+    .j-item { height:140px; }
+    .ft-top { grid-template-columns:1fr 1fr; gap:28px; }
+    footer { padding:48px 24px 28px; }
+    .bk-title { font-size:clamp(34px,9vw,52px); }
   }
+
+  /* MOBILE */
+  @media(max-width:600px){
+    .nav-inner { padding:12px 16px; }
+    .nav-links { display:none; }
+    .nav-logo-name { font-size:15px; }
+    .nav-logo-sub { font-size:8px; }
+    .nav-logo-img { height:32px !important; }
+    .nav-cta .btn { padding:9px 16px; font-size:11px; }
+    .nav-cta .btn svg { width:11px; height:11px; }
+
+    .hero-bento { padding:6px 6px 0; gap:6px; }
+    .hero-photo-panel { min-height:clamp(340px,62vh,480px); border-radius:14px; }
+    .hero-photo-content { padding:18px 18px 22px; }
+    .hero-members { padding:5px 12px 5px 6px; gap:7px; }
+    .hero-avatar { width:22px; height:22px; margin-left:-7px; }
+    .hero-members-label { font-size:10px; }
+    .hero-headline { font-size:clamp(34px,11vw,52px); margin-bottom:12px; line-height:.94; }
+    .hero-sub-row { gap:12px; }
+    .hero-sub { font-size:12px; line-height:1.6; }
+    .hero-ctas { gap:6px; width:100%; }
+    .hero-ctas .btn { flex:1; justify-content:center; padding:11px 14px; font-size:11px; min-width:0; }
+    .hero-ctas .btn svg { width:12px; height:12px; }
+
+    .wordmark-row { grid-template-columns:1fr; }
+    .wordmark {
+      border-right:none; border-bottom:1px solid var(--border);
+      font-size:clamp(48px,17vw,88px); padding:10px 16px 6px;
+    }
+    .index-list { padding:12px 16px; }
+    .index-item { padding:10px 0; }
+    .ii-label { font-size:11px; }
+    .ii-num { font-size:9px; min-width:28px; }
+
+    #countdown { min-height:320px; }
+    .cd-inner { padding:32px 16px; }
+    .cd-top { flex-direction:column; gap:6px; }
+    .cd-lbl, .cd-num-row { font-size:9px; }
+    .cd-sublbl { font-size:9px; margin-bottom:12px; }
+    .cd-dig { font-size:clamp(40px,13vw,60px); }
+    .cd-unit { padding:0 8px; }
+    .cd-unit-pill { font-size:8px; padding:2px 8px; }
+    .cd-sep { font-size:36px; padding-bottom:12px; }
+    .cd-date { font-size:11px; }
+    .cd-venue { font-size:9px; }
+
+    .bk-header, .svc-header, #journal, .loc-left, .loc-right, .coaches-content, .about-left, .about-right, .how-inner { padding-left:16px; padding-right:16px; }
+    .bk-header { flex-direction:column; align-items:flex-start; gap:10px; padding-top:40px; padding-bottom:28px; }
+    .bk-sub { text-align:left; font-size:13px; max-width:100%; }
+    .bk-title { font-size:clamp(32px,10vw,46px); }
+    .bk-cal-panel, .bk-form-panel { padding:24px 16px; }
+
+    .court-strip { scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; }
+    .court-tab { width:180px; scroll-snap-align:start; }
+    .court-tab-img { height:100px; }
+    .court-tab-body { padding:11px 14px 13px; }
+    .court-tab-name { font-size:11px; }
+    .court-tab-meta { font-size:10px; }
+    .court-avail { font-size:8px; padding:2px 7px; }
+
+    .cal-cell { font-size:12px; border-radius:6px; }
+    .cal-header span, .cal-day-name { font-size:8px; }
+    .slot-pill { padding:7px 11px; font-size:11px; }
+    .slots-group-lbl { font-size:8px; }
+
+    .bf-summary { grid-template-columns:1fr 1fr; gap:7px; }
+    .bf-sum { padding:10px 11px; }
+    .bf-sum-lbl { font-size:8px; }
+    .bf-sum-val { font-size:12px; }
+    .bf-inp-row { grid-template-columns:1fr; }
+    .bf-inp, .bf-sel { font-size:13px; padding:11px 13px; }
+    .bf-price-val { font-size:24px; }
+    .bf-submit, .bf-wa { font-size:12px; padding:12px; }
+
+    .svc-header { flex-direction:column; align-items:flex-start; gap:12px; padding-top:40px; padding-bottom:28px; }
+    .svc-title { font-size:clamp(32px,10vw,48px); }
+    .svc-card { padding:26px 16px 32px; }
+    .svc-card-title { font-size:26px; }
+    .svc-card-body { font-size:13px; }
+    .svc-img img { height:150px; }
+
+    .about-left, .about-right { padding:40px 16px; }
+    .about-title { font-size:clamp(32px,10vw,48px); }
+    .about-body { font-size:14px; }
+    .about-founded-year { font-size:28px; padding:3px 14px; }
+    .about-img-main { height:200px; }
+    .about-img-sm { height:130px; }
+    .about-img-row { gap:8px; }
+    .about-right { gap:8px; }
+
+    .how-inner { gap:28px; padding-top:40px; padding-bottom:40px; }
+    .how-title { font-size:clamp(32px,10vw,48px); margin-bottom:24px; }
+    .how-step-num { font-size:10px; min-width:34px; padding:16px 0; }
+    .how-step-content { padding:16px 0; }
+    .how-step-title { font-size:13px; }
+    .how-step-desc { font-size:12px; }
+    .how-img img { height:220px; }
+
+    .coaches-photo { min-height:220px; }
+    .coaches-content { padding:40px 16px; }
+    .coaches-title { font-size:clamp(32px,10vw,48px); }
+    .coaches-body { font-size:14px; margin-bottom:28px; }
+    .coach-tabs { gap:7px; }
+    .coach-tab { padding:6px 12px 6px 6px; }
+    .coach-tab-avatar { width:24px; height:24px; }
+    .coach-tab-name { font-size:11px; }
+    .coach-testi-quote { font-size:14px; }
+    .coach-testi-meta { font-size:11px; }
+
+    #journal { padding:40px 16px; }
+    .journal-header { flex-direction:column; align-items:flex-start; gap:12px; margin-bottom:24px; }
+    .journal-title { font-size:clamp(30px,9vw,44px); }
+    .journal-mosaic { gap:6px; }
+    .j-item:first-child { height:160px; }
+    .j-item { height:110px; }
+    .j-tag { font-size:8px; bottom:9px; left:9px; }
+
+    .loc-left, .loc-right { padding:40px 16px; }
+    .loc-title { font-size:clamp(32px,10vw,48px); }
+    .loc-body { font-size:13px; }
+    .loc-row { padding:14px 0; }
+    .loc-row-key { font-size:9px; }
+    .loc-row-val { font-size:12px; }
+
+    footer { padding:40px 16px 24px; }
+    .ft-top { grid-template-columns:1fr; gap:26px; padding-bottom:32px; }
+    .ft-wm { font-size:36px; }
+    .ft-tagline { font-size:12px; }
+    .ft-bot { flex-direction:column; gap:10px; text-align:center; font-size:10px; }
+    .ft-col-title { font-size:9px; margin-bottom:14px; }
+    .ft-links a { font-size:12px; }
+
+    .micro { font-size:9px; letter-spacing:.14em; }
+    .micro::before, .eyebrow::before { width:16px; }
+  }
+
+  /* MOBILE KECIL */
+  @media(max-width:400px){
+    .nav-inner { padding:10px 12px; }
+    .nav-logo-img { height:28px !important; }
+    .nav-logo-name { font-size:13px; }
+    .nav-logo-sub { display:none; }
+    .nav-cta .btn { padding:8px 13px; font-size:10px; }
+
+    .hero-photo-panel { min-height:clamp(300px,58vh,420px); }
+    .hero-photo-content { padding:14px 14px 18px; }
+    .hero-headline { font-size:clamp(30px,12vw,44px); }
+    .hero-sub { font-size:11px; }
+    .hero-ctas { flex-direction:column; }
+    .hero-ctas .btn { width:100%; }
+
+    .cd-dig { font-size:clamp(34px,14vw,50px); }
+    .cd-unit { padding:0 5px; }
+    .cd-sep { font-size:28px; }
+
+    .bk-title { font-size:clamp(28px,11vw,40px); }
+    .svc-title, .about-title, .how-title, .coaches-title, .loc-title { font-size:clamp(28px,11vw,40px); }
+    .journal-title { font-size:clamp(26px,10vw,38px); }
+
+    .court-tab { width:155px; }
+    .cal-cell { font-size:11px; }
+    .slot-pill { padding:6px 9px; font-size:10px; }
+
+    .ft-wm { font-size:30px; }
+    .wordmark { font-size:clamp(40px,18vw,72px); }
+  }
+
+  /* LANDSCAPE MOBILE — kurangi tinggi hero */
+  @media(max-height:500px) and (orientation:landscape){
+    .hero-photo-panel { min-height:280px; }
+    .hero-headline { font-size:clamp(28px,6vw,44px); }
+    .cd-inner { padding:24px 20px; }
+    .cd-dig { font-size:clamp(32px,7vw,56px); }
+  }
+
   @media(prefers-reduced-motion:reduce){
     .rev, .hero-photo-panel img { transition:none; }
   }

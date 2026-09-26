@@ -4,11 +4,46 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Semua Booking — Admin</title>
+
+  <!-- Favicon & App Icons -->
+  <link rel="icon" type="image/x-icon" href="../favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="../favicon-48x48.png">
   <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+  <link rel="mask-icon" href="../favicon.svg" color="#C6F53E">
+  <link rel="manifest" href="../site.webmanifest">
+  <meta name="theme-color" content="#0D0D0B">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Padel Kita">
+  <meta name="mobile-web-app-capable" content="yes">
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Padel Kita Jogja — Komunitas & Booking Lapangan">
+  <meta property="og:description" content="Booking lapangan padel premium di Yogyakarta. Komunitas, coaching, dan turnamen.">
+  <meta property="og:image" content="../og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="../og-image.png">
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../css/admin.css"/>
 </head>
 <body>
+
+<!-- ── MOBILE TOPBAR ── -->
+<div class="mobile-bar">
+  <div class="mobile-bar-logo">
+    <div class="mobile-bar-mark">PK</div>
+    <span class="mobile-bar-nm">Padel Kita</span>
+  </div>
+  <button class="mobile-toggle" id="sbToggle" aria-label="Buka menu">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+      <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+    </svg>
+  </button>
+</div>
+<div class="sb-overlay" id="sbOverlay"></div>
 
 <aside class="sidebar">
   <div>
@@ -358,6 +393,30 @@ supabase.channel('admin-bookings-all')
   .subscribe();
 
 load();
+
+// ── SIDEBAR DRAWER (mobile) ───────────────────────────────────
+(() => {
+  const sb   = document.querySelector('.sidebar');
+  const btn  = document.getElementById('sbToggle');
+  const ov   = document.getElementById('sbOverlay');
+  if (!sb || !btn) return;
+
+  const open  = () => { sb.classList.add('open');  ov?.classList.add('on');  document.body.style.overflow = 'hidden'; };
+  const close = () => { sb.classList.remove('open'); ov?.classList.remove('on'); document.body.style.overflow = ''; };
+
+  btn.addEventListener('click', () => sb.classList.contains('open') ? close() : open());
+  ov?.addEventListener('click', close);
+
+  // tutup saat klik link menu
+  sb.querySelectorAll('.sb-link').forEach(a => a.addEventListener('click', close));
+
+  // tutup saat resize ke desktop
+  window.addEventListener('resize', () => { if (window.innerWidth > 900) close(); });
+
+  // tutup dengan Esc
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+})();
+
 </script>
 </body>
 </html>

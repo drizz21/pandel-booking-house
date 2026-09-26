@@ -4,7 +4,28 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Checkout — Padel Kita Jogja</title>
+
+  <!-- Favicon & App Icons -->
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="favicon-48x48.png">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="mask-icon" href="favicon.svg" color="#C6F53E">
+  <link rel="manifest" href="site.webmanifest">
+  <meta name="theme-color" content="#0D0D0B">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Padel Kita">
+  <meta name="mobile-web-app-capable" content="yes">
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Padel Kita Jogja — Komunitas & Booking Lapangan">
+  <meta property="og:description" content="Booking lapangan padel premium di Yogyakarta. Komunitas, coaching, dan turnamen.">
+  <meta property="og:image" content="og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="og-image.png">
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
@@ -262,15 +283,115 @@
     .sum-info-d { width:4px; height:4px; border-radius:50%; background:var(--muted-2); flex-shrink:0; margin-top:7px; }
 
     /* ── RESPONSIVE ── */
+
+    /* TABLET */
     @media(max-width:880px){
       .hdr { padding:14px 20px; }
       .hdr-secure { display:none; }
-      .wrap { grid-template-columns:1fr; padding:20px 16px 48px; }
+      .wrap { grid-template-columns:1fr; padding:20px 16px 48px; gap:18px; }
       .sum { position:static; order:-1; }
       .methods { grid-template-columns:1fr; }
       .frow { grid-template-columns:1fr; }
       .field { border-right:none; }
-      .steps { overflow-x:auto; }
+      .steps { overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; }
+      .step { white-space:nowrap; }
+      .card-hd { padding:16px 18px 0; }
+      .card-bd { padding:12px 18px 18px; }
+      .sum-top { padding:20px 18px 16px; }
+      .sum-top-amt { font-size:26px; }
+      .sum-court { padding:14px 18px; }
+      .sum-rows { padding:14px 18px; }
+    }
+
+    /* MOBILE */
+    @media(max-width:600px){
+      .hdr { padding:11px 14px; gap:10px; }
+      .hdr-logo img { height:26px; }
+      .hdr-logo-txt { font-size:13px; }
+      .hdr-back { font-size:12px; gap:4px; }
+      .hdr-back svg { width:13px; height:13px; }
+
+      .wrap { padding:14px 12px 40px; gap:14px; }
+
+      .steps { gap:5px; margin-bottom:2px; }
+      .step { font-size:10px; gap:5px; }
+      .step-n { width:16px; height:16px; font-size:9px; }
+      .step-line { max-width:18px; }
+
+      .hold { padding:10px 13px; border-radius:10px; margin-bottom:12px; }
+      .hold-tx { font-size:11px; gap:6px; }
+      .hold-tx svg { width:12px; height:12px; }
+      .hold-time { font-size:14px; }
+
+      .alert { padding:10px 13px; font-size:12px; margin-bottom:12px; border-radius:10px; }
+
+      .card { border-radius:12px; margin-bottom:12px; }
+      .card-hd { padding:14px 15px 0; }
+      .card-label { font-size:10px; letter-spacing:.05em; }
+      .card-bd { padding:11px 15px 15px; }
+
+      .fields { border-radius:10px; }
+      .field input, .field select { padding:13px 14px; font-size:14px; }
+      .field.has-label input, .field.has-label select { padding-top:22px; padding-bottom:7px; }
+      .field .flabel { font-size:9px; top:7px; left:14px; }
+      .field .chev { right:13px; }
+      .field-msg { font-size:10px; padding:0 14px 7px; }
+
+      .methods { gap:8px; margin-bottom:14px; }
+      .method { padding:12px 13px; gap:10px; border-radius:10px; }
+      .method-ic { width:30px; height:30px; font-size:14px; border-radius:8px; }
+      .method-nm { font-size:12px; }
+      .method-ds { font-size:10px; }
+      .method-fee { font-size:9px; }
+      .method-radio { width:16px; height:16px; }
+
+      .submit { padding:13px 16px; font-size:13px; border-radius:10px; }
+      .submit svg { width:14px; height:14px; }
+      .submit-note { font-size:10px; margin-top:8px; }
+
+      .sum-card { border-radius:12px; margin-bottom:10px; }
+      .sum-top { padding:18px 15px 14px; }
+      .sum-top-lbl { font-size:10px; }
+      .sum-top-amt { font-size:24px; }
+      .sum-secure { font-size:10px; margin-top:6px; }
+      .sum-court { padding:12px 15px; gap:10px; }
+      .sum-court-img { width:46px; height:36px; border-radius:6px; }
+      .sum-court-nm { font-size:12px; }
+      .sum-court-dt { font-size:10px; }
+      .sum-rows { padding:12px 15px; }
+      .sum-row { margin-bottom:9px; }
+      .sum-k { font-size:12px; }
+      .sum-v { font-size:12px; }
+      .sum-div { margin:11px 0; }
+      .sum-total-k { font-size:13px; }
+      .sum-total-v { font-size:16px; }
+
+      .sum-info { border-radius:12px; padding:15px 15px; }
+      .sum-info-t { font-size:10px; margin-bottom:10px; }
+      .sum-info-i { font-size:11px; gap:7px; margin-bottom:7px; }
+    }
+
+    /* MOBILE KECIL */
+    @media(max-width:400px){
+      .hdr { padding:10px 11px; }
+      .hdr-logo img { height:23px; }
+      .hdr-logo-txt { font-size:12px; }
+      .wrap { padding:12px 10px 36px; }
+
+      .step { font-size:9px; }
+      .step-n { width:15px; height:15px; font-size:8px; }
+
+      .field input, .field select { font-size:13px; padding:12px 12px; }
+      .field.has-label input, .field.has-label select { padding-top:20px; padding-bottom:6px; }
+      .field .flabel { left:12px; }
+
+      .method { padding:11px 11px; }
+      .method-ic { width:27px; height:27px; font-size:13px; }
+      .method-nm { font-size:11px; }
+      .method-fee { font-size:8px; }
+
+      .sum-top-amt { font-size:22px; }
+      .sum-total-v { font-size:15px; }
     }
   </style>
 </head>

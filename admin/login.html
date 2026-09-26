@@ -4,13 +4,35 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Admin Login — Padel Kita Jogja</title>
+
+  <!-- Favicon & App Icons -->
+  <link rel="icon" type="image/x-icon" href="../favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="../favicon-48x48.png">
   <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+  <link rel="mask-icon" href="../favicon.svg" color="#C6F53E">
+  <link rel="manifest" href="../site.webmanifest">
+  <meta name="theme-color" content="#0D0D0B">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Padel Kita">
+  <meta name="mobile-web-app-capable" content="yes">
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Padel Kita Jogja — Komunitas & Booking Lapangan">
+  <meta property="og:description" content="Booking lapangan padel premium di Yogyakarta. Komunitas, coaching, dan turnamen.">
+  <meta property="og:image" content="../og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="../og-image.png">
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
     :root { --ink:#0D0D0B; --paper:#F4F2EC; --border:#D6D3CB; --mid:#78786E; --lime:#C6F53E; --red:#E53E3E; --gold:#C19A4D; }
     body { font-family:'DM Sans',sans-serif; background:var(--paper); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:20px; }
     .card { background:#fff; border:1px solid var(--border); border-radius:20px; padding:44px 40px; width:100%; max-width:400px; }
+
     .logo { display:flex; align-items:center; gap:10px; margin-bottom:36px; }
     .logo-mark { width:40px; height:40px; border-radius:10px; background:var(--lime); display:flex; align-items:center; justify-content:center; font-family:'Space Grotesk',sans-serif; font-size:16px; font-weight:800; color:var(--ink); }
     .logo-name { font-family:'Space Grotesk',sans-serif; font-size:17px; font-weight:700; }
@@ -27,6 +49,31 @@
     .info { background:rgba(198,245,62,.12); border:1px solid rgba(198,245,62,.3); border-radius:8px; padding:10px 14px; font-size:12px; color:#4a6b1a; margin-bottom:16px; display:none; }
     .back { display:block; text-align:center; margin-top:20px; font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:500; color:var(--mid); text-decoration:none; transition:color .2s; }
     .back:hover { color:var(--ink); }
+    /* ── RESPONSIVE ── */
+    @media(max-width:600px){
+      body { padding:16px; align-items:flex-start; padding-top:40px; }
+      .card { padding:28px 22px; border-radius:16px; }
+      .logo { margin-bottom:26px; gap:9px; }
+      .logo-mark { width:34px; height:34px; font-size:14px; border-radius:9px; }
+      .logo-name { font-size:15px; }
+      .logo-sub { font-size:9px; }
+      h1 { font-size:19px; }
+      .sub { font-size:12px; margin-bottom:22px; }
+      label { font-size:9px; margin-bottom:6px; }
+      input { padding:11px 13px; font-size:13px; margin-bottom:15px; border-radius:7px; }
+      .btn { padding:12px; font-size:12px; border-radius:7px; }
+      .error, .info { font-size:12px; padding:9px 12px; border-radius:7px; }
+      .back { font-size:11px; margin-top:16px; }
+    }
+    @media(max-width:400px){
+      body { padding:12px; padding-top:28px; }
+      .card { padding:22px 17px; }
+      .logo { margin-bottom:22px; }
+      h1 { font-size:17px; }
+      input { font-size:12px; padding:10px 12px; }
+      .btn { font-size:11px; }
+    }
+
   </style>
 </head>
 <body>

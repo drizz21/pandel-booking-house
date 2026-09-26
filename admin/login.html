@@ -47,8 +47,10 @@
     .btn:disabled { opacity:.5; cursor:not-allowed; }
     .error { background:rgba(229,62,62,.08); border:1px solid rgba(229,62,62,.25); border-radius:8px; padding:10px 14px; font-size:13px; color:var(--red); margin-bottom:16px; display:none; }
     .info { background:rgba(198,245,62,.12); border:1px solid rgba(198,245,62,.3); border-radius:8px; padding:10px 14px; font-size:12px; color:#4a6b1a; margin-bottom:16px; display:none; }
-    .back { display:block; text-align:center; margin-top:20px; font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:500; color:var(--mid); text-decoration:none; transition:color .2s; }
+    .back { display:inline-flex; align-items:center; justify-content:center; gap:6px; width:100%; text-align:center; margin-top:20px; font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:500; color:var(--mid); text-decoration:none; transition:color .2s; }
     .back:hover { color:var(--ink); }
+    .back .ico-arrow { width:13px; height:13px; flex-shrink:0; transition:transform .22s; }
+    .back:hover .ico-arrow { transform:translateX(-3px); }
     /* ── RESPONSIVE ── */
     @media(max-width:600px){
       body { padding:16px; align-items:flex-start; padding-top:40px; }
@@ -96,7 +98,7 @@
     <input type="password" name="password" placeholder="••••••••" required autocomplete="current-password">
     <button type="submit" class="btn" id="btnLogin">Masuk</button>
   </form>
-  <a href="/" class="back">← Kembali ke Website</a>
+  <a href="/" class="back"><svg class="ico-arrow" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> Kembali ke Website</a>
 </div>
 
 <script type="module">

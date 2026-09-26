@@ -25,6 +25,24 @@ const CORS = {
   'Access-Control-Allow-Methods': 'POST, OPTIONS',
 };
 
+// ── Service key ─────────────────────────────────────────────
+// Pakai SUPABASE_SECRET_KEYS (format baru, non-JWT) yang otomatis
+// tersedia di setiap Edge Function. Fallback ke SUPABASE_SERVICE_ROLE_KEY
+// (legacy JWT) hanya bila secret baru tidak ada.
+function getServiceKey(): string {
+  const raw = Deno.env.get('SUPABASE_SECRET_KEYS');
+  if (raw) {
+    try {
+      const obj = JSON.parse(raw) as Record<string, string>;
+      const v = obj?.default ?? Object.values(obj ?? {})[0];
+      if (typeof v === 'string' && v) return v;
+    } catch { /* lanjut ke fallback */ }
+  }
+  const single = Deno.env.get('SUPABASE_SECRET_KEY');
+  if (single) return single;
+  return Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '';
+}
+
 const json = (body: unknown, status = 200) =>
   new Response(JSON.stringify(body), {
     status,
@@ -40,7 +58,7 @@ serve(async (req) => {
 
     const supabase = createClient(
       Deno.env.get('SUPABASE_URL')!,
-      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!,
+      getServiceKey(),
     );
 
     // ── Ambil data booking ──────────────────────────────────

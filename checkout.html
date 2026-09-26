@@ -102,6 +102,7 @@
       font-size:11px; font-weight:600;
       background: var(--line-2); color: var(--muted-2);
     }
+    .step-n svg { width:12px; height:12px; display:block; }
     .step.done .step-n { background: var(--green); color:#fff; }
     .step.now  .step-n { background: var(--ink); color:#fff; }
     .step-line { flex:1; height:1px; background:var(--line); max-width:40px; }
@@ -178,9 +179,11 @@
     .method-ic {
       width:36px; height:36px; border-radius:9px; flex-shrink:0;
       background: var(--line-2); display:flex; align-items:center; justify-content:center;
-      font-size:16px;
+      color: var(--ink-2);
+      transition: background .15s, color .15s;
     }
-    .method.on .method-ic { background:#fff; }
+    .method-ic svg { width:19px; height:19px; display:block; }
+    .method.on .method-ic { background:#fff; color: var(--accent); }
     .method-tx { flex:1; min-width:0; }
     .method-nm { font-size:13px; font-weight:600; color:var(--ink); }
     .method-ds { font-size:11px; color:var(--muted); margin-top:1px; display:block; }
@@ -339,7 +342,8 @@
 
       .methods { gap:8px; margin-bottom:14px; }
       .method { padding:12px 13px; gap:10px; border-radius:10px; }
-      .method-ic { width:30px; height:30px; font-size:14px; border-radius:8px; }
+      .method-ic { width:30px; height:30px; border-radius:8px; }
+      .method-ic svg { width:16px; height:16px; }
       .method-nm { font-size:12px; }
       .method-ds { font-size:10px; }
       .method-fee { font-size:9px; }
@@ -386,7 +390,8 @@
       .field .flabel { left:12px; }
 
       .method { padding:11px 11px; }
-      .method-ic { width:27px; height:27px; font-size:13px; }
+      .method-ic { width:27px; height:27px; }
+      .method-ic svg { width:15px; height:15px; }
       .method-nm { font-size:11px; }
       .method-fee { font-size:8px; }
 
@@ -418,7 +423,7 @@
 
   <!-- step bar -->
   <div class="steps">
-    <div class="step done"><span class="step-n">✓</span> Pilih Lapangan</div>
+    <div class="step done"><span class="step-n"><svg class="step-svg" aria-hidden="true" viewBox="0 0 24 24" width="20" height="20"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 6L9 17l-5-5"/></svg></span> Pilih Lapangan</div>
     <div class="step-line"></div>
     <div class="step now"><span class="step-n">2</span> Data & Pembayaran</div>
     <div class="step-line"></div>
@@ -476,7 +481,7 @@
 
           <div class="methods" id="methods">
             <button type="button" class="method" data-method="qris">
-              <span class="method-ic">⬛</span>
+              <span class="method-ic"><svg class="method-svg" aria-hidden="true" viewBox="0 0 24 24" width="20" height="20"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><rect width="5" height="5" x="3" y="3" rx="1"/><rect width="5" height="5" x="16" y="3" rx="1"/><rect width="5" height="5" x="3" y="16" rx="1"/><path d="M21 16h-3a2 2 0 0 0-2 2v3m5 0v.01M12 7v3a2 2 0 0 1-2 2H7m-4 0h.01M12 3h.01M12 16v.01M16 12h1m4 0v.01M12 21v-1"/></g></svg></span>
               <span class="method-tx">
                 <span class="method-nm">QRIS</span>
                 <span class="method-ds">Scan QR Code</span>
@@ -485,7 +490,7 @@
               <span class="method-radio"></span>
             </button>
             <button type="button" class="method" data-method="va">
-              <span class="method-ic">🏦</span>
+              <span class="method-ic"><svg class="method-svg" aria-hidden="true" viewBox="0 0 24 24" width="20" height="20"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M10 12h4m-4-4h4m0 13v-3a2 2 0 0 0-4 0v3"/><path d="M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2"/><path d="M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16"/></g></svg></span>
               <span class="method-tx">
                 <span class="method-nm">Virtual Account</span>
                 <span class="method-ds">BCA, Mandiri, BNI</span>
@@ -494,7 +499,7 @@
               <span class="method-radio"></span>
             </button>
             <button type="button" class="method" data-method="ewallet">
-              <span class="method-ic">💚</span>
+              <span class="method-ic"><svg class="method-svg" aria-hidden="true" viewBox="0 0 24 24" width="20" height="20"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></g></svg></span>
               <span class="method-tx">
                 <span class="method-nm">E-Wallet</span>
                 <span class="method-ds">GoPay, OVO, Dana</span>
@@ -503,7 +508,7 @@
               <span class="method-radio"></span>
             </button>
             <button type="button" class="method" data-method="credit_card">
-              <span class="method-ic">💳</span>
+              <span class="method-ic"><svg class="method-svg" aria-hidden="true" viewBox="0 0 24 24" width="20" height="20"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><rect width="20" height="14" x="2" y="5" rx="2"/><path d="M2 10h20M6 14h2"/></g></svg></span>
               <span class="method-tx">
                 <span class="method-nm">Kartu Kredit</span>
                 <span class="method-ds">Visa, Mastercard</span>
